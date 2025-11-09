@@ -6,9 +6,15 @@
     <form method="post" action="<?= site_url('bienes/update/' . $bien['id_bien']) ?>">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="codigo_bien" class="form-label">Código Bien</label>
-                <input type="text" class="form-control" id="codigo_bien" name="codigo_bien"
-                    value="<?= $bien['codigo_bien'] ?? '' ?>" required>
+                <label for="codigo_bien" class="form-label">Código del Bien</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="codigo_bien" name="codigo_bien"
+                        value="<?= $bien['codigo_bien'] ?? '' ?>" required>
+                    <button type="button" id="btnGenerarCodigo" class="btn btn-outline-secondary"
+                        title="Generar código de barras">
+                        <i class="bi bi-upc-scan"></i>
+                    </button>
+                </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="nombre_bien" class="form-label">Nombre Bien</label>
@@ -117,4 +123,19 @@
         </div>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('btnGenerarCodigo');
+        if (btn) {
+            btn.addEventListener('click', function () {
+                const codigo = document.getElementById('codigo_bien').value.trim();
+                if (!codigo) {
+                    toastr.warning('Debe ingresar un código para generar el código de barras.');
+                    return;
+                }
+                window.open(`<?= site_url('bienes/barcodePdf/') ?>${encodeURIComponent(codigo)}`, '_blank');
+            });
+        }
+    });
+</script>
 <?= $this->include('layout/footer') ?>

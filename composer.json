@@ -13,8 +13,10 @@
         "php": "^8.1",
         "ext-intl": "*",
         "ext-mbstring": "*",
+        "dompdf/dompdf": "^3.1",
         "laminas/laminas-escaper": "^2.17",
         "phpoffice/phpspreadsheet": "*",
+        "picqer/php-barcode-generator": "^3.2",
         "psr/log": "^3.0"
     },
     "require-dev": {

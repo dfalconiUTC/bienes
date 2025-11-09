@@ -7,7 +7,13 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="codigo_bien" class="form-label">Código del Bien</label>
-                <input type="text" class="form-control" id="codigo_bien" name="codigo_bien" required>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="codigo_bien" name="codigo_bien" required>
+                    <button type="button" id="btnGenerarCodigo" class="btn btn-outline-secondary"
+                        title="Generar código de barras">
+                        <i class="bi bi-upc-scan"></i>
+                    </button>
+                </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="nombre_bien" class="form-label">Nombre del Bien</label>
@@ -93,5 +99,15 @@
     </form>
 </div>
 
+<script>
+document.getElementById('btnGenerarCodigo').addEventListener('click', function() {
+    const codigo = document.getElementById('codigo_bien').value.trim();
+    if (!codigo) {
+        toastr.warning('Debe ingresar un código para generar el código de barras.');
+        return;
+    }
+    window.open(`<?= site_url('bienes/barcodePdf/') ?>${encodeURIComponent(codigo)}`, '_blank');
+});
+</script>
 
 <?= $this->include('layout/footer') ?>

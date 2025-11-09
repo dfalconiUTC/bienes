@@ -8,60 +8,31 @@
 <!-- Scripts base -->
 <script src="<?= base_url('public/static/js/app.js') ?>"></script>
 
-<style>
-    .toast-container {
-        margin-top: 50px !important;
-        z-index: 1080 !important;
-    }
 
-    .toast {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        border-radius: 0.5rem;
-        font-size: 0.95rem;
-        padding: 0.5rem 1rem;
-        opacity: 0.95;
-    }
-</style>
+<!-- ✅ jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ✅ Luego Toastr -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "3000"
+    };
+</script>
 
 <?php if (session()->getFlashdata()): ?>
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <?php
-            $toastTypes = [
-                'success' => 'bg-success text-white',
-                'error' => 'bg-danger text-white',
-                'warning' => 'bg-warning text-dark',
-                'info' => 'bg-info text-dark',
-            ];
-
-            foreach ($toastTypes as $type => $class):
-                if (session()->getFlashdata($type)):
-                    ?>
-                    <div class="toast align-items-center <?= $class ?> border-0 mb-2" role="alert" aria-live="assertive"
-                        aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                <?= esc(session()->getFlashdata($type)) ?>
-                            </div>
-
-                        </div>
-                    </div>
-                    <?php
-                endif;
-            endforeach;
-            ?>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-            toastElList.map(function (toastEl) {
-                const toast = new bootstrap.Toast(toastEl, {
-                    delay: 4000
-                });
-                toast.show();
-            });
+            <?php foreach (['success', 'error', 'warning', 'info'] as $type): ?>
+                <?php if (session()->getFlashdata($type)): ?>
+                    toastr["<?= $type ?>"]("<?= esc(session()->getFlashdata($type)) ?>");
+                <?php endif; ?>
+            <?php endforeach; ?>
         });
     </script>
 <?php endif; ?>

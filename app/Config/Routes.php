@@ -18,6 +18,7 @@ $routes->get('bienes/delete/(:num)', 'Bienes::delete/$1');
 $routes->get('bienes/historial/(:num)', 'Bienes::historial/$1');
 $routes->get('bienes/exportExcel', 'Bienes::exportExcel');
 $routes->get('bienes/exportHistorial/(:num)', 'Bienes::exportHistorial/$1');
+$routes->get('bienes/barcodePdf/(:any)', 'Bienes::barcodePdf/$1');
 
 // ====================== CUSTODIOS ======================
 $routes->get('custodios', 'Custodios::index');

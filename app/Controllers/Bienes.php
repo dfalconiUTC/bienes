@@ -10,6 +10,9 @@ use App\Models\HistorialCustodioModel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use CodeIgniter\I18n\Time;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Bienes extends BaseController
 {
@@ -275,4 +278,40 @@ class Bienes extends BaseController
             return redirect()->to('/bienes')->with('error', 'Error al exportar historial: ' . $e->getMessage());
         }
     }
+
+    public function barcodePdf($codigo = null)
+    {
+        if (!$codigo) {
+            return redirect()->back()->with('warning', 'No se proporcionó un código.');
+        }
+
+        try {
+            // Generar código de barras
+            $generator = new BarcodeGeneratorPNG();
+            $barcode = $generator->getBarcode($codigo, $generator::TYPE_CODE_128);
+
+            // Crear HTML con el código de barras
+            $html = '
+                <h3 style="text-align:center;">Código: ' . htmlspecialchars($codigo) . '</h3>
+                <div style="text-align:center;">
+                    <img src="data:image/png;base64,' . base64_encode($barcode) . '" alt="Código de barras">
+                </div>
+            ';
+
+            // Configurar Dompdf
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A7', 'portrait');
+            $dompdf->render();
+
+            // Descargar el PDF
+            $dompdf->stream('codigo_' . $codigo . '.pdf', ['Attachment' => true]);
+            exit;
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Error al generar el código de barras: ' . $e->getMessage());
+        }
+    }
+
 }
