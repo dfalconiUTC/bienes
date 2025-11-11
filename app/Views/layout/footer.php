@@ -74,6 +74,16 @@
             sorters.forEach(el => {
                 el.style.color = "#222e3c";
             });
+
+            const searchInput = document.querySelector('.datatable-input');
+            if (searchInput) {
+                setTimeout(() => searchInput.focus(), 500);
+            }
+
+            document.addEventListener('keydown', (e) => {
+                const currentTime = new Date().getTime();
+                searchInput.focus();
+            });
         }
     });
 </script>

@@ -25,17 +25,18 @@
     <!-- Sidebar -->
     <nav id="sidebar" class="sidebar js-sidebar">
       <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="<?= site_url('/') ?>">
-          <span class="align-middle">Gestión de Bienes</span>
+        <a class="sidebar-brand d-flex align-items-center" href="<?= site_url('/') ?>">
+          <img src="<?= base_url('public/static/img/icons/logo.png') ?>" alt="Logo" class="me-2"
+            style="height:auto; filter: brightness(0) invert(1);">
         </a>
 
         <?php
         $uri = service('uri');
         $segment = $uri->getSegment(1);
         ?>
-
+        <hr>
         <ul class="sidebar-nav">
-          <li class="sidebar-item <?= $segment == '' ? 'active' : '' ?>">
+          <li class="sidebar-item <?= ($segment == '' || $segment == 'dashboard') ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= site_url('/') ?>">
               <i class="align-middle" data-feather="home"></i>
               <span class="align-middle">Inicio</span>
@@ -87,6 +88,12 @@
               <span class="align-middle">Configuración</span>
             </a>
           </li>
+          <li class="sidebar-item <?= $segment == 'usuarios' ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= site_url('usuarios') ?>">
+              <i class="align-middle" data-feather="user"></i>
+              <span class="align-middle">Usuarios</span>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -102,16 +109,17 @@
           <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="<?= base_url('public/static/img/avatars/avatar.jpg') ?>" class="avatar img-fluid rounded me-1"
-                  alt="Usuario" />
-                <span class="text-dark">Administrador</span>
+                <i class="bi bi-person-circle fs-3 text-default me-2"></i>
+                <span class="text-dark"><?= esc(session('nombre')) ?></span>
               </a>
               <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="user"></i>
-                  Perfil</a>
+                <a class="dropdown-item" href="<?= site_url('usuarios/edit/' . session('id_usuario')) ?>">
+                  <i class="align-middle me-1" data-feather="user"></i> Perfil
+                </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="log-out"></i> Cerrar
-                  sesión</a>
+                <a class="dropdown-item" href="<?= site_url('logout') ?>">
+                  <i class="align-middle me-1" data-feather="log-out"></i> Cerrar sesión
+                </a>
               </div>
             </li>
           </ul>
