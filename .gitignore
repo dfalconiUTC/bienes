@@ -44,7 +44,6 @@ Desktop.ini
 # Archivos de Laravel Valet o Laragon
 *.pid
 *.seed
-*.sql
 *.sqlite
 *.sql.gz
 *.zip
