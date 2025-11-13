@@ -1,0 +1,238 @@
+CRITICAL - 2025-11-03 02:59:55 --> ErrorException: Undefined variable $module_name
+[Method: GET, Route: bienes]
+in APPPATH\Views\bienes\index.php on line 14.
+ 1 APPPATH\Views\bienes\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $module_name', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\index.php', 14)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/index', [], true)
+ 5 APPPATH\Controllers\Bienes.php(31): view('bienes/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 03:05:36 --> ErrorException: Undefined variable $procedencia_ids
+[Method: GET, Route: bienes/create]
+in APPPATH\Views\bienes\create.php on line 56.
+ 1 APPPATH\Views\bienes\create.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $procedencia_ids', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php', 56)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/create', [], true)
+ 5 APPPATH\Controllers\Bienes.php(41): view('bienes/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 03:07:43 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: bienes/create]
+in APPPATH\Views\bienes\create.php on line 57.
+ 1 APPPATH\Views\bienes\create.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php', 57)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/create', [], true)
+ 5 APPPATH\Controllers\Bienes.php(41): view('bienes/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 03:09:17 --> ErrorException: Array to string conversion
+[Method: GET, Route: bienes/create]
+in APPPATH\Views\bienes\create.php on line 65.
+ 1 APPPATH\Views\bienes\create.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php', 65)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/create', [], true)
+ 5 APPPATH\Controllers\Bienes.php(41): view('bienes/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 03:28:28 --> ErrorException: Undefined variable $procedencia_ids
+[Method: GET, Route: bienes/edit/2]
+in APPPATH\Views\bienes\edit.php on line 56.
+ 1 APPPATH\Views\bienes\edit.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $procedencia_ids', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\edit.php', 56)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/edit', [], true)
+ 5 APPPATH\Controllers\Bienes.php(58): view('bienes/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->edit('2')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 03:31:09 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: bienes/edit/2]
+in APPPATH\Views\bienes\edit.php on line 57.
+ 1 APPPATH\Views\bienes\edit.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'C:\\laragon\\www\\bienes\\app\\Views\\bienes\\edit.php', 57)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\bienes\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('bienes/edit', [], true)
+ 5 APPPATH\Controllers\Bienes.php(58): view('bienes/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->edit('2')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:11:31 --> ErrorException: Undefined variable $module_name
+[Method: GET, Route: custodios]
+in APPPATH\Views\custodios\index.php on line 14.
+ 1 APPPATH\Views\custodios\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $module_name', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\index.php', 14)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/index', [], true)
+ 5 APPPATH\Controllers\Custodios.php(18): view('custodios/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:23:04 --> ErrorException: Undefined array key "id_ubicacione"
+[Method: GET, Route: ubicaciones]
+in APPPATH\Views\ubicaciones\index.php on line 22.
+ 1 APPPATH\Views\ubicaciones\index.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_ubicacione"', 'C:\\laragon\\www\\bienes\\app\\Views\\ubicaciones\\index.php', 22)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\ubicaciones\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('ubicaciones/index', [], true)
+ 5 APPPATH\Controllers\Ubicaciones.php(18): view('ubicaciones/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Ubicaciones->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ubicaciones))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:23:15 --> ErrorException: Undefined array key "id_ubicaciones"
+[Method: GET, Route: ubicaciones]
+in APPPATH\Views\ubicaciones\index.php on line 22.
+ 1 APPPATH\Views\ubicaciones\index.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_ubicaciones"', 'C:\\laragon\\www\\bienes\\app\\Views\\ubicaciones\\index.php', 22)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\ubicaciones\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('ubicaciones/index', [], true)
+ 5 APPPATH\Controllers\Ubicaciones.php(18): view('ubicaciones/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Ubicaciones->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ubicaciones))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:35:19 --> ErrorException: Undefined variable $module_name
+[Method: GET, Route: historial]
+in APPPATH\Views\historial\index.php on line 14.
+ 1 APPPATH\Views\historial\index.php(14): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $module_name', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php', 14)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/index', [], true)
+ 5 APPPATH\Controllers\Historial.php(24): view('historial/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:36:41 --> ErrorException: Undefined variable $bien_ids
+[Method: GET, Route: historial/create]
+in APPPATH\Views\historial\create.php on line 8.
+ 1 APPPATH\Views\historial\create.php(8): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $bien_ids', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php', 8)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/create', [], true)
+ 5 APPPATH\Controllers\Historial.php(33): view('historial/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:37:52 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: historial/create]
+in APPPATH\Views\historial\create.php on line 9.
+ 1 APPPATH\Views\historial\create.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php', 9)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/create', [], true)
+ 5 APPPATH\Controllers\Historial.php(33): view('historial/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:38:09 --> ErrorException: Undefined array key "bien_id"
+[Method: GET, Route: historial/create]
+in APPPATH\Views\historial\create.php on line 9.
+ 1 APPPATH\Views\historial\create.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "bien_id"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php', 9)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/create', [], true)
+ 5 APPPATH\Controllers\Historial.php(33): view('historial/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:38:38 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: historial/create]
+in APPPATH\Views\historial\create.php on line 9.
+ 1 APPPATH\Views\historial\create.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php', 9)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/create', [], true)
+ 5 APPPATH\Controllers\Historial.php(33): view('historial/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:38:43 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: historial/create]
+in APPPATH\Views\historial\create.php on line 9.
+ 1 APPPATH\Views\historial\create.php(9): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php', 9)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/create', [], true)
+ 5 APPPATH\Controllers\Historial.php(33): view('historial/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:40:14 --> ErrorException: Undefined array key "id_historia"
+[Method: GET, Route: historial]
+in APPPATH\Views\historial\index.php on line 26.
+ 1 APPPATH\Views\historial\index.php(26): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_historia"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php', 26)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/index', [], true)
+ 5 APPPATH\Controllers\Historial.php(24): view('historial/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 04:42:24 --> ErrorException: Undefined variable $historial
+[Method: GET, Route: historial/edit/1]
+in APPPATH\Views\historial\edit.php on line 3.
+ 1 APPPATH\Views\historial\edit.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $historial', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\edit.php', 3)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/edit', [], true)
+ 5 APPPATH\Controllers\Historial.php(49): view('historial/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->edit('1')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

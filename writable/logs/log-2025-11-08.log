@@ -1,0 +1,27 @@
+CRITICAL - 2025-11-08 23:08:52 --> Error: Class "PhpOffice\PhpSpreadsheet\Spreadsheet" not found
+[Method: GET, Route: bienes/exportExcel]
+in APPPATH\Controllers\Bienes.php on line 104.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->exportExcel()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-08 23:11:14 --> Error: Class "PhpOffice\PhpSpreadsheet\Spreadsheet" not found
+[Method: GET, Route: bienes/exportExcel]
+in APPPATH\Controllers\Bienes.php on line 104.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->exportExcel()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-08 23:45:45 --> ArgumentCountError: Too few arguments to function App\Controllers\Bienes::exportHistorial(), 0 passed in C:\laragon\www\bienes\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: bienes/exportHistorial/2]
+in APPPATH\Controllers\Bienes.php on line 176.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->exportHistorial()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
