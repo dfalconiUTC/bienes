@@ -15,7 +15,6 @@
             class="table table-bordered table-striped table-hover table-sm align-middle shadow-sm rounded text-center">
             <thead class="table-success">
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Usuario</th>
@@ -28,7 +27,6 @@
                 <?php if (!empty($usuarios)): ?>
                     <?php foreach ($usuarios as $u): ?>
                         <tr>
-                            <td><?= esc($u['id_usuario']) ?></td>
                             <td><?= esc($u['nombre']) ?></td>
                             <td><?= esc($u['correo']) ?></td>
                             <td><?= esc($u['usuario']) ?></td>

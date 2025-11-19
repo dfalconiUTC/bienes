@@ -90,6 +90,10 @@ class Historial extends BaseController
                 'fecha_fin' => null
             ]);
 
+            $this->bienModel->update($bien_id, [
+                'custodio_actual_id' => $custodio_id
+            ]);
+
             return redirect()
                 ->to(site_url('historial'))
                 ->with('success', 'Custodio asignado correctamente.');

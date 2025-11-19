@@ -15,8 +15,8 @@ $routes->get('logout', 'Auth::logout');
 $routes->group('', ['filter' => 'auth'], function ($routes) {
 
     // Dashboard
-    $routes->get('/', 'Bienes::index');
-    $routes->get('dashboard', 'Bienes::index');
+    $routes->get('/', 'Dashboard::index');
+    $routes->get('dashboard', 'Dashboard::index');
 
     // BIENES
     $routes->get('bienes', 'Bienes::index');
