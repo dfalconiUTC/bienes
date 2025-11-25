@@ -30,6 +30,18 @@
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="text" class="form-control" id="telefono" name="telefono" required>
             </div>
+            <div class="col-md-6 mb-3">
+                <label for="jefe_inmediato_id" class="form-label">Jefe Inmediato</label>
+                <select class="form-select" id="jefe_inmediato_id" name="jefe_inmediato_id">
+                    <option value="">Seleccione...</option>
+                    <?php foreach ($custodios as $item): ?>
+                        <option value="<?= $item['id_custodio'] ?>">
+                            <?= $item['nombre'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
         </div>
 
         <div class="d-flex justify-content-center gap-2">

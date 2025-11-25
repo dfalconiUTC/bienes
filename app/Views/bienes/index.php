@@ -117,6 +117,12 @@
                                     class="btn btn-sm btn-success" title="Exportar historial de custodios">
                                     <i class="bi bi-file-earmark-excel"></i>
                                 </a>
+                                <?php if (!empty($item["custodio_actual_id"])): ?>
+                                    <a href="<?= site_url('bienes/acta/' . $item['id_bien']) ?>" class="btn btn-sm btn-dark"
+                                        title="Generar Acta de Entrega">
+                                        <i class="bi bi-file-text"></i>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>

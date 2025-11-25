@@ -15,9 +15,9 @@
                 <select class="form-select" id="tipo" name="tipo" required>
                     <option value="">Seleccione...</option>
                     <?php foreach (['Docente', 'Administrativo'] as $tipo): ?>
-                        <option value="<?= $tipo ?>" <?= $custodio['tipo'] == $tipo ? 'selected' : '' ?>>
-                            <?= $tipo ?>
-                        </option>
+                    <option value="<?= $tipo ?>" <?= $custodio['tipo'] == $tipo ? 'selected' : '' ?>>
+                        <?= $tipo ?>
+                    </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -35,6 +35,19 @@
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="text" class="form-control" id="telefono" name="telefono"
                     value="<?= $custodio['telefono'] ?? '' ?>" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="telefono" class="form-label">Jefe Inmediato</label>
+                <select name="jefe_inmediato" class="form-control" required>
+                    <option value="">Seleccione...</option>
+                    <?php foreach ($custodios as $item): ?>
+                    <?php if ($custodio['id_custodio'] != $item['id_custodio']): ?>
+                    <option value="<?= $item['id_custodio'] ?>"
+                        <?= isset($custodio['jefe_inmediato_id']) && $custodio['jefe_inmediato_id'] == $item['id_custodio'] ? 'selected' : '' ?>>
+                        <?= $item['nombre'] ?>
+                    </option><?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 

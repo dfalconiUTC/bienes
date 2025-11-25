@@ -13,7 +13,8 @@ class CustodioModel extends Model
         'tipo',
         'departamento',
         'correo',
-        'telefono'
+        'telefono',
+        'jefe_inmediato_id'
     ];
 
     protected $useTimestamps = false;

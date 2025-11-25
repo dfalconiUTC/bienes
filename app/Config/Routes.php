@@ -29,6 +29,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('bienes/exportExcel', 'Bienes::exportExcel');
     $routes->get('bienes/exportHistorial/(:num)', 'Bienes::exportHistorial/$1');
     $routes->get('bienes/barcodePdf/(:any)', 'Bienes::barcodePdf/$1');
+    $routes->get('bienes/acta/(:num)', 'Bienes::generarActa/$1');
 
     // CUSTODIOS
     $routes->get('custodios', 'Custodios::index');
@@ -63,9 +64,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('historial/delete/(:num)', 'Historial::delete/$1');
     $routes->get('historial/activoPorBien/(:num)', 'Historial::activoPorBien/$1');
 
-    // CONFIGURACIONES
-    $routes->get('configuraciones', 'Configuraciones::index');
-
     // USUARIOS
     $routes->get('usuarios', 'Usuarios::index');
     $routes->get('usuarios/create', 'Usuarios::create');
@@ -73,4 +71,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('usuarios/edit/(:num)', 'Usuarios::edit/$1');
     $routes->post('usuarios/update/(:num)', 'Usuarios::update/$1');
     $routes->get('usuarios/delete/(:num)', 'Usuarios::delete/$1');
+
+    // 
+    $routes->get('configuracion', 'Configuracion::index');
+    $routes->post('configuracion/guardar', 'Configuracion::guardar');
+
 });

@@ -16,13 +16,24 @@ class Custodios extends BaseController
 
     public function index()
     {
-        $data['custodios'] = $this->custodioModel->findAll();
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('custodios c');
+        $builder->select('c.*, j.nombre AS jefe_nombre');
+        $builder->join('custodios j', 'j.id_custodio = c.jefe_inmediato_id', 'left');
+
+        $query = $builder->get();
+
+        $data['custodios'] = $query->getResultArray();
+
         return view('custodios/index', $data);
     }
 
+
     public function create()
     {
-        return view('custodios/create');
+        $data['custodios'] = $this->custodioModel->findAll();
+        return view('custodios/create', $data);
     }
 
     public function store()
@@ -43,13 +54,10 @@ class Custodios extends BaseController
     public function edit($id)
     {
         $custodio = $this->custodioModel->find($id);
-        if (!$custodio) {
-            return redirect()
-                ->to('/custodios')
-                ->with('error', 'El custodio no existe.');
-        }
+        $data['custodios'] = $this->custodioModel->findAll();
+        $data['custodio'] = $custodio;
 
-        return view('custodios/edit', ['custodio' => $custodio]);
+        return view('custodios/edit', $data);
     }
 
     public function update($id)

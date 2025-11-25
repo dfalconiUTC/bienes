@@ -82,8 +82,8 @@
 
           <li class="sidebar-header">Administración</li>
 
-          <li class="sidebar-item <?= $segment == 'configuraciones' ? 'active' : '' ?>">
-            <a class="sidebar-link" href="#">
+          <li class="sidebar-item <?= $segment == 'configuracion' ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= site_url('configuracion') ?>">
               <i class="align-middle" data-feather="settings"></i>
               <span class="align-middle">Configuración</span>
             </a>

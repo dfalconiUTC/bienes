@@ -1,0 +1,136 @@
+CRITICAL - 2025-11-20 13:06:14 --> ErrorException: Undefined variable $lista_custodios
+[Method: GET, Route: custodios/edit/7]
+in APPPATH\Views\custodios\edit.php on line 41.
+ 1 APPPATH\Views\custodios\edit.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lista_custodios', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php', 41)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/edit', [], true)
+ 5 APPPATH\Controllers\Custodios.php(50): view('custodios/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->edit('7')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:07:24 --> ErrorException: Undefined variable $lista_custodios
+[Method: GET, Route: custodios/edit/7]
+in APPPATH\Views\custodios\edit.php on line 41.
+ 1 APPPATH\Views\custodios\edit.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lista_custodios', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php', 41)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/edit', [], true)
+ 5 APPPATH\Controllers\Custodios.php(50): view('custodios/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->edit('7')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:10:04 --> ErrorException: Undefined array key "id"
+[Method: GET, Route: custodios/edit/7]
+in APPPATH\Views\custodios\edit.php on line 44.
+ 1 APPPATH\Views\custodios\edit.php(44): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php', 44)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/edit', [], true)
+ 5 APPPATH\Controllers\Custodios.php(50): view('custodios/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->edit('7')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-20 13:23:33 --> mysqli_sql_exception: Unknown column 'c.cedula' in 'field list' in C:\laragon\www\bienes\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\bienes\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `b`.*, `...', 0)
+#1 C:\laragon\www\bienes\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `b`.*, `...')
+#2 C:\laragon\www\bienes\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `b`.*, `...')
+#3 C:\laragon\www\bienes\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `b`.*, `...', Array, false)
+#4 C:\laragon\www\bienes\app\Controllers\Bienes.php(326): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\bienes\system\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+#6 C:\laragon\www\bienes\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+#7 C:\laragon\www\bienes\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\bienes\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\bienes\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\laragon\www\bienes\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-20 13:23:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'c.cedula' in 'field list'
+[Method: GET, Route: bienes/acta/8]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = :b.id_bien:', [...], false)
+ 2 APPPATH\Controllers\Bienes.php(326): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:23:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'c.cedula' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = \'8\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = \'8\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = :b.id_bien:', [...], false)
+ 4 APPPATH\Controllers\Bienes.php(326): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:23:34 --> [Caused by] mysqli_sql_exception: Unknown column 'c.cedula' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = \'8\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = \'8\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = \'8\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `b`.*, `c`.`nombre` AS `custodio_nombre`, `c`.`cedula` AS `custodio_cedula`, `c`.`jefe_inmediato_id`
+FROM `bienes` `b`
+LEFT JOIN `custodios` `c` ON `c`.`id_custodio` = `b`.`custodio_actual_id`
+WHERE `b`.`id_bien` = :b.id_bien:', [...], false)
+ 5 APPPATH\Controllers\Bienes.php(326): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:24:45 --> ErrorException: Undefined array key "custodio_cedula"
+[Method: GET, Route: bienes/acta/8]
+in APPPATH\Controllers\Bienes.php on line 358.
+ 1 APPPATH\Controllers\Bienes.php(358): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "custodio_cedula"', 'C:\\laragon\\www\\bienes\\app\\Controllers\\Bienes.php', 358)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-20 13:25:10 --> ErrorException: Undefined array key "cedula"
+[Method: GET, Route: bienes/acta/8]
+in APPPATH\Controllers\Bienes.php on line 363.
+ 1 APPPATH\Controllers\Bienes.php(363): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "cedula"', 'C:\\laragon\\www\\bienes\\app\\Controllers\\Bienes.php', 363)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Bienes->generarActa('8')
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Bienes))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

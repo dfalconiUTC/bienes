@@ -16,24 +16,26 @@
                     <th class="text-center">Cargo</th>
                     <th class="text-center">Departamento</th>
                     <th class="text-center">Correo</th>
+                    <th class="text-center">Jefe Inmediato</th>
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($custodios as $item): ?>
-                <tr>
-                    <td><?= $item["nombre"] ?></td>
-                    <td><?= $item["tipo"] ?></td>
-                    <td><?= $item["departamento"] ?></td>
-                    <td><?= $item["correo"] ?></td>
-                    <td>
-                        <a href="<?= site_url('custodios/edit/' . $item['id_custodio']) ?>" class="btn btn-primary"><i
-                                class="bi bi-pencil-square me-1"></i> Editar</a>
-                        <a href="<?= site_url('custodios/delete/' . $item['id_custodio']) ?>" class="btn btn-danger"
-                            onclick="return confirm('¿Desea eliminar este registro?')"><i class="bi bi-trash me-1"></i>
-                            Eliminar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?= $item["nombre"] ?></td>
+                        <td><?= $item["tipo"] ?></td>
+                        <td><?= $item["departamento"] ?></td>
+                        <td><?= $item["correo"] ?></td>
+                        <td><?= $item['jefe_nombre'] ?? '' ?></td>
+                        <td>
+                            <a href="<?= site_url('custodios/edit/' . $item['id_custodio']) ?>" class="btn btn-primary"><i
+                                    class="bi bi-pencil-square me-1"></i> Editar</a>
+                            <a href="<?= site_url('custodios/delete/' . $item['id_custodio']) ?>" class="btn btn-danger"
+                                onclick="return confirm('¿Desea eliminar este registro?')"><i class="bi bi-trash me-1"></i>
+                                Eliminar</a>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
