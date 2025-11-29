@@ -60,7 +60,7 @@
                 <label for="estado_bien" class="form-label">Estado del Bien</label>
                 <select class="form-select" id="estado_bien" name="estado_bien" required>
                     <option value="">Seleccione...</option>
-                    <?php foreach (['Nuevo', 'Usado', 'Dañado', 'De baja'] as $estado): ?>
+                    <?php foreach (['Bueno', 'Regular', 'Malo', 'De baja'] as $estado): ?>
                         <option value="<?= $estado ?>" <?= $bien['estado_bien'] == $estado ? 'selected' : '' ?>>
                             <?= $estado ?>
                         </option>

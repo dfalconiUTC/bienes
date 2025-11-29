@@ -12,7 +12,7 @@
             class="table table-bordered table-striped table-hover table-sm align-middle shadow-sm rounded text-center">
             <thead>
                 <tr>
-                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Nombres y Apellidos</th>
                     <th class="text-center">Cargo</th>
                     <th class="text-center">Departamento</th>
                     <th class="text-center">Correo</th>

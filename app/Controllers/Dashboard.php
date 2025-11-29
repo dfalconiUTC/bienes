@@ -24,12 +24,12 @@ class Dashboard extends BaseController
         /* ============================
             2. GRÁFICO: BIENES POR ESTADO
         ============================= */
-        $labels_estados = ['Nuevo', 'Usado', 'Dañado', 'De baja'];
+        $labels_estados = ['Bueno', 'Regular', 'Malo', 'De baja'];
 
         $data_estados = [
-            $bienModel->where('estado_bien', 'Nuevo')->countAllResults(),
-            $bienModel->where('estado_bien', 'Usado')->countAllResults(),
-            $bienModel->where('estado_bien', 'Dañado')->countAllResults(),
+            $bienModel->where('estado_bien', 'Bueno')->countAllResults(),
+            $bienModel->where('estado_bien', 'Regular')->countAllResults(),
+            $bienModel->where('estado_bien', 'Malo')->countAllResults(),
             $bienModel->where('estado_bien', 'De baja')->countAllResults(),
         ];
 
