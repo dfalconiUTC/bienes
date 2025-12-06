@@ -129,86 +129,6 @@ class Bienes extends BaseController
         return view('bienes/historial', $data);
     }
 
-    public function exportExcel()
-    {
-        try {
-            $bienes = $this->bienModel->getConRelaciones();
-
-            if (empty($bienes)) {
-                return redirect()->to('/bienes')->with('warning', 'No hay datos para exportar.');
-            }
-
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setTitle('Listado de Bienes');
-
-            $headers = [
-                'Código',
-                'Nombre',
-                'Código Interno',
-                'Descripción',
-                'Fecha Ingreso',
-                'Serie',
-                'Modelo',
-                'Marca',
-                'Color',
-                'Estado',
-                'Cuenta Contable',
-                'Valor Contable',
-                'Custodio Actual',
-                'Ubicación',
-                'Campus',
-                'Procedencia',
-                'Observaciones'
-            ];
-
-            $col = 'A';
-            foreach ($headers as $header) {
-                $sheet->setCellValue($col . '1', $header);
-                $sheet->getStyle($col . '1')->getFont()->setBold(true);
-                $col++;
-            }
-
-            $row = 2;
-            foreach ($bienes as $item) {
-                $sheet->setCellValue("A$row", $item["codigo_bien"]);
-                $sheet->setCellValue("B$row", $item["nombre_bien"]);
-                $sheet->setCellValue("C$row", $item["codigo_interno"]);
-                $sheet->setCellValue("D$row", $item["descripcion"]);
-                $sheet->setCellValue("E$row", $item["fecha_ingreso"]);
-                $sheet->setCellValue("F$row", $item["serie"]);
-                $sheet->setCellValue("G$row", $item["modelo"]);
-                $sheet->setCellValue("H$row", $item["marca"]);
-                $sheet->setCellValue("I$row", $item["color"]);
-                $sheet->setCellValue("J$row", $item["estado_bien"]);
-                $sheet->setCellValue("K$row", $item["cuenta_contable"]);
-                $sheet->setCellValue("L$row", $item["valor_contable"]);
-                $sheet->setCellValue("M$row", $item["custodio_actual"] ?? 'No asignado');
-                $sheet->setCellValue("N$row", $item["ubicacion"] ?? 'No asignado');
-                $sheet->setCellValue("O$row", $item["campus"] ?? 'No asignado');
-                $sheet->setCellValue("P$row", $item["procedencia"] ?? 'No asignado');
-                $sheet->setCellValue("Q$row", $item["observaciones"]);
-                $row++;
-            }
-
-            foreach (range('A', 'Q') as $col) {
-                $sheet->getColumnDimension($col)->setAutoSize(true);
-            }
-
-            $filename = 'Listado_Bienes_' . Time::now()->toDateString() . '.xlsx';
-
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header("Content-Disposition: attachment;filename=\"$filename\"");
-            header('Cache-Control: max-age=0');
-
-            $writer = new Xlsx($spreadsheet);
-            $writer->save('php://output');
-            exit;
-        } catch (\Throwable $e) {
-            return redirect()->to('/bienes')->with('error', 'Error al generar el Excel: ' . $e->getMessage());
-        }
-    }
-
     public function exportHistorial($id)
     {
         try {
@@ -317,7 +237,7 @@ class Bienes extends BaseController
     public function generarActa($id)
     {
         $db = \Config\Database::connect();
-        
+
         $bien = $db->table('bienes b')
             ->select('b.*, c.nombre AS custodio_nombre, c.jefe_inmediato_id')
             ->join('custodios c', 'c.id_custodio = b.custodio_actual_id', 'left')

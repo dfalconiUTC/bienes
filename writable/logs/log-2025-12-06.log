@@ -1,0 +1,28 @@
+CRITICAL - 2025-12-06 20:22:26 --> ErrorException: Undefined array key "nombre_custodio"
+[Method: GET, Route: reportes/por_custodio]
+in APPPATH\Views\reportes\por_custodio_view.php on line 20.
+ 1 APPPATH\Views\reportes\por_custodio_view.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre_custodio"', 'C:\\laragon\\www\\bienes\\app\\Views\\reportes\\por_custodio_view.php', 20)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\reportes\\por_custodio_view.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reportes/por_custodio_view', [], true)
+ 5 APPPATH\Controllers\Reportes.php(131): view('reportes/por_custodio_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reportes->porCustodio()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reportes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-06 20:24:38 --> ErrorException: Undefined array key "cedula"
+[Method: GET, Route: reportes/por_custodio]
+in APPPATH\Views\reportes\por_custodio_view.php on line 20.
+ 1 APPPATH\Views\reportes\por_custodio_view.php(20): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "cedula"', 'C:\\laragon\\www\\bienes\\app\\Views\\reportes\\por_custodio_view.php', 20)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\reportes\\por_custodio_view.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reportes/por_custodio_view', [], true)
+ 5 APPPATH\Controllers\Reportes.php(131): view('reportes/por_custodio_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Reportes->porCustodio()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Reportes))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

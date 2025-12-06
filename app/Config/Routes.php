@@ -26,7 +26,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('bienes/update/(:num)', 'Bienes::update/$1');
     $routes->get('bienes/delete/(:num)', 'Bienes::delete/$1');
     $routes->get('bienes/historial/(:num)', 'Bienes::historial/$1');
-    $routes->get('bienes/exportExcel', 'Bienes::exportExcel');
     $routes->get('bienes/exportHistorial/(:num)', 'Bienes::exportHistorial/$1');
     $routes->get('bienes/barcodePdf/(:any)', 'Bienes::barcodePdf/$1');
     $routes->get('bienes/acta/(:num)', 'Bienes::generarActa/$1');
@@ -72,8 +71,16 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('usuarios/update/(:num)', 'Usuarios::update/$1');
     $routes->get('usuarios/delete/(:num)', 'Usuarios::delete/$1');
 
-    // 
+    // CONFIGURACION
     $routes->get('configuracion', 'Configuracion::index');
     $routes->post('configuracion/guardar', 'Configuracion::guardar');
+
+    // REPORTES
+    $routes->get('reportes', 'Reportes::index');
+    $routes->get('bienes/exportExcel', 'Reportes::bienesExportExcel');
+    $routes->get('reportes/por_custodio', 'Reportes::porCustodio');
+    $routes->post('reportes/generar_pdf_custodio', 'Reportes::generarReportePorCustodioPDF');
+    $routes->get('reportes/bajas', 'Reportes::bienesEnBaja');
+    $routes->get('reportes/por_procedencia', 'Reportes::bienesPorProcedencia');
 
 });
