@@ -7,9 +7,8 @@
             <a href="<?= site_url('bienes/create') ?>" class="btn btn-success">
                 <i class="bi bi-plus-circle me-1"></i> Registrar Bien
             </a>
-            <a href="<?= site_url('bienes/exportExcel') ?>" class="btn btn-outline-success">
-                <i class="bi bi-file-earmark-excel me-1"></i> Exportar a Excel
-            </a>
+            <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
+                Exportar a Excel</button>
         </div>
     </div>
 </div>

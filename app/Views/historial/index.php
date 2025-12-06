@@ -3,6 +3,10 @@
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
         <h2>Historial de Custodios</h2>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
+                Exportar a Excel</button>
+        </div>
     </div>
 </div>
 

@@ -39,6 +39,8 @@
 
 <!-- Simple-DataTables -->
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -64,6 +66,7 @@
                     noResults: "❌ No se encontraron coincidencias para tu búsqueda",
                 }
             });
+            window.datatableInstance = datatable;
 
             const headerRow = table.querySelector("thead tr");
             if (headerRow) {
@@ -77,6 +80,7 @@
 
             const searchInput = document.querySelector('.datatable-input');
             if (searchInput) {
+                searchInput.setAttribute("title", "Buscar por cualquier campo");
                 setTimeout(() => searchInput.focus(), 500);
             }
 
@@ -85,6 +89,91 @@
                 searchInput.focus();
             });
         }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Limpia texto desde un TD/TH (DOM), conservando caracteres especiales
+        function getNodeText(node) {
+            if (!node) return "";
+            // Prioriza textContent para caracteres especiales correctos
+            return node.textContent ? node.textContent.trim() : "";
+        }
+
+        // Obtiene las filas actualmente visibles en la tabla (post-filtro)
+        function getVisibleRows(tableEl) {
+            // Simple-DataTables oculta filas con display:none y/o clase "hidden"
+            const allRows = Array.from(tableEl.querySelectorAll("tbody tr"));
+            return allRows.filter(tr => {
+                const style = window.getComputedStyle(tr);
+                const isHiddenClass = tr.classList.contains("hidden");
+                const isDisplayNone = style.display === "none";
+                const isVisibilityHidden = style.visibility === "hidden";
+                return !(isHiddenClass || isDisplayNone || isVisibilityHidden);
+            });
+        }
+
+        // Lee encabezados visibles, excluyendo la última columna (Acciones)
+        function getHeaders(tableEl) {
+            const thList = Array.from(tableEl.querySelectorAll("thead th"));
+            return thList.slice(0, Math.max(0, thList.length - 1))
+                .map(th => getNodeText(th));
+        }
+
+        // Lee celdas visibles (TD) de una fila, excluyendo la última columna
+        function getRowDataFromDom(trEl) {
+            const tds = Array.from(trEl.querySelectorAll("td"));
+            const usefulTds = tds.slice(0, Math.max(0, tds.length - 1)); // excluye Acciones
+            return usefulTds.map(td => getNodeText(td));
+        }
+
+        const exportBtn = document.getElementById("btnExport");
+        if (!exportBtn) return;
+
+        exportBtn.addEventListener("click", function () {
+            const datatable = window.datatableInstance;
+            if (!datatable) {
+                alert("No existe la instancia de la tabla.");
+                return;
+            }
+
+            const table = document.querySelector("#datatable");
+            if (!table) {
+                alert("No se encontró la tabla.");
+                return;
+            }
+
+            // 1) Encabezados
+            const headers = getHeaders(table);
+            const excelData = [headers];
+
+            // 2) Filas visibles tras el filtro
+            const visibleRows = getVisibleRows(table);
+            if (visibleRows.length === 0) {
+                alert("No hay datos para exportar.");
+                return;
+            }
+
+            visibleRows.forEach(tr => {
+                const row = getRowDataFromDom(tr);
+                excelData.push(row);
+            });
+
+            // 3) Exportar a Excel
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(excelData);
+
+            // Ajuste opcional de ancho de columnas
+            const colWidths = excelData[0].map((h, i) => ({
+                wch: Math.max(...excelData.map(r => (r[i] ? r[i].length : 0))) + 2
+            }));
+            ws['!cols'] = colWidths;
+
+            XLSX.utils.book_append_sheet(wb, ws, "Datos");
+            XLSX.writeFile(wb, "reporte.xlsx");
+        });
     });
 </script>
 

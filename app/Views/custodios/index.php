@@ -2,8 +2,13 @@
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
         <h2>Custodios</h2>
-        <a href="<?= site_url('custodios/create') ?>" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>
-            Registrar Custodio</a>
+        <div class="d-flex gap-2">
+            <a href="<?= site_url('custodios/create') ?>" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>
+                Registrar Custodio</a>
+
+            <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
+                Exportar a Excel</button>
+        </div>
     </div>
 </div>
 <div class="card-body">

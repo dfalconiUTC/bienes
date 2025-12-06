@@ -3,9 +3,13 @@
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
         <h2>Administración de Usuarios</h2>
-        <a href="<?= site_url('usuarios/create') ?>" class="btn btn-success">
-            <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
-        </a>
+        <div class="d-flex gap-2">
+            <a href="<?= site_url('usuarios/create') ?>" class="btn btn-success">
+                <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
+            </a>
+            <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
+                Exportar a Excel</button>
+        </div>
     </div>
 </div>
 

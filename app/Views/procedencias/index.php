@@ -2,8 +2,13 @@
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
         <h2>Procedencias</h2>
-        <a href="<?= site_url('procedencias/create') ?>" class="btn btn-success"><i class="bi bi-plus-circle me-1"></i>
-            Registrar Procedencia</a>
+        <div class="d-flex gap-2">
+            <a href="<?= site_url('procedencias/create') ?>" class="btn btn-success"><i
+                    class="bi bi-plus-circle me-1"></i>
+                Registrar Procedencia</a>
+            <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
+                Exportar a Excel</button>
+        </div>
     </div>
 </div>
 <div class="card-body">
@@ -19,18 +24,18 @@
             </thead>
             <tbody>
                 <?php foreach ($procedencias as $item): ?>
-                <tr>
-                    <td><?= $item["nombre"] ?></td>
-                    <td><?= $item["descripcion"] ?></td>
-                    <td>
-                        <a href="<?= site_url('procedencias/edit/' . $item['id_procedencia']) ?>"
-                            class="btn btn-primary "><i class="bi bi-pencil-square me-1"></i> Editar</a>
-                        <a href="<?= site_url('procedencias/delete/' . $item['id_procedencia']) ?>"
-                            class="btn btn-danger " onclick="return confirm('¿Desea eliminar este registro?')"><i
-                                class="bi bi-trash me-1"></i>
-                            Eliminar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?= $item["nombre"] ?></td>
+                        <td><?= $item["descripcion"] ?></td>
+                        <td>
+                            <a href="<?= site_url('procedencias/edit/' . $item['id_procedencia']) ?>"
+                                class="btn btn-primary "><i class="bi bi-pencil-square me-1"></i> Editar</a>
+                            <a href="<?= site_url('procedencias/delete/' . $item['id_procedencia']) ?>"
+                                class="btn btn-danger " onclick="return confirm('¿Desea eliminar este registro?')"><i
+                                    class="bi bi-trash me-1"></i>
+                                Eliminar</a>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

@@ -45,17 +45,10 @@
 
           <li class="sidebar-header">Gestión Principal</li>
 
-          <li class="sidebar-item <?= $segment == 'bienes' ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= site_url('bienes') ?>">
-              <i class="align-middle" data-feather="box"></i>
-              <span class="align-middle">Bienes</span>
-            </a>
-          </li>
-
-          <li class="sidebar-item <?= $segment == 'ubicaciones' ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= site_url('ubicaciones') ?>">
-              <i class="align-middle" data-feather="map-pin"></i>
-              <span class="align-middle">Ubicaciones</span>
+          <li class="sidebar-item <?= $segment == 'procedencias' ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= site_url('procedencias') ?>">
+              <i class="align-middle" data-feather="archive"></i>
+              <span class="align-middle">Procedencias</span>
             </a>
           </li>
 
@@ -66,10 +59,17 @@
             </a>
           </li>
 
-          <li class="sidebar-item <?= $segment == 'procedencias' ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= site_url('procedencias') ?>">
-              <i class="align-middle" data-feather="archive"></i>
-              <span class="align-middle">Procedencias</span>
+          <li class="sidebar-item <?= $segment == 'ubicaciones' ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= site_url('ubicaciones') ?>">
+              <i class="align-middle" data-feather="map-pin"></i>
+              <span class="align-middle">Ubicaciones</span>
+            </a>
+          </li>
+
+          <li class="sidebar-item <?= $segment == 'bienes' ? 'active' : '' ?>">
+            <a class="sidebar-link" href="<?= site_url('bienes') ?>">
+              <i class="align-middle" data-feather="box"></i>
+              <span class="align-middle">Bienes</span>
             </a>
           </li>
 
