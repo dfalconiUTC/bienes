@@ -35,27 +35,34 @@ class Bienes extends BaseController
     {
         $auth = service('auth');
         $userId = session('id_usuario');
+        $bienes = [];
 
         $hasFullView = $auth->tienePermiso('bienes.view');
         $hasOwnView = $auth->tienePermiso('bienes.view_own');
+        $hasDeptView = $auth->tienePermiso('bienes.view_dept');
 
-        $bienes = [];
+        $db = \Config\Database::connect();
+        $custodioUsuario = $db->table('custodios')
+            ->select('id_custodio, departamento')
+            ->where('usuario_id', $userId)
+            ->get()
+            ->getRowArray();
 
         if ($hasFullView) {
             $bienes = $this->bienModel->getConRelaciones();
 
-        } elseif ($hasOwnView && $userId) {
-            $db = \Config\Database::connect();
-            $custodio = $db->table('custodios')
-                ->select('id_custodio')
-                ->where('usuario_id', $userId)
-                ->get()
-                ->getRowArray();
-
-            if ($custodio) {
-                $custodioId = $custodio['id_custodio'];
-                $bienes = $this->bienModel->getBienesPorCustodio($custodioId);
+        } elseif ($hasDeptView && $custodioUsuario) {
+            $departamento = "Unidad Administrativa y Financiera";
+            if ($departamento) {
+                $bienes = $this->bienModel->getBienesPorDepartamento($departamento);
             }
+
+        } elseif ($hasOwnView && $custodioUsuario) {
+            $custodioId = $custodioUsuario['id_custodio'];
+            $bienes = $this->bienModel->getBienesPorCustodio($custodioId);
+
+        } else {
+            $bienes = [];
         }
 
         $data['bienes'] = $bienes;

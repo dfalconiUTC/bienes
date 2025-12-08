@@ -53,6 +53,7 @@ class Auth
             'custodios.view' => 'custodios',
             'bienes.view' => 'bienes',
             'bienes.view_own' => 'bienes',
+            'bienes.view_dept' => 'bienes',
             'reportes.view' => 'reportes',
             'historial.view' => 'historial',
             'config.manage' => 'configuracion',

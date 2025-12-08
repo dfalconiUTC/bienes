@@ -18,7 +18,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
     // BIENES
     $routes->group('bienes', function ($routes) {
-        $routes->get('/', 'Bienes::index', ['filter' => 'permiso:bienes.view,bienes.view_own']);
+        $routes->get('/', 'Bienes::index', ['filter' => 'permiso:bienes.view,bienes.view_own,bienes.view_dept']);
         $routes->get('create', 'Bienes::create', ['filter' => 'permiso:bienes.create']);
         $routes->post('store', 'Bienes::store', ['filter' => 'permiso:bienes.create']);
         $routes->get('edit/(:num)', 'Bienes::edit/$1', ['filter' => 'permiso:bienes.edit']);

@@ -52,4 +52,11 @@ class BienModel extends Model
             ->where('bienes.custodio_actual_id', $custodioId)
             ->findAll();
     }
+
+    public function getBienesPorDepartamento(string $departamento)
+    {
+        return $this->startJoinQuery()
+            ->where('c.departamento', $departamento)
+            ->findAll();
+    }
 }
