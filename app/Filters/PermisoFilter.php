@@ -14,23 +14,18 @@ class PermisoFilter implements FilterInterface
             return redirect()->to(site_url('login'))->with('error', 'Debe iniciar sesión para acceder.');
         }
 
-        if (empty($arguments)) {
-            return;
-        }
-
-        $auth = service('auth');
-
         $accesoPermitido = false;
 
         foreach ($arguments as $permisoRequerido) {
-            if ($auth->tienePermiso($permisoRequerido)) {
+            if (service('auth')->tienePermiso($permisoRequerido)) {
                 $accesoPermitido = true;
                 break;
             }
         }
 
         if (!$accesoPermitido) {
-            return redirect()->to(site_url('/'))->with('error', 'Acceso denegado. No tiene los permisos necesarios.');
+            session()->destroy();
+            return redirect()->to(site_url('login'))->with('error', 'Acceso denegado. Sus permisos han cambiado o son insuficientes para la acción solicitada. Vuelva a ingresar.');
         }
     }
 
