@@ -1,0 +1,50 @@
+CRITICAL - 2025-12-08 03:36:53 --> ErrorException: Undefined array key "rol"
+[Method: GET, Route: usuarios]
+in APPPATH\Views\usuarios\index.php on line 38.
+ 1 APPPATH\Views\usuarios\index.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "rol"', 'C:\\laragon\\www\\bienes\\app\\Views\\usuarios\\index.php', 38)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\usuarios\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('usuarios/index', [], true)
+ 5 APPPATH\Controllers\Usuarios.php(19): view('usuarios/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-08 03:36:57 --> ErrorException: Undefined array key "rol"
+[Method: GET, Route: usuarios]
+in APPPATH\Views\usuarios\index.php on line 38.
+ 1 APPPATH\Views\usuarios\index.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "rol"', 'C:\\laragon\\www\\bienes\\app\\Views\\usuarios\\index.php', 38)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\usuarios\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('usuarios/index', [], true)
+ 5 APPPATH\Controllers\Usuarios.php(19): view('usuarios/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Usuarios->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-08 03:56:54 --> TypeError: Cannot access offset of type array in isset or empty
+[Method: POST, Route: roles/update/6]
+in SYSTEMPATH\Model.php on line 422.
+ 1 SYSTEMPATH\BaseModel.php(957): CodeIgniter\Model->doInsertBatch([...], null, 100, false)
+ 2 APPPATH\Models\RolPermisoModel.php(62): CodeIgniter\BaseModel->insertBatch([...])
+ 3 APPPATH\Controllers\Roles.php(136): App\Models\RolPermisoModel->syncPermisos(6, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Roles->update(6)
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Roles))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-08 03:59:52 --> CodeIgniter\Exceptions\BadMethodCallException: Call to undefined method App\Models\RolPermisoModel::getPermisosByRolId
+[Method: GET, Route: roles/edit/6]
+in SYSTEMPATH\Model.php on line 927.
+ 1 APPPATH\Controllers\Roles.php(97): CodeIgniter\Model->__call('getPermisosByRolId', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Roles->edit(6)
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Roles))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

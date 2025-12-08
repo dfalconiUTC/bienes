@@ -6,6 +6,7 @@
 
 <div class="card-body">
     <form method="post" action="<?= site_url('usuarios/update/' . $usuario['id_usuario']) ?>">
+        <?= csrf_field() ?>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre completo</label>
@@ -31,6 +32,21 @@
             </div>
 
             <div class="col-md-6 mb-3">
+                <label for="rol_id" class="form-label">Rol de Usuario</label>
+                <select class="form-select" id="rol_id" name="rol_id" required>
+                    <option value="">-- Seleccione un Rol --</option>
+                    <?php if (!empty($roles)): ?>
+                    <?php foreach ($roles as $rol): ?>
+                    <option value="<?= esc($rol['id_rol']) ?>"
+                        <?= ($usuario['rol_id'] ?? 0) == $rol['id_rol'] ? 'selected' : '' ?>>
+                        <?= esc($rol['nombre_rol']) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select class="form-select" id="estado" name="estado" required>
                     <option value="activo" <?= $usuario['estado'] == 'activo' ? 'selected' : '' ?>>Activo</option>
@@ -38,9 +54,6 @@
                 </select>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <input type="hidden" class="form-control" id="rol" name="rol" required value="admin">
-            </div>
         </div>
 
         <div class="d-flex justify-content-center gap-2">

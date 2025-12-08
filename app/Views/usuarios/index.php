@@ -1,12 +1,16 @@
 <?= $this->include('layout/header') ?>
 
+<?php $auth = service('auth'); ?>
+
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
         <h2>Administración de Usuarios</h2>
         <div class="d-flex gap-2">
-            <a href="<?= site_url('usuarios/create') ?>" class="btn btn-success">
-                <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
-            </a>
+            <?php if ($auth->tienePermiso('users.manage')): ?>
+                <a href="<?= site_url('usuarios/create') ?>" class="btn btn-success">
+                    <i class="bi bi-plus-circle me-1"></i> Nuevo Usuario
+                </a>
+            <?php endif; ?>
             <button class="btn btn-outline-success" id="btnExport"><i class="bi bi-file-earmark-excel me-1"></i>
                 Exportar a Excel</button>
         </div>
@@ -35,13 +39,7 @@
                             <td><?= esc($u['correo']) ?></td>
                             <td><?= esc($u['usuario']) ?></td>
                             <td>
-                                <?php if ($u['rol'] === 'admin'): ?>
-                                    <span class="badge bg-danger">Administrador</span>
-                                <?php elseif ($u['rol'] === 'docente'): ?>
-                                    <span class="badge bg-info text-dark">Docente</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary">Custodio</span>
-                                <?php endif; ?>
+                                <span class="badge bg-primary"><?= esc($u['nombre_rol']) ?></span>
                             </td>
                             <td>
                                 <?php if ($u['estado'] === 'activo'): ?>
@@ -52,22 +50,28 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="<?= site_url('usuarios/edit/' . $u['id_usuario']) ?>"
-                                        class="btn btn-sm btn-primary" title="Editar usuario">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a href="<?= site_url('usuarios/delete/' . $u['id_usuario']) ?>"
-                                        class="btn btn-sm btn-danger" title="Eliminar usuario"
-                                        onclick="return confirm('¿Desea eliminar este usuario?')">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+
+                                    <?php if ($auth->tienePermiso('users.manage')): ?>
+                                        <a href="<?= site_url('usuarios/edit/' . $u['id_usuario']) ?>"
+                                            class="btn btn-sm btn-primary" title="Editar usuario">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    <?php endif; ?>
+
+                                    <?php if ($auth->tienePermiso('users.manage')): ?>
+                                        <a href="<?= site_url('usuarios/delete/' . $u['id_usuario']) ?>"
+                                            class="btn btn-sm btn-danger" title="Eliminar usuario"
+                                            onclick="return confirm('¿Desea eliminar este usuario?')">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8">No hay usuarios registrados.</td>
+                        <td colspan="6">No hay usuarios registrados.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

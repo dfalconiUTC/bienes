@@ -6,6 +6,7 @@
 
 <div class="card-body">
     <form method="post" action="<?= site_url('usuarios/store') ?>">
+        <?= csrf_field() ?>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre completo</label>
@@ -27,6 +28,19 @@
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
 
+            <div class="col-md-6 mb-3">
+                <label for="rol_id" class="form-label">Rol de Usuario</label>
+                <select class="form-select" id="rol_id" name="rol_id" required>
+                    <option value="">-- Seleccione un Rol --</option>
+                    <?php if (!empty($roles)): ?>
+                        <?php foreach ($roles as $rol): ?>
+                            <option value="<?= esc($rol['id_rol']) ?>">
+                                <?= esc($rol['nombre_rol']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
 
             <div class="col-md-6 mb-3">
                 <label for="estado" class="form-label">Estado</label>
@@ -34,10 +48,6 @@
                     <option value="activo">Activo</option>
                     <option value="inactivo">Inactivo</option>
                 </select>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <input type="hidden" class="form-control" id="rol" name="rol" required value="admin">
             </div>
 
         </div>

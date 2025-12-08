@@ -42,17 +42,19 @@ class Auth extends BaseController
             return redirect()->back()->with('error', 'Contraseña incorrecta.');
         }
 
-        // Guardar sesión
         $sessionData = [
             'id_usuario' => $usuario['id_usuario'],
             'nombre' => $usuario['nombre'],
             'correo' => $usuario['correo'],
-            'rol' => $usuario['rol'],
+            'id_rol' => $usuario['rol_id'],
             'isLoggedIn' => true
         ];
 
         session()->set($sessionData);
-        return redirect()->to('/dashboard')->with('success', 'Bienvenido al sistema.');
+        $auth = service('auth');
+        $rutaDestino = $auth->findFirstPermittedRoute();
+
+        return redirect()->to($rutaDestino)->with('success', 'Bienvenido al sistema.');
     }
 
     public function logout()

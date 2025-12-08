@@ -13,7 +13,7 @@ class UsuarioModel extends Model
         'correo',
         'usuario',
         'password_hash',
-        'rol',
+        'rol_id',
         'estado'
     ];
 

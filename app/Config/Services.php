@@ -29,4 +29,12 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+    public static function auth(bool $getShared = true)
+    {
+        if ($getShared) {
+            return self::getSharedInstance('auth');
+        }
+
+        return new \App\Libraries\Auth();
+    }
 }
