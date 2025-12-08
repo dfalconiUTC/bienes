@@ -33,9 +33,33 @@ class Bienes extends BaseController
 
     public function index()
     {
-        $data = [
-            'bienes' => $this->bienModel->getConRelaciones(),
-        ];
+        $auth = service('auth');
+        $userId = session('id_usuario');
+
+        $hasFullView = $auth->tienePermiso('bienes.view');
+        $hasOwnView = $auth->tienePermiso('bienes.view_own');
+
+        $bienes = [];
+
+        if ($hasFullView) {
+            $bienes = $this->bienModel->getConRelaciones();
+
+        } elseif ($hasOwnView && $userId) {
+            $db = \Config\Database::connect();
+            $custodio = $db->table('custodios')
+                ->select('id_custodio')
+                ->where('usuario_id', $userId)
+                ->get()
+                ->getRowArray();
+
+            if ($custodio) {
+                $custodioId = $custodio['id_custodio'];
+                $bienes = $this->bienModel->getBienesPorCustodio($custodioId);
+            }
+        }
+
+        $data['bienes'] = $bienes;
+
         return view('bienes/index', $data);
     }
 

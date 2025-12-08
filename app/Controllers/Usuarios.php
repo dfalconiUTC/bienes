@@ -4,16 +4,19 @@ namespace App\Controllers;
 
 use App\Models\UsuarioModel;
 use App\Models\RolModel;
+use App\Models\CustodioModel;
 
 class Usuarios extends BaseController
 {
     protected $usuarioModel;
     protected $rolModel;
+    protected $custodioModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
         $this->rolModel = new RolModel();
+        $this->custodioModel = new CustodioModel();
     }
 
     public function index()
@@ -44,11 +47,26 @@ class Usuarios extends BaseController
             'estado' => $this->request->getPost('estado'),
         ];
 
+        $usuarioId = $this->usuarioModel->insert($data, true);
 
-        $this->usuarioModel->insert($data);
+        if ($usuarioId) {
+            $custodioData = [
+                'usuario_id' => $usuarioId,
+                'nombre' => $data['nombre'],
+                'tipo' => 'Docente',
+                'departamento' => 'No Definido',
+                'correo' => $data['correo'],
+            ];
 
-        return redirect()->to(site_url('usuarios'))
-            ->with('success', 'Usuario creado correctamente.');
+            try {
+                $this->custodioModel->insert($custodioData);
+            } catch (\Exception $e) {
+            }
+
+            return redirect()->to(site_url('usuarios'))->with('success', 'Usuario y Custodio sincronizados correctamente.');
+        }
+
+        return redirect()->back()->with('error', 'Error al crear el usuario.');
     }
 
     public function edit($id)

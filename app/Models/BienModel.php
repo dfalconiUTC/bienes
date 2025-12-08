@@ -29,7 +29,7 @@ class BienModel extends Model
 
     protected $useTimestamps = false;
 
-    public function getConRelaciones()
+    protected function startJoinQuery()
     {
         return $this->select('bienes.*, 
                               p.nombre AS procedencia, 
@@ -38,7 +38,18 @@ class BienModel extends Model
                               c.nombre AS custodio_actual')
             ->join('procedencias p', 'p.id_procedencia = bienes.procedencia_id', 'left')
             ->join('ubicaciones u', 'u.id_ubicacion = bienes.ubicacion_id', 'left')
-            ->join('custodios c', 'c.id_custodio = bienes.custodio_actual_id', 'left')
+            ->join('custodios c', 'c.id_custodio = bienes.custodio_actual_id', 'left');
+    }
+
+    public function getConRelaciones()
+    {
+        return $this->startJoinQuery()->findAll();
+    }
+
+    public function getBienesPorCustodio(int $custodioId)
+    {
+        return $this->startJoinQuery()
+            ->where('bienes.custodio_actual_id', $custodioId)
             ->findAll();
     }
 }

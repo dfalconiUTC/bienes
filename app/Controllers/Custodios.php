@@ -3,15 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\CustodioModel;
+use App\Models\UsuarioModel;
 use Exception;
 
 class Custodios extends BaseController
 {
     protected $custodioModel;
+    protected $usuarioModel;
 
     public function __construct()
     {
         $this->custodioModel = new CustodioModel();
+        $this->usuarioModel = new UsuarioModel();
     }
 
     public function index()
@@ -39,8 +42,42 @@ class Custodios extends BaseController
     public function store()
     {
         try {
-            $this->custodioModel->insert($this->request->getPost());
+            $db = \Config\Database::connect();
+            $usuarioId = 0;
 
+            $custodioRol = $db->table('roles')->select('id_rol')->where('slug', 'custodio')->get()->getRowArray();
+            $rolIdCustodio = $custodioRol['id_rol'] ?? 0;
+
+            $usuarioData = [
+                'nombre' => $this->request->getPost('nombre'),
+                'correo' => $this->request->getPost('correo'),
+                'usuario' => $this->request->getPost('usuario'),
+                'password_hash' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'rol_id' => $rolIdCustodio,
+                'estado' => 'activo',
+            ];
+
+            try {
+                $usuarioId = $this->usuarioModel->insert($usuarioData, true);
+
+                if (!$usuarioId) {
+                    throw new Exception("Fallo al obtener el ID del usuario. (Revisar logs SQL).");
+                }
+            } catch (Exception $e) {
+                return redirect()->back()->withInput()->with('error', 'Error al crear el usuario. Posiblemente usuario o correo duplicado.');
+            }
+
+            $custodioData = [
+                'usuario_id' => $usuarioId,
+                'nombre' => $this->request->getPost('nombre'),
+                'tipo' => $this->request->getPost('tipo'),
+                'departamento' => $this->request->getPost('departamento'),
+                'correo' => $this->request->getPost('correo'),
+                'telefono' => $this->request->getPost('telefono'),
+                'jefe_inmediato_id' => $this->request->getPost('jefe_inmediato_id') ?: null,
+            ];
+
+            $this->custodioModel->insert($custodioData);
             return redirect()
                 ->to('/custodios')
                 ->with('success', 'Custodio registrado correctamente.');
