@@ -72,13 +72,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     });
 
     // USUARIOS
-    $routes->group('usuarios', ['filter' => 'permiso:users.manage'], function ($routes) {
-        $routes->get('/', 'Usuarios::index');
-        $routes->get('create', 'Usuarios::create');
-        $routes->post('store', 'Usuarios::store');
-        $routes->get('edit/(:num)', 'Usuarios::edit/$1');
-        $routes->post('update/(:num)', 'Usuarios::update/$1');
-        $routes->get('delete/(:num)', 'Usuarios::delete/$1');
+    $routes->group('usuarios', function ($routes) {
+        $routes->get('/', 'Usuarios::index', ['filter' => 'permiso:users.manage']);
+        $routes->get('create', 'Usuarios::create', ['filter' => 'permiso:users.manage']);
+        $routes->post('store', 'Usuarios::store', ['filter' => 'permiso:users.manage']);
+        $routes->get('edit/(:num)', 'Usuarios::edit/$1', ['filter' => 'permiso:users.manage,users.self_edit']);
+        $routes->post('update/(:num)', 'Usuarios::update/$1', ['filter' => 'permiso:users.manage,users.self_edit']);
+        $routes->get('delete/(:num)', 'Usuarios::delete/$1', ['filter' => 'permiso:users.manage']);
     });
 
     // CONFIGURACION

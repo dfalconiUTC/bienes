@@ -53,20 +53,41 @@ class Usuarios extends BaseController
 
     public function edit($id)
     {
+        $auth = service('auth');
+        $id_usuario_actual = session('id_usuario');
+        if ($id != $id_usuario_actual && !$auth->tienePermiso('users.manage')) {
+            session()->destroy();
+            return redirect()->to('login')->with('error', 'No tiene permisos para editar la cuenta de otro usuario.');
+        }
+
         $data['usuario'] = $this->usuarioModel->find($id);
         $data['roles'] = $this->rolModel->findAll();
+        $data['es_gestion_total'] = $auth->tienePermiso('users.manage');
+
+        $data['title'] = 'Editar Usuario';
         return view('usuarios/edit', $data);
     }
 
     public function update($id)
     {
+        $auth = service('auth');
+        $id_usuario_actual = session('id_usuario');
+
+        if ($id != $id_usuario_actual && !$auth->tienePermiso('users.manage')) {
+            session()->destroy();
+            return redirect()->to('login')->with('error', 'Intento de modificar un recurso no autorizado.');
+        }
+
         $data = [
             'nombre' => $this->request->getPost('nombre'),
             'correo' => $this->request->getPost('correo'),
             'usuario' => $this->request->getPost('usuario'),
-            'rol_id' => $this->request->getPost('rol_id'),
-            'estado' => $this->request->getPost('estado'),
         ];
+
+        if ($auth->tienePermiso('users.manage')) {
+            $data['rol_id'] = $this->request->getPost('rol_id');
+            $data['estado'] = $this->request->getPost('estado');
+        }
 
         if ($this->request->getPost('password')) {
             $data['password_hash'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
@@ -77,8 +98,8 @@ class Usuarios extends BaseController
             session()->set('nombre', $data['nombre']);
         }
 
-        return redirect()->to(site_url('usuarios'))
-            ->with('success', 'Usuario actualizado correctamente.');
+        return redirect()->to(site_url($auth->tienePermiso('users.manage') ? 'usuarios' : 'usuarios/edit/' . $id))
+            ->with('success', $auth->tienePermiso('users.manage') ? 'Usuario actualizado correctamente.' : 'Cuenta actualizada correctamente.');
     }
 
     public function delete($id)

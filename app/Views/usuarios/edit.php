@@ -31,6 +31,7 @@
                 <input type="password" class="form-control" id="password" name="password">
             </div>
 
+            <?php if ($es_gestion_total): ?>
             <div class="col-md-6 mb-3">
                 <label for="rol_id" class="form-label">Rol de Usuario</label>
                 <select class="form-select" id="rol_id" name="rol_id" required>
@@ -45,7 +46,9 @@
                     <?php endif; ?>
                 </select>
             </div>
+            <?php endif; ?>
 
+            <?php if ($es_gestion_total): ?>
             <div class="col-md-6 mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select class="form-select" id="estado" name="estado" required>
@@ -53,6 +56,7 @@
                     <option value="inactivo" <?= $usuario['estado'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
                 </select>
             </div>
+            <?php endif; ?>
 
         </div>
 
@@ -60,9 +64,11 @@
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-save me-1"></i> Actualizar
             </button>
+
+            <?php if ($es_gestion_total): ?>
             <a href="<?= site_url('usuarios') ?>" class="btn btn-secondary">
                 <i class="bi bi-arrow-left-circle me-1"></i> Volver
-            </a>
+            </a><?php endif; ?>
         </div>
     </form>
 </div>

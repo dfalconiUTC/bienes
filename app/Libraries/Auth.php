@@ -48,6 +48,8 @@ class Auth
     {
         $this->loadPermisos();
         $permisosMap = [
+            'procedencias.view' => 'procedencias',
+            'ubicaciones.view' => 'ubicaciones',
             'custodios.view' => 'custodios',
             'bienes.view' => 'bienes',
             'reportes.view' => 'reportes',
