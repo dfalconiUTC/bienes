@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\HistorialCustodioModel;
 use App\Models\BienModel;
 use App\Models\CustodioModel;
+use CodeIgniter\I18n\Time;
 use Throwable;
 
 class Historial extends BaseController
@@ -108,7 +109,15 @@ class Historial extends BaseController
 
     public function edit($id)
     {
-        $historial = $this->historialModel->find($id);
+        $historial = $this->historialModel->select('h.*, 
+                                                b.nombre_bien, b.codigo_bien,
+                                                c.nombre AS custodio_receptor')
+            ->from('historial_custodios h')
+            ->join('bienes b', 'b.id_bien = h.bien_id', 'left')
+            ->join('custodios c', 'c.id_custodio = h.custodio_id', 'left')
+            ->where('h.id_historial', $id)
+            ->first();
+
         if (!$historial) {
             return redirect()
                 ->to(site_url('historial'))
@@ -121,13 +130,25 @@ class Historial extends BaseController
             'custodios' => $this->custodioModel->findAll()
         ];
 
+        $auth = service('auth');
         return view('historial/edit', $data);
     }
 
     public function update($id)
     {
         try {
-            $this->historialModel->update($id, $this->request->getPost());
+            $dataToUpdate = [
+                'aprobador_usuario_id' => session('id_usuario'),
+                'fecha_aprobacion' => Time::now()->toDateTimeString(),
+                'observaciones' => $this->request->getPost('observaciones'),
+                'estado_acta' => $this->request->getPost('estado_acta')
+            ];
+
+            if (empty($dataToUpdate['fecha_fin'])) {
+                $dataToUpdate['fecha_fin'] = null;
+            }
+
+            $this->historialModel->update($id, $dataToUpdate);
 
             return redirect()
                 ->to('/historial')

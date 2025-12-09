@@ -13,7 +13,10 @@ class HistorialCustodioModel extends Model
         'custodio_id',
         'fecha_inicio',
         'fecha_fin',
-        'observaciones'
+        'observaciones',
+        'estado_acta',
+        'aprobador_usuario_id',
+        'fecha_aprobacion'
     ];
 
     protected $useTimestamps = false;
@@ -21,8 +24,8 @@ class HistorialCustodioModel extends Model
     public function getHistorialConDetalles()
     {
         return $this->select('historial_custodios.*, 
-                          b.nombre_bien, b.codigo_bien,
-                          c.nombre AS custodio, c.tipo AS tipo_custodio')
+                              b.nombre_bien, b.codigo_bien, b.id_bien,
+                              c.nombre AS custodio, c.tipo AS tipo_custodio')
             ->join('bienes b', 'b.id_bien = historial_custodios.bien_id', 'left')
             ->join('custodios c', 'c.id_custodio = historial_custodios.custodio_id', 'left')
             ->orderBy('(fecha_fin IS NOT NULL)', 'ASC')

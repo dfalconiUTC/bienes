@@ -1,0 +1,14 @@
+CRITICAL - 2025-12-09 03:52:14 --> ErrorException: Undefined array key "id_bien"
+[Method: GET, Route: historial]
+in APPPATH\Views\historial\index.php on line 59.
+ 1 APPPATH\Views\historial\index.php(59): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id_bien"', 'C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php', 59)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\historial\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('historial/index', [], true)
+ 5 APPPATH\Controllers\Historial.php(26): view('historial/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Historial->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Historial))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
