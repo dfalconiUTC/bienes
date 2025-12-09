@@ -100,10 +100,13 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->group('reportes', function ($routes) {
         $routes->get('/', 'Reportes::index', ['filter' => 'permiso:reportes.view']);
         $routes->get('bienes/exportExcel', 'Reportes::bienesExportExcel', ['filter' => 'permiso:reportes.general']);
-        $routes->get('por_custodio', 'Reportes::porCustodio', ['filter' => 'permiso:reportes.view_custodio']);
-        $routes->post('generar_pdf_custodio', 'Reportes::generarReportePorCustodioPDF', ['filter' => 'permiso:reportes.view_custodio']);
+        $routes->get('por_custodio', 'Reportes::porCustodio', ['filter' => 'permiso:reportes.por_custodio']);
+        $routes->post('generar_pdf_custodio', 'Reportes::generarReportePorCustodioPDF', ['filter' => 'permiso:reportes.por_custodio']);
         $routes->get('bajas', 'Reportes::bienesEnBaja', ['filter' => 'permiso:reportes.general']);
         $routes->get('por_procedencia', 'Reportes::bienesPorProcedencia', ['filter' => 'permiso:reportes.general']);
+        $routes->get('por_departamento', 'Reportes::bienesPorDepartamento', ['filter' => 'permiso:reportes.dept']);
+        $routes->get('flujo_aprobacion', 'Reportes::flujoAprobacion', ['filter' => 'permiso:reportes.general']);
+        $routes->get('conciliacion_contable', 'Reportes::conciliacionContable', ['filter' => 'permiso:reportes.general']);
     });
 
 });

@@ -34,4 +34,16 @@ class HistorialCustodioModel extends Model
             ->findAll();
     }
 
+    public function getActasConTodosLosEstados()
+    {
+        return $this->select('h.*, b.codigo_bien, b.nombre_bien, 
+                          c.nombre AS custodio_receptor, 
+                          u.nombre AS aprobador_nombre')
+            ->from('historial_custodios h')
+            ->join('bienes b', 'b.id_bien = h.bien_id')
+            ->join('custodios c', 'c.id_custodio = h.custodio_id')
+            ->join('usuarios u', 'u.id_usuario = h.aprobador_usuario_id', 'left')
+            ->findAll();
+    }
+
 }

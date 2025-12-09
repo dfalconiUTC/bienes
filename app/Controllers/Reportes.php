@@ -116,13 +116,7 @@ class Reportes extends BaseController
             return redirect()->to('/bienes')->with('error', 'Error al generar el Excel: ' . $e->getMessage());
         }
     }
-    // ====================================================================
-    // 2. INVENTARIO POR CUSTODIO (Vista de selección y Generación PDF)
-    // ====================================================================
 
-    /**
-     * Muestra la vista con el formulario para seleccionar el custodio.
-     */
     public function porCustodio()
     {
         $data['title'] = 'Reporte de Bienes por Custodio';
@@ -131,9 +125,6 @@ class Reportes extends BaseController
         return view('reportes/por_custodio_view', $data); // Vista definida más adelante
     }
 
-    /**
-     * Genera el reporte en PDF para el custodio seleccionado.
-     */
     public function generarReportePorCustodioPDF()
     {
         $id_custodio = $this->request->getPost('id_custodio');
@@ -143,15 +134,12 @@ class Reportes extends BaseController
         }
 
         try {
-            // Obtener datos del custodio y sus bienes
             $custodio = $this->custodioModel->find($id_custodio);
             $bienes = $this->bienModel->where('id_custodio', $id_custodio)->getConRelaciones();
 
             if (!$custodio) {
                 return redirect()->back()->with('error', 'Custodio no encontrado.');
             }
-
-            // Si $bienes está vacío, se puede optar por mostrar el PDF sin bienes o redireccionar
 
             $data = [
                 'title' => 'Reporte de Bienes Asignados',
@@ -160,10 +148,8 @@ class Reportes extends BaseController
                 'fecha' => Time::now()->toDateString(),
             ];
 
-            // 1. Cargar la vista HTML del reporte
             $html = view('reportes/pdf_por_custodio', $data);
 
-            // 2. Configurar Dompdf
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
             $options->set('isRemoteEnabled', true);
@@ -185,19 +171,10 @@ class Reportes extends BaseController
         }
     }
 
-
-    // ====================================================================
-    // 3. LISTADO DE BIENES DADOS DE BAJA (Generación PDF)
-    // ====================================================================
-
-    /**
-     * Genera un reporte en PDF de todos los bienes marcados con estado 'Baja'.
-     */
     public function bienesEnBaja()
     {
         try {
-            // Asumiendo que 'Baja' es el valor exacto para el estado
-            $bienes = $this->bienModel->where('estado_bien', 'Baja')->getConRelaciones();
+            $bienes = $this->bienModel->where('estado_bien', 'De baja')->getConRelaciones();
 
             if (empty($bienes)) {
                 return redirect()->to('reportes')->with('warning', 'No hay bienes dados de baja.');
@@ -209,10 +186,8 @@ class Reportes extends BaseController
                 'fecha' => Time::now()->toDateString(),
             ];
 
-            // 1. Cargar la vista HTML del reporte
             $html = view('reportes/pdf_bienes_baja', $data);
 
-            // 2. Configurar Dompdf
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
             $options->set('isRemoteEnabled', true);
@@ -223,7 +198,6 @@ class Reportes extends BaseController
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // 3. Salida del PDF
             $filename = 'Bienes_Baja_' . Time::now()->toDateString() . '.pdf';
 
             $dompdf->stream($filename, ["Attachment" => 1]);
@@ -235,20 +209,11 @@ class Reportes extends BaseController
     }
 
 
-    // ====================================================================
-    // 4. BIENES CLASIFICADOS POR PROCEDENCIA (Exportación Excel)
-    // ====================================================================
-
-    /**
-     * Genera un reporte en Excel de todos los bienes, agrupados/ordenados por Procedencia.
-     */
     public function bienesPorProcedencia()
     {
         try {
-            // Asumiendo un método para obtener bienes con relaciones y ordenar por procedencia
             $bienes = $this->bienModel->getConRelaciones();
 
-            // Sort by procedencia
             usort($bienes, function ($a, $b) {
                 return strcmp($a['procedencia'] ?? '', $b['procedencia'] ?? '');
             });
@@ -303,6 +268,205 @@ class Reportes extends BaseController
             exit;
         } catch (\Throwable $e) {
             return redirect()->to('reportes')->with('error', 'Error al generar el Excel: ' . $e->getMessage());
+        }
+    }
+
+    public function bienesPorDepartamento()
+    {
+        $auth = service('auth');
+        $userId = session('id_usuario');
+        $bienes = [];
+        $departamento = null;
+        $filtro_abierto = false;
+
+        if ($auth->tienePermiso('reportes.general')) {
+            $filtro_abierto = true;
+            $bienes = $this->bienModel->getConRelaciones();
+            $departamento = 'GENERAL';
+
+        } else {
+            $custodioUsuario = $this->custodioModel->where('usuario_id', $userId)->first();
+            $departamento = $custodioUsuario['departamento'] ?? null;
+
+            if (empty($departamento)) {
+                return redirect()->to('reportes')->with('warning', 'Su cuenta no está asociada a un departamento válido para reportes.');
+            }
+
+            $bienes = $this->bienModel->getBienesPorDepartamento($departamento);
+        }
+
+        try {
+            if (empty($bienes)) {
+                $msg = $filtro_abierto ? 'No hay bienes registrados en el sistema.' : 'No hay bienes asignados a su departamento (' . $departamento . ').';
+                return redirect()->to('reportes')->with('warning', $msg);
+            }
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $baseTitle = 'Bienes Dept ' . $departamento;
+            $sheetTitle = substr($baseTitle, 0, 31);
+            $sheet->setTitle($sheetTitle);
+
+            $headers = [
+                'Código',
+                'Nombre',
+                'Departamento',
+                'Custodio Actual',
+                'Ubicación',
+                'Valor Contable'
+            ];
+
+            $col = 'A';
+            foreach ($headers as $header) {
+                $sheet->setCellValue($col . '1', $header);
+                $sheet->getStyle($col . '1')->getFont()->setBold(true);
+                $col++;
+            }
+
+            $row = 2;
+            foreach ($bienes as $item) {
+                $sheet->setCellValue("A$row", $item["codigo_bien"]);
+                $sheet->setCellValue("B$row", $item["nombre_bien"]);
+
+                $sheet->setCellValue("C$row", $item["departamento"] ?? $departamento);
+
+                $sheet->setCellValue("D$row", $item["custodio_actual"] ?? 'No asignado');
+                $sheet->setCellValue("E$row", $item["ubicacion"] ?? 'No asignado');
+                $sheet->setCellValue("F$row", $item["valor_contable"]);
+                $row++;
+            }
+
+
+            $filename = 'Bienes_Departamento_' . url_title($departamento) . '_' . Time::now()->toDateString() . '.xlsx';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header("Content-Disposition: attachment;filename=\"$filename\"");
+            header('Cache-Control: max-age=0');
+
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+            exit;
+
+        } catch (\Throwable $e) {
+            return redirect()->to('reportes')->with('error', 'Error al generar el reporte departamental: ' . $e->getMessage());
+        }
+    }
+
+    public function flujoAprobacion()
+    {
+        try {
+            $actas = $this->historialModel->getActasConTodosLosEstados();
+
+            if (empty($actas)) {
+                return redirect()->to('reportes')->with('warning', 'No hay registros de actas para reportar.');
+            }
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $sheet->setTitle('Flujo de Aprobación');
+
+            $headers = [
+                'ID Historial',
+                'Código Bien',
+                'Nombre Bien',
+                'Custodio Receptor',
+                'Fecha Inicio',
+                'Estado Acta',
+                'Aprobador',
+                'Fecha Aprobación'
+            ];
+
+            $col = 'A';
+            foreach ($headers as $header) {
+                $sheet->setCellValue($col . '1', $header);
+                $sheet->getStyle($col . '1')->getFont()->setBold(true);
+                $col++;
+            }
+
+            $row = 2;
+            foreach ($actas as $item) {
+                $sheet->setCellValue("A$row", $item["id_historial"]);
+                $sheet->setCellValue("B$row", $item["codigo_bien"]);
+                $sheet->setCellValue("C$row", $item["nombre_bien"]);
+                $sheet->setCellValue("D$row", $item["custodio_receptor"]);
+                $sheet->setCellValue("E$row", $item["fecha_inicio"]);
+                $sheet->setCellValue("F$row", $item["estado_acta"]);
+                $sheet->setCellValue("G$row", $item["aprobador_nombre"] ?? 'Pendiente/N/A');
+                $sheet->setCellValue("H$row", $item["fecha_aprobacion"] ?? 'Pendiente');
+                $row++;
+            }
+
+            foreach (range('A', 'H') as $col) {
+                $sheet->getColumnDimension($col)->setAutoSize(true);
+            }
+
+            $filename = 'Flujo_Aprobacion_' . Time::now()->toDateString() . '.xlsx';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header("Content-Disposition: attachment;filename=\"$filename\"");
+            header('Cache-Control: max-age=0');
+
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+            exit;
+
+        } catch (\Throwable $e) {
+            return redirect()->to('reportes')->with('error', 'Error al generar el reporte de flujo: ' . $e->getMessage());
+        }
+    }
+
+    public function conciliacionContable()
+    {
+        try {
+            $conciliacion = $this->bienModel->getConciliacionContable();
+
+            if (empty($conciliacion)) {
+                return redirect()->to('reportes')->with('warning', 'No hay datos contables para conciliar.');
+            }
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+            $sheet->setTitle('Conciliacion Contable');
+
+            $headers = [
+                'Cuenta Contable',
+                'Total Bienes',
+                'Valor Contable Total'
+            ];
+
+            $col = 'A';
+            foreach ($headers as $header) {
+                $sheet->setCellValue($col . '1', $header);
+                $sheet->getStyle($col . '1')->getFont()->setBold(true);
+                $col++;
+            }
+
+            $row = 2;
+            foreach ($conciliacion as $item) {
+                $sheet->setCellValue("A$row", $item["cuenta_contable"]);
+                $sheet->setCellValue("B$row", $item["total_bienes"]);
+                $sheet->setCellValue("C$row", $item["valor_total_contable"]);
+                // Formato de moneda para el valor total
+                $sheet->getStyle("C$row")->getNumberFormat()->setFormatCode('#,##0.00');
+                $row++;
+            }
+
+            foreach (range('A', 'C') as $col) {
+                $sheet->getColumnDimension($col)->setAutoSize(true);
+            }
+
+            $filename = 'Conciliacion_Contable_' . Time::now()->toDateString() . '.xlsx';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header("Content-Disposition: attachment;filename=\"$filename\"");
+            header('Cache-Control: max-age=0');
+
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+            exit;
+
+        } catch (\Throwable $e) {
+            return redirect()->to('reportes')->with('error', 'Error al generar la conciliación: ' . $e->getMessage());
         }
     }
 }

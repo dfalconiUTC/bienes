@@ -34,11 +34,11 @@
             <div class="col-md-6 mb-3">
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="text" class="form-control" id="telefono" name="telefono"
-                    value="<?= $custodio['telefono'] ?? '' ?>" required>
+                    value="<?= $custodio['telefono'] ?? '' ?>">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="telefono" class="form-label">Jefe Inmediato</label>
-                <select name="jefe_inmediato" class="form-control" required>
+                <select name="jefe_inmediato" class="form-control">
                     <option value="">Seleccione...</option>
                     <?php foreach ($custodios as $item): ?>
                     <?php if ($custodio['id_custodio'] != $item['id_custodio']): ?>

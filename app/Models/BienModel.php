@@ -36,6 +36,7 @@ class BienModel extends Model
                             u.nombre AS ubicacion, 
                             u.campus AS campus,
                             c.nombre AS custodio_actual,
+                            c.departamento AS departamento,
                             h.estado_acta AS estado_acta_actual')
             ->join('procedencias p', 'p.id_procedencia = bienes.procedencia_id', 'left')
             ->join('ubicaciones u', 'u.id_ubicacion = bienes.ubicacion_id', 'left')
@@ -59,6 +60,14 @@ class BienModel extends Model
     {
         return $this->startJoinQuery()
             ->where('c.departamento', $departamento)
+            ->findAll();
+    }
+
+    public function getConciliacionContable()
+    {
+        return $this->select('cuenta_contable, COUNT(*) AS total_bienes, SUM(valor_contable) AS valor_total_contable')
+            ->where('cuenta_contable IS NOT NULL')
+            ->groupBy('cuenta_contable')
             ->findAll();
     }
 }
