@@ -32,13 +32,15 @@ class BienModel extends Model
     protected function startJoinQuery()
     {
         return $this->select('bienes.*, 
-                              p.nombre AS procedencia, 
-                              u.nombre AS ubicacion, 
-                              u.campus AS campus,
-                              c.nombre AS custodio_actual')
+                            p.nombre AS procedencia, 
+                            u.nombre AS ubicacion, 
+                            u.campus AS campus,
+                            c.nombre AS custodio_actual,
+                            h.estado_acta AS estado_acta_actual')
             ->join('procedencias p', 'p.id_procedencia = bienes.procedencia_id', 'left')
             ->join('ubicaciones u', 'u.id_ubicacion = bienes.ubicacion_id', 'left')
-            ->join('custodios c', 'c.id_custodio = bienes.custodio_actual_id', 'left');
+            ->join('custodios c', 'c.id_custodio = bienes.custodio_actual_id', 'left')
+            ->join('historial_custodios h', 'h.bien_id = bienes.id_bien AND h.fecha_fin IS NULL', 'left');
     }
 
     public function getConRelaciones()
