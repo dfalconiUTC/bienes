@@ -67,8 +67,8 @@ $auth = service('auth');
                         </a>
                         <?php endif; ?>
                         <?php if ($auth->tienePermiso('bienes.print')): ?>
-                        <a href="<?= site_url('bienes/acta/' . $item['id_bien']) ?>" class="btn btn-sm btn-dark"
-                            title="Generar Acta de Entrega">
+                        <a href="<?= site_url('bienes/configurarActa/' . $item['id_bien']) ?>"
+                            class="btn btn-sm btn-dark" title="Generar Acta de Entrega">
                             <i class="bi bi-file-text"></i>Acta de Entrega
                         </a>
                         <?php endif; ?>

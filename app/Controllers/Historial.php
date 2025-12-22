@@ -38,13 +38,15 @@ class Historial extends BaseController
         if ($bien_id) {
             $bienSeleccionado = $this->bienModel->find($bien_id);
 
-            $custodioActivo = $this->historialModel
-                ->select('historial_custodios.*, custodios.nombre as nombre_custodio')
-                ->join('custodios', 'custodios.id_custodio = historial_custodios.custodio_id')
-                ->where('bien_id', $bien_id)
-                ->where('fecha_fin IS NULL')
-                ->orderBy('fecha_inicio', 'DESC')
-                ->first();
+            if ($bienSeleccionado) {
+                $custodioActivo = $this->historialModel
+                    ->select('historial_custodios.*, custodios.nombre as nombre_custodio')
+                    ->join('custodios', 'custodios.id_custodio = historial_custodios.custodio_id')
+                    ->where('bien_id', $bien_id)
+                    ->where('fecha_fin IS NULL')
+                    ->orderBy('fecha_inicio', 'DESC')
+                    ->first();
+            }
         }
 
         $data = [

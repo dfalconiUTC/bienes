@@ -27,7 +27,8 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('historial/(:num)', 'Bienes::historial/$1', ['filter' => 'permiso:bienes.historial_view']);
         $routes->get('exportHistorial/(:num)', 'Bienes::exportHistorial/$1', ['filter' => 'permiso:bienes.historial_export']);
         $routes->get('barcodePdf/(:any)', 'Bienes::barcodePdf/$1', ['filter' => 'permiso:bienes.print']);
-        $routes->get('acta/(:num)', 'Bienes::generarActa/$1', ['filter' => 'permiso:bienes.print']);
+        $routes->post('acta/(:num)', 'Bienes::generarActa/$1', ['filter' => 'permiso:bienes.print']);
+        $routes->get('configurarActa/(:num)', 'Bienes::configurarActa/$1', ['filter' => 'permiso:bienes.print']);
     });
 
     // CUSTODIOS
@@ -63,6 +64,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     // HISTORIAL
     $routes->group('historial', function ($routes) {
         $routes->get('/', 'Historial::index', ['filter' => 'permiso:historial.view']);
+        $routes->get('create', 'Historial::create', ['filter' => 'permiso:historial.manage']);
         $routes->get('create/(:num)', 'Historial::create/$1', ['filter' => 'permiso:historial.manage']);
         $routes->post('store', 'Historial::store', ['filter' => 'permiso:historial.manage']);
         $routes->get('edit/(:num)', 'Historial::edit/$1', ['filter' => 'permiso:historial.manage']);

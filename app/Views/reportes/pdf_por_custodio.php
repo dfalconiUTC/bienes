@@ -5,102 +5,203 @@
     <meta charset="UTF-8">
     <title><?= esc($title) ?></title>
     <style>
-        /* Estilos básicos para Dompdf */
-        body {
-            font-family: sans-serif;
-            font-size: 10pt;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
 
-        h1,
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+    /* --- HEADER --- */
+    .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-        .header {
-            margin-bottom: 20px;
-        }
+    .logo {
+        width: 80px;
+        margin-right: 15px;
+    }
 
-        .info-custodio {
-            margin-bottom: 30px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+    .institucion {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
 
-        .info-custodio p {
-            margin: 5px 0;
-        }
+    .titulo {
+        text-align: center;
+        font-size: 15px;
+        margin: 15px 0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    .parrafo-intro {
+        margin-bottom: 15px;
+    }
 
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+    /* --- TABLA FULL COLUMNAS (Estilo Compacto) --- */
+    .tabla-detallada {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9px;
+        /* Letra pequeña para que entren todas las columnas */
+        margin-bottom: 20px;
+    }
 
-        th {
-            background-color: #f2f2f2;
-            font-size: 11pt;
-        }
+    .tabla-detallada th,
+    .tabla-detallada td {
+        border: 1px solid #000;
+        padding: 4px;
+        /* Padding reducido */
+        text-align: center;
+        vertical-align: middle;
+        word-wrap: break-word;
+    }
 
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 8pt;
-            color: #666;
-        }
+    /* Encabezado Verde */
+    .tabla-detallada thead th {
+        background-color: #d1e7dd;
+        color: #0f5132;
+        font-weight: bold;
+    }
+
+    /* --- FIRMAS (Solo 2 columnas: Custodio y Responsable) --- */
+    .titulo-firmas {
+        text-align: left;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+
+    .firmas {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .firmas td {
+        padding-top: 50px;
+        text-align: center;
+        vertical-align: top;
+        width: 50%;
+    }
+
+    .firmas b {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: right;
+        font-size: 8px;
+        color: #555;
+    }
     </style>
 </head>
 
 <body>
 
-    <div class="header">
-        <h2>REPORTE DE BIENES ASIGNADOS</h2>
-        <h1><?= esc($title) ?></h1>
+    <div class='header'>
+        <img src="<?= base_url('public/static/img/icons/logo.png') ?>" class='logo'>
+        <div class='institucion'>
+            INSTITUTO SUPERIOR TECNOLÓGICO VICENTE LEÓN<br>
+        </div>
     </div>
 
-    <div class="info-custodio">
-        <p><strong>Custodio:</strong> <?= esc($custodio['nombre']) ?? 'N/A' ?></p>
-        <p><strong>Fecha de Generación:</strong> <?= esc($fecha) ?></p>
+    <div class='titulo'>REPORTE DE BIENES ASIGNADOS POR CUSTODIO</div>
+
+    <div class='parrafo-intro'>
+        <b>Custodio:</b> <?= esc($custodio['nombre']) ?><br>
+        <b>Fecha de Corte:</b> <?= esc($fecha) ?>
     </div>
 
     <?php if (empty($bienes)): ?>
-        <p style="text-align: center;">El custodio actualmente no tiene bienes asignados.</p>
+    <div style="padding: 20px; text-align: center; border: 1px dashed #ccc;">
+        Este custodio no tiene bienes asignados actualmente.
+    </div>
     <?php else: ?>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 15%;">Código</th>
-                    <th style="width: 25%;">Nombre del Bien</th>
-                    <th style="width: 30%;">Ubicación</th>
-                    <th style="width: 15%;">Fecha Ingreso</th>
-                    <th style="width: 15%;">Valor Contable</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($bienes as $bien): ?>
-                    <tr>
-                        <td><?= esc($bien['codigo_bien']) ?></td>
-                        <td><?= esc($bien['nombre_bien']) ?></td>
-                        <td><?= esc($bien['ubicacion'] . ' (' . ($bien['campus'] ?? '') . ')') ?></td>
-                        <td><?= esc($bien['fecha_ingreso']) ?></td>
-                        <td>$<?= number_format($bien['valor_contable'] ?? 0, 2, '.', ',') ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+
+    <table class="tabla-detallada">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Cód. Interno</th>
+                <th>Descripción</th>
+                <th>F. Ingreso</th>
+                <th>Serie</th>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Color</th>
+                <th>Estado</th>
+                <th>Cta. Contable</th>
+                <th>Valor</th>
+                <th>Ubicación</th>
+                <th>Campus</th>
+                <th>Observ.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($bienes as $bien): ?>
+            <tr>
+                <td><?= esc($bien['codigo_bien'] ?? '-') ?></td>
+                <td><?= esc($bien['nombre_bien'] ?? '-') ?></td>
+                <td><?= esc($bien['codigo_interno'] ?? '-') ?></td>
+                <td><?= substr(esc($bien['descripcion'] ?? '-'), 0, 50) ?></td>
+                <td><?= esc($bien['fecha_ingreso'] ?? '-') ?></td>
+                <td><?= esc($bien['serie'] ?? '-') ?></td>
+                <td><?= esc($bien['modelo'] ?? '-') ?></td>
+                <td><?= esc($bien['marca'] ?? '-') ?></td>
+                <td><?= esc($bien['color'] ?? '-') ?></td>
+                <td><?= esc($bien['estado'] ?? '-') ?></td>
+                <td><?= esc($bien['cuenta_contable'] ?? '-') ?></td>
+                <td>$<?= number_format($bien['valor_contable'] ?? 0, 2) ?></td>
+                <td><?= esc($bien['ubicacion'] ?? '-') ?></td>
+                <td><?= esc($bien['campus'] ?? '-') ?></td>
+                <td><?= esc($bien['observaciones'] ?? '-') ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <div style="text-align: right; font-size: 10px; margin-bottom: 20px;">
+        <b>Total Items:</b> <?= count($bienes) ?> |
+        <b>Total Valor:</b> $<?= number_format(array_sum(array_column($bienes, 'valor_contable')), 2) ?>
+    </div>
+
     <?php endif; ?>
 
+    <div class='titulo-firmas'>Firmas de Conformidad</div>
+
+    <table class='firmas'>
+        <tr>
+            <td>
+                _______________________________<br>
+                <b>Firma Custodio</b><br>
+                <?= esc($custodio['nombre']) ?><br>
+                <?= esc($custodio['cedula'] ?? '') ?>
+            </td>
+
+            <td>
+                <?php if (!empty($config['responsable_bienes_nombre'])): ?>
+                _______________________________<br>
+                <b>Responsable de Bienes</b><br>
+                <?= esc($config['responsable_bienes_nombre']) ?><br>
+                <?= esc($config['responsable_bienes_cedula'] ?? '') ?>
+                <?php else: ?>
+                <br><br>
+                <?php endif; ?>
+            </td>
+        </tr>
+    </table>
+
     <div class="footer">
-        Generado por el Sistema de Inventario el <?= esc($fecha) ?>.
+        Generado el: <?= date('Y-m-d H:i:s') ?>
     </div>
 
 </body>

@@ -267,14 +267,15 @@ class Bienes extends BaseController
 
     public function generarActa($id)
     {
+        $request = \Config\Services::request();
         $db = \Config\Database::connect();
 
+        // 1. Obtener Datos
         $bien = $db->table('bienes b')
             ->select('b.*, c.nombre AS custodio_nombre, c.jefe_inmediato_id')
             ->join('custodios c', 'c.id_custodio = b.custodio_actual_id', 'left')
             ->where('b.id_bien', $id)
-            ->get()
-            ->getRowArray();
+            ->get()->getRowArray();
 
         if (!$bien) {
             return redirect()->back()->with('error', 'El bien no existe');
@@ -285,127 +286,48 @@ class Bienes extends BaseController
             ->where('bien_id', $id)
             ->where('custodio_id', $bien['custodio_actual_id'])
             ->where('fecha_fin IS NULL', null, false)
-            ->get()
-            ->getRowArray();
+            ->get()->getRowArray();
 
         $jefe = null;
         if (!empty($bien['jefe_inmediato_id'])) {
             $jefe = $db->table('custodios')
                 ->select('nombre')
                 ->where('id_custodio', $bien['jefe_inmediato_id'])
-                ->get()
-                ->getRowArray();
+                ->get()->getRowArray();
         }
 
-        // 3. Traer configuración institucional
-        $config = $db->table('configuracion_sistema')
-            ->get()
-            ->getRowArray();
-        $logoPath = FCPATH . 'static/img/icons/logo.png';
-        // -------------------------------
-        // 4. Construir contenido HTML
-        // -------------------------------
-        $html = "
-<style>
-    body { font-family: Arial, sans-serif; font-size: 12px; }
-    .header { display: flex; align-items: center; margin-bottom: 20px; }
-    .logo { width: 80px; margin-right: 15px; }
-    .institucion { font-size: 20px; font-weight: bold; text-align: center; }
-    .titulo { text-align: center; font-size: 15px; margin: 20px 0; }
-    .titulo-firmas { text-align: left; font-size: 15px; font-weight: bold; margin: 20px 0; }
-    .seccion { margin-bottom: 10px; }
-    .firmas td { padding-top: 40px; text-align: center; vertical-align: top; }
-    .firmas b { display: block; margin-top: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-</style>
+        $config = $db->table('configuracion_sistema')->get()->getRowArray();
 
-<div class='header'>
-    <img src='" . $logoPath . "' class='logo'>
-    <div class='institucion'>
-        INSTITUTO SUPERIOR TECNOLÓGICO VICENTE LEÓN<br>
-    </div>
-</div>
+        $opcionesFirmas = [
+            'jefe' => $request->getPost('firma_jefe') == '1',
+            'resp_bienes' => $request->getPost('firma_resp_bienes') == '1',
+            'ud' => $request->getPost('firma_ud') == '1',
+            'rector' => $request->getPost('firma_rector') == '1',
+        ];
+        
+        // 2. Preparar datos para la vista
+        $data = [
+            'bien' => $bien,
+            'asignacion' => $asignacion,
+            'jefe' => $jefe,
+            'config' => $config,
+            // Procesamos la fecha aquí para no ensuciar la vista con llamadas a $this
+            'fecha_actual' => $this->fechaEnEspañol(date('Y-m-d')),
+            'opciones'     => $opcionesFirmas
+        ];
 
-<div class='titulo'>ACTA DE ENTREGA – RECEPCIÓN BIENES MUEBLES Y DE CONTROL ADMINISTRATIVO</div>
+        // 3. Renderizar la vista en una variable
+        // En CI4, view() devuelve el string automáticamente
+        $html = view('reportes/reporte_bien', $data);
 
-<div class='seccion'>
-    En la fecha <b>" . $this->fechaEnEspañol(date('Y-m-d')) . "</b>, se deja constancia de la entrega del bien detallado a continuación al custodio/a <b>{$bien['custodio_nombre']}</b>: 
-</div>
+        // 4. Generar PDF
+        $dompdf = new Dompdf(); // Asegúrate de instanciarlo bien según tu namespace
 
-<div class='seccion'><b>Bien:</b> {$bien['nombre_bien']}</div>
-<div class='seccion'><b>Código:</b> {$bien['codigo_bien']}</div>
-<div class='seccion'><b>Custodio Responsable:</b> {$bien['custodio_nombre']}</div>";
+        // Opcional: Permitir imágenes externas si fuera necesario (aunque usas rutas locales)
+        $options = $dompdf->getOptions();
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
 
-        if (!empty($asignacion)) {
-            $html .= "<div class='seccion'><b>Fecha de Asignación:</b> " . date('d/m/Y', strtotime($asignacion['fecha_inicio'])) . "</div>";
-        }
-
-        if ($jefe) {
-            $html .= "<div class='seccion'><b>Jefe Inmediato:</b> {$jefe['nombre']}</div>";
-        }
-
-        if ($config) {
-            $html .= "<div class='titulo-firmas'>Firmas Responsabilidad</div>";
-        }
-
-        $html .= "
-<table class='firmas'>
-    <tr>
-        <td>
-            _______________________________<br>
-             <b>Firma Custodio </b>
-            {$bien['custodio_nombre']}
-        </td>";
-
-        if ($jefe) {
-            $html .= "
-        <td>
-            _______________________________<br>
-             <b>Firma Jefe Inmediato </b>
-            {$jefe['nombre']}
-        </td>";
-        }
-
-        $html .= "</tr>";
-
-        if (!empty($config['responsable_bienes_nombre']) || !empty($config['asignado_ud_nombre'])) {
-            $html .= "<tr>";
-            if (!empty($config['responsable_bienes_nombre'])) {
-                $html .= "
-        <td>
-            _______________________________<br>
-            <b>Responsable de Bienes</b>
-            {$config['responsable_bienes_nombre']}<br>{$config['responsable_bienes_cedula']}
-        </td>";
-            }
-            if (!empty($config['asignado_ud_nombre'])) {
-                $html .= "
-        <td>
-            _______________________________<br>
-            <b>Asignado de U.D.</b>
-            {$config['asignado_ud_nombre']}<br> {$config['asignado_ud_cedula']}
-        </td>";
-            }
-            $html .= "</tr>";
-        }
-
-        if (!empty($config['rector_nombre'])) {
-            $html .= "
-    <tr>
-        <td colspan='2'>
-            _______________________________<br>
-            <b>Rector</b>
-            {$config['rector_nombre']} <br>{$config['rector_cedula']}
-        </td>
-    </tr>";
-        }
-
-        $html .= "</table>";
-
-        // -------------------------------
-        // 5. Generar PDF
-        // -------------------------------
-        $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
@@ -436,5 +358,27 @@ class Bienes extends BaseController
         $anio = date('Y', strtotime($fecha));
 
         return "$dia de $mes de $anio";
+    }
+
+    // En tu controlador de Bienes
+
+    public function configurarActa($id)
+    {
+        $db = \Config\Database::connect();
+
+        // Solo necesitamos datos básicos para mostrarle al usuario qué está imprimiendo
+        $bien = $db->table('bienes')
+            ->select('id_bien, nombre_bien, codigo_bien')
+            ->where('id_bien', $id)
+            ->get()->getRowArray();
+
+        if (!$bien) {
+            return redirect()->back()->with('error', 'El bien no existe');
+        }
+
+        $data = ['bien' => $bien];
+
+        // Cargamos una vista simple con el formulario
+        return view('bienes/configurar_impresion', $data);
     }
 }

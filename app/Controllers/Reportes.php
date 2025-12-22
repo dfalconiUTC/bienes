@@ -135,16 +135,23 @@ class Reportes extends BaseController
 
         try {
             $custodio = $this->custodioModel->find($id_custodio);
+
+            // Asumo que getConRelaciones() trae marcas, ubicaciones, etc.
             $bienes = $this->bienModel->where('id_custodio', $id_custodio)->getConRelaciones();
 
             if (!$custodio) {
                 return redirect()->back()->with('error', 'Custodio no encontrado.');
             }
 
+            // 1. TRAEMOS LA CONFIGURACIÓN PARA LA FIRMA <--- NUEVO
+            $db = \Config\Database::connect();
+            $config = $db->table('configuracion_sistema')->get()->getRowArray();
+
             $data = [
                 'title' => 'Reporte de Bienes Asignados',
                 'custodio' => $custodio,
                 'bienes' => $bienes,
+                'config' => $config, // <--- Enviamos la config a la vista
                 'fecha' => Time::now()->toDateString(),
             ];
 
@@ -153,17 +160,19 @@ class Reportes extends BaseController
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
             $options->set('isRemoteEnabled', true);
-            $options->set('chroot', ROOTPATH); // Permite cargar recursos locales (imágenes, CSS)
+            $options->set('chroot', ROOTPATH);
 
             $dompdf = new Dompdf($options);
             $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
+
+            // 2. CAMBIAMOS A HORIZONTAL (LANDSCAPE) <--- NUEVO
+            $dompdf->setPaper('A4', 'landscape');
+
             $dompdf->render();
 
-            // 3. Salida del PDF
             $filename = 'Reporte_Custodio_' . $custodio['nombre'] . '_' . Time::now()->toDateString() . '.pdf';
 
-            $dompdf->stream($filename, ["Attachment" => 1]); // 1 fuerza la descarga
+            $dompdf->stream($filename, ["Attachment" => 1]);
             exit;
 
         } catch (\Throwable $e) {

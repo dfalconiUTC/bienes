@@ -20,6 +20,7 @@
     <?php
     $uri = service('uri');
     $segment = $uri->getSegment(1);
+    $subsegment = $uri->getSegment(2);
     $auth = service('auth');
     ?>
     <div class="wrapper">
@@ -80,8 +81,17 @@
                         </li>
                     <?php endif; ?>
 
+                    <?php if ($auth->tienePermiso('bienes.edit')): ?>
+                        <li class="sidebar-item <?= $segment == 'historial' && $subsegment == 'create' ? 'active' : '' ?>">
+                            <a class="sidebar-link" href="<?= site_url(relativePath: 'historial/create') ?>">
+                                <i class="align-middle bi bi-person-check"></i>
+                                <span class="align-middle">Asignar Custodio a Bien</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
                     <?php if ($auth->tienePermiso('historial.view')): ?>
-                        <li class="sidebar-item <?= $segment == 'historial' ? 'active' : '' ?>">
+                        <li class="sidebar-item <?= $segment == 'historial' && $subsegment != 'create' ? 'active' : '' ?>">
                             <a class="sidebar-link" href="<?= site_url('historial') ?>">
                                 <i class="align-middle" data-feather="clock"></i>
                                 <span class="align-middle">Historial</span>
