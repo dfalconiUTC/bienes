@@ -17,9 +17,8 @@
                 <label for="tipo" class="form-label">Cargo</label>
                 <select class="form-select" id="tipo" name="tipo" required>
                     <option value="">Seleccione...</option>
-                    <?php foreach (['Docente', 'Administrativo'] as $tipo): ?>
-                        <option value="<?= $tipo ?>"><?= $tipo ?></option>
-                    <?php endforeach; ?>
+                    <option value="Docente">Docente</option>
+                    <option value="Administrativo">Administrativo</option>
                 </select>
             </div>
 
@@ -38,16 +37,33 @@
                 <input type="text" class="form-control" id="telefono" name="telefono" required>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="jefe_inmediato_id" class="form-label">Jefe Inmediato</label>
-                <select class="form-select" id="jefe_inmediato_id" name="jefe_inmediato_id">
+            <div class="col-md-6 mb-3 d-none" id="bloque_jefe">
+                <label class="form-label">Jefe Inmediato (Administrativo)</label>
+                <select class="form-select select2" id="jefe_inmediato_id" name="jefe_inmediato_id">
                     <option value="">Seleccione...</option>
                     <?php foreach ($custodios as $item): ?>
                         <option value="<?= $item['id_custodio'] ?>">
-                            <?= $item['nombre'] ?>
+                            <?= esc($item['nombre']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+
+            <div class="col-md-6 mb-3 d-none" id="bloque_carrera">
+                <label class="form-label">Carrera Perteneciente</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-book"></i></span>
+                    <select class="form-select select2" name="carrera_id">
+                        <option value="">Seleccione la carrera...</option>
+                        <?php foreach ($carreras as $carrera): ?>
+                            <option value="<?= $carrera['id_carrera'] ?>">
+                                <?= esc($carrera['nombre']) ?> (Coord:
+                                <?= esc($carrera['nombre_coordinador'] ?? 'Sin asignar') ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <small class="text-muted">El jefe inmediato será el Coordinador de la carrera seleccionada.</small>
             </div>
 
             <h5 class="mt-4 mb-3">Credenciales de Acceso (Usuario)</h5>
@@ -75,3 +91,42 @@
     </form>
 </div>
 <?= $this->include('layout/footer') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectTipo = document.getElementById('tipo');
+        const bloqueJefe = document.getElementById('bloque_jefe');
+        const bloqueCarrera = document.getElementById('bloque_carrera');
+
+        function toggleCampos() {
+            const tipo = selectTipo.value;
+
+            if (tipo === 'Docente') {
+                // MOSTRAR CARRERA, OCULTAR JEFE
+                bloqueCarrera.classList.remove('d-none');
+                bloqueJefe.classList.add('d-none');
+
+                // Limpiar Jefe
+                const jefeSelect = bloqueJefe.querySelector('select');
+                if (jefeSelect) jefeSelect.value = "";
+
+            } else if (tipo === 'Administrativo') {
+                // MOSTRAR JEFE, OCULTAR CARRERA
+                bloqueJefe.classList.remove('d-none');
+                bloqueCarrera.classList.add('d-none');
+
+                // Limpiar Carrera
+                const carreraSelect = bloqueCarrera.querySelector('select');
+                if (carreraSelect) carreraSelect.value = "";
+
+            } else {
+                // SI NO HAY NADA SELECCIONADO, OCULTAR AMBOS
+                bloqueJefe.classList.add('d-none');
+                bloqueCarrera.classList.add('d-none');
+            }
+        }
+
+        selectTipo.addEventListener('change', toggleCampos);
+        toggleCampos(); // Ejecutar al cargar
+    });
+</script>

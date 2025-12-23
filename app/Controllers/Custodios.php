@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Models\CustodioModel;
 use App\Models\UsuarioModel;
+use App\Models\CarreraModel;
 use Exception;
 
 class Custodios extends BaseController
 {
     protected $custodioModel;
     protected $usuarioModel;
+    protected $carrerasModel;
 
     public function __construct()
     {
         $this->custodioModel = new CustodioModel();
         $this->usuarioModel = new UsuarioModel();
+        $this->carrerasModel = new CarreraModel();
     }
 
     public function index()
@@ -22,8 +25,25 @@ class Custodios extends BaseController
         $db = \Config\Database::connect();
 
         $builder = $db->table('custodios c');
-        $builder->select('c.*, j.nombre AS jefe_nombre');
+
+        // AGREGAMOS ', false' AL FINAL DEL SELECT
+        $builder->select('
+            c.*, 
+            car.nombre as carrera_nombre,
+            CASE 
+                WHEN c.es_docente = 1 THEN coord.nombre 
+                ELSE j.nombre 
+            END as jefe_real_nombre
+        ', false); // <--- ¡ESTO ES LO IMPORTANTE!
+
+        // 1. Join para el Jefe Manual (Administrativos)
         $builder->join('custodios j', 'j.id_custodio = c.jefe_inmediato_id', 'left');
+
+        // 2. Join para conectar con la Carrera (Docentes)
+        $builder->join('carreras car', 'car.id_carrera = c.carrera_id', 'left');
+
+        // 3. Join para obtener el nombre del Coordinador de esa carrera
+        $builder->join('custodios coord', 'coord.id_custodio = car.coordinador_id', 'left');
 
         $query = $builder->get();
 
@@ -32,10 +52,10 @@ class Custodios extends BaseController
         return view('custodios/index', $data);
     }
 
-
     public function create()
     {
         $data['custodios'] = $this->custodioModel->findAll();
+        $data['carreras'] = $this->carrerasModel->getCarrerasConCoordinador();
         return view('custodios/create', $data);
     }
 
@@ -43,7 +63,6 @@ class Custodios extends BaseController
     {
         try {
             $db = \Config\Database::connect();
-            $usuarioId = 0;
 
             $custodioRol = $db->table('roles')->select('id_rol')->where('slug', 'custodio')->get()->getRowArray();
             $rolIdCustodio = $custodioRol['id_rol'] ?? 0;
@@ -57,41 +76,49 @@ class Custodios extends BaseController
                 'estado' => 'activo',
             ];
 
-            try {
-                $usuarioId = $this->usuarioModel->insert($usuarioData, true);
+            $usuarioId = $this->usuarioModel->insert($usuarioData, true);
 
-                if (!$usuarioId) {
-                    throw new Exception("Fallo al obtener el ID del usuario. (Revisar logs SQL).");
-                }
-            } catch (Exception $e) {
-                return redirect()->back()->withInput()->with('error', 'Error al crear el usuario. Posiblemente usuario o correo duplicado.');
+            if (!$usuarioId) {
+                throw new Exception("Error al crear usuario.");
             }
+
+            $tipo = $this->request->getPost('tipo');
+
+            $esDocente = ($tipo === 'Docente') ? 1 : 0;
+
+            $carreraId = $this->request->getPost('carrera_id');
+            $jefeId = $this->request->getPost('jefe_inmediato_id');
 
             $custodioData = [
                 'usuario_id' => $usuarioId,
                 'nombre' => $this->request->getPost('nombre'),
-                'tipo' => $this->request->getPost('tipo'),
+                'tipo' => $tipo,
                 'departamento' => $this->request->getPost('departamento'),
                 'correo' => $this->request->getPost('correo'),
                 'telefono' => $this->request->getPost('telefono'),
-                'jefe_inmediato_id' => $this->request->getPost('jefe_inmediato_id') ?: null,
+                'es_docente' => $esDocente,
+                'carrera_id' => ($esDocente == 1 && !empty($carreraId)) ? $carreraId : null,
+                'jefe_inmediato_id' => ($esDocente == 0 && !empty($jefeId)) ? $jefeId : null,
             ];
 
             $this->custodioModel->insert($custodioData);
-            return redirect()
-                ->to('/custodios')
-                ->with('success', 'Custodio registrado correctamente.');
+
+            return redirect()->to('/custodios')->with('success', 'Custodio registrado correctamente.');
+
         } catch (Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'No se pudo registrar el custodio: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Error: ' . $e->getMessage());
         }
     }
 
     public function edit($id)
     {
         $custodio = $this->custodioModel->find($id);
+        if (!$custodio) {
+            return redirect()->to('/custodios')->with('error', 'Custodio no encontrado');
+        }
+
         $data['custodios'] = $this->custodioModel->findAll();
+        $data['carreras'] = $this->carrerasModel->getCarrerasConCoordinador();
         $data['custodio'] = $custodio;
 
         return view('custodios/edit', $data);
@@ -100,37 +127,41 @@ class Custodios extends BaseController
     public function update($id)
     {
         try {
-            $this->custodioModel->update($id, $this->request->getPost());
+            $tipo = $this->request->getPost('tipo');
+            $esDocente = ($tipo === 'Docente') ? 1 : 0;
 
-            return redirect()
-                ->to('/custodios')
-                ->with('success', 'Custodio actualizado correctamente.');
+            $carreraId = $this->request->getPost('carrera_id');
+            $jefeId = $this->request->getPost('jefe_inmediato_id');
+
+            $custodioData = [
+                'nombre' => $this->request->getPost('nombre'),
+                'tipo' => $tipo,
+                'departamento' => $this->request->getPost('departamento'),
+                'correo' => $this->request->getPost('correo'),
+                'telefono' => $this->request->getPost('telefono'),
+
+                'es_docente' => $esDocente,
+
+                'carrera_id' => ($esDocente == 1 && !empty($carreraId)) ? $carreraId : null,
+                'jefe_inmediato_id' => ($esDocente == 0 && !empty($jefeId)) ? $jefeId : null,
+            ];
+
+            $this->custodioModel->update($id, $custodioData);
+
+            return redirect()->to('/custodios')->with('success', 'Custodio actualizado correctamente.');
         } catch (Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'No se pudo actualizar el custodio: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'No se pudo actualizar: ' . $e->getMessage());
         }
     }
 
     public function delete($id)
     {
         try {
-            $custodio = $this->custodioModel->find($id);
-            if (!$custodio) {
-                return redirect()
-                    ->to('/custodios')
-                    ->with('error', 'El custodio no existe.');
-            }
 
             $this->custodioModel->delete($id);
-
-            return redirect()
-                ->to('/custodios')
-                ->with('success', 'Custodio eliminado correctamente.');
+            return redirect()->to('/custodios')->with('success', 'Custodio eliminado correctamente.');
         } catch (Exception $e) {
-            return redirect()
-                ->to('/custodios')
-                ->with('error', 'No se pudo eliminar el custodio: ' . $e->getMessage());
+            return redirect()->to('/custodios')->with('error', 'No se pudo eliminar: ' . $e->getMessage());
         }
     }
 }

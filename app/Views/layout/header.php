@@ -20,7 +20,9 @@
     <?php
     $uri = service('uri');
     $segment = $uri->getSegment(1);
-    $subsegment = $uri->getSegment(2);
+    $subsegment = $uri->getTotalSegments() >= 2
+        ? $uri->getSegment(2)
+        : null;
     $auth = service('auth');
     ?>
     <div class="wrapper">
@@ -44,6 +46,16 @@
                     <?php endif; ?>
 
                     <li class="sidebar-header">Gestión Principal</li>
+
+
+                    <?php if ($auth->tienePermiso('custodios.view')): ?>
+                        <li class="sidebar-item <?= $segment == 'carreras' ? 'active' : '' ?>">
+                            <a class="sidebar-link" href="<?= site_url('carreras') ?>">
+                                <i class="align-middle" data-feather="book"></i>
+                                <span class="align-middle">Carreras</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
                     <?php if ($auth->tienePermiso('procedencias.view')): ?>
                         <li class="sidebar-item <?= $segment == 'procedencias' ? 'active' : '' ?>">

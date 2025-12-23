@@ -31,6 +31,16 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('configurarActa/(:num)', 'Bienes::configurarActa/$1', ['filter' => 'permiso:bienes.print']);
     });
 
+    // CARRERAS
+    $routes->group('carreras', function ($routes) {
+        $routes->get('/', 'Carreras::index', ['filter' => 'permiso:carreras.view']);
+        $routes->get('create', 'Carreras::create', ['filter' => 'permiso:carreras.create']);
+        $routes->post('store', 'Carreras::store', ['filter' => 'permiso:carreras.create']);
+        $routes->get('edit/(:num)', 'Carreras::edit/$1', ['filter' => 'permiso:carreras.edit']);
+        $routes->post('update/(:num)', 'Carreras::update/$1', ['filter' => 'permiso:carreras.edit']);
+        $routes->get('delete/(:num)', 'Carreras::delete/$1', ['filter' => 'permiso:carreras.delete']);
+    });
+
     // CUSTODIOS
     $routes->group('custodios', function ($routes) {
         $routes->get('/', 'Custodios::index', ['filter' => 'permiso:custodios.view']);

@@ -4,12 +4,12 @@
 
 <div class="card-header">
     <div class="d-flex justify-content-between mb-3">
-        <h2>Custodios</h2>
+        <h2>Carreras</h2>
         <div class="d-flex gap-2">
 
-            <?php if ($auth->tienePermiso('custodios.create')): ?>
-                <a href="<?= site_url('custodios/create') ?>" class="btn btn-success">
-                    <i class="bi bi-plus-circle me-1"></i> Registrar Custodio
+            <?php if ($auth->tienePermiso('carreras.create')): ?>
+                <a href="<?= site_url('carreras/create') ?>" class="btn btn-success">
+                    <i class="bi bi-plus-circle me-1"></i> Registrar Carrera
                 </a>
             <?php endif; ?>
 
@@ -27,52 +27,34 @@
             class="table table-bordered table-striped table-hover table-sm align-middle shadow-sm rounded text-center">
             <thead>
                 <tr>
-                    <th class="text-center">Nombres y Apellidos</th>
-                    <th class="text-center">Cargo / Área</th>
-                    <th class="text-center">Departamento</th>
-                    <th class="text-center">Correo</th>
-                    <th class="text-center">Jefe Inmediato</th>
+                    <th class="text-center">Nombre Carrera</th>
+                    <th class="text-center">Coordinador</th>
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($custodios as $item): ?>
+                <?php foreach ($carreras as $item): ?>
                     <tr>
-                        <td><?= $item["nombre"] ?></td>
-
+                        <td><?= esc($item["nombre"]) ?></td>
                         <td>
-                            <strong><?= $item["tipo"] ?></strong>
-                            <?php if ($item['es_docente'] == 1 && !empty($item['carrera_nombre'])): ?>
-                                <br>
-                                <small class="text-muted fst-italic">
-                                    <i class="bi bi-book"></i> <?= $item['carrera_nombre'] ?>
-                                </small>
-                            <?php endif; ?>
-                        </td>
-
-                        <td><?= $item["departamento"] ?></td>
-                        <td><?= $item["correo"] ?></td>
-
-                        <td>
-                            <?php if (!empty($item['jefe_real_nombre'])): ?>
-                                <?= $item['jefe_real_nombre'] ?>
+                            <?php if (!empty($item["nombre_coordinador"])): ?>
+                                <?= esc($item["nombre_coordinador"]) ?>
                             <?php else: ?>
-                                <span class="text-muted">-</span>
+                                <span class="badge bg-secondary">Sin asignar</span>
                             <?php endif; ?>
                         </td>
-
                         <td>
                             <div class="d-flex justify-content-center gap-2">
 
-                                <?php if ($auth->tienePermiso('custodios.edit')): ?>
-                                    <a href="<?= site_url('custodios/edit/' . $item['id_custodio']) ?>"
+                                <?php if ($auth->tienePermiso('carreras.edit')): ?>
+                                    <a href="<?= site_url('carreras/edit/' . $item['id_carrera']) ?>"
                                         class="btn btn-primary btn-sm" title="Editar">
                                         <i class="bi bi-pencil-square me-1"></i> Editar
                                     </a>
                                 <?php endif; ?>
 
-                                <?php if ($auth->tienePermiso('custodios.delete')): ?>
-                                    <a href="<?= site_url('custodios/delete/' . $item['id_custodio']) ?>"
+                                <?php if ($auth->tienePermiso('carreras.delete')): ?>
+                                    <a href="<?= site_url('carreras/delete/' . $item['id_carrera']) ?>"
                                         class="btn btn-danger btn-sm" title="Eliminar"
                                         onclick="return confirm('¿Desea eliminar este registro?')">
                                         <i class="bi bi-trash me-1"></i> Eliminar

@@ -1,0 +1,202 @@
+CRITICAL - 2025-12-23 03:06:43 --> ErrorException: Undefined variable $lista_custodios
+[Method: GET, Route: custodios/create]
+in APPPATH\Views\custodios\create.php on line 53.
+ 1 APPPATH\Views\custodios\create.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lista_custodios', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\create.php', 53)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/create', [], true)
+ 5 APPPATH\Controllers\Custodios.php(39): view('custodios/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:08:19 --> ErrorException: Undefined variable $lista_custodios
+[Method: GET, Route: custodios/create]
+in APPPATH\Views\custodios\create.php on line 53.
+ 1 APPPATH\Views\custodios\create.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $lista_custodios', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\create.php', 53)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/create', [], true)
+ 5 APPPATH\Controllers\Custodios.php(43): view('custodios/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:14:27 --> ErrorException: Undefined variable $carreras
+[Method: GET, Route: custodios/edit/7]
+in APPPATH\Views\custodios\edit.php on line 66.
+ 1 APPPATH\Views\custodios\edit.php(66): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $carreras', 'C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php', 66)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\custodios\\edit.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('custodios/edit', [], true)
+ 5 APPPATH\Controllers\Custodios.php(101): view('custodios/edit', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->edit('7')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:21:36 --> CodeIgniter\HTTP\Exceptions\HTTPException: Request URI segment is out of range: "2"
+[Method: GET, Route: /]
+in SYSTEMPATH\HTTP\URI.php on line 574.
+ 1 SYSTEMPATH\HTTP\URI.php(574): CodeIgniter\HTTP\Exceptions\HTTPException::forURISegmentOutOfRange(2)
+ 2 APPPATH\Views\layout\header.php(23): CodeIgniter\HTTP\URI->getSegment(2)
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\layout\\header.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 5 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('layout/header', null, true)
+ 6 APPPATH\Views\dashboard.php(1): CodeIgniter\View\View->include('layout/header')
+ 7 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\dashboard.php')
+ 8 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 9 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('dashboard', [], true)
+10 APPPATH\Controllers\Dashboard.php(82): view('dashboard', [...])
+11 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+12 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+13 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:23:47 --> Error: Call to undefined method CodeIgniter\HTTP\SiteURI::countSegments()
+[Method: GET, Route: /]
+in APPPATH\Views\layout\header.php on line 23.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 3 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('layout/header', null, true)
+ 4 APPPATH\Views\dashboard.php(1): CodeIgniter\View\View->include('layout/header')
+ 5 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\dashboard.php')
+ 6 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 7 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('dashboard', [], true)
+ 8 APPPATH\Controllers\Dashboard.php(82): view('dashboard', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:23:50 --> Error: Call to undefined method CodeIgniter\HTTP\SiteURI::countSegments()
+[Method: GET, Route: carreras]
+in APPPATH\Views\layout\header.php on line 23.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 3 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('layout/header', null, true)
+ 4 APPPATH\Views\carreras\index.php(1): CodeIgniter\View\View->include('layout/header')
+ 5 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\carreras\\index.php')
+ 6 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 7 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('carreras/index', [], true)
+ 8 APPPATH\Controllers\Carreras.php(27): view('carreras/index', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Carreras->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Carreras))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:23:53 --> Error: Call to undefined method CodeIgniter\HTTP\SiteURI::countSegments()
+[Method: GET, Route: procedencias]
+in APPPATH\Views\layout\header.php on line 23.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 3 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('layout/header', null, true)
+ 4 APPPATH\Views\procedencias\index.php(1): CodeIgniter\View\View->include('layout/header')
+ 5 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\procedencias\\index.php')
+ 6 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 7 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('procedencias/index', [], true)
+ 8 APPPATH\Controllers\Procedencias.php(20): view('procedencias/index', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Procedencias->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Procedencias))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-23 03:47:33 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `' at line 1 in C:\laragon\www\bienes\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\bienes\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `c`.*, `...', 0)
+#1 C:\laragon\www\bienes\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `c`.*, `...')
+#2 C:\laragon\www\bienes\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `c`.*, `...')
+#3 C:\laragon\www\bienes\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `c`.*, `...', Array, false)
+#4 C:\laragon\www\bienes\app\Controllers\Custodios.php(42): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\bienes\system\CodeIgniter.php(933): App\Controllers\Custodios->index()
+#6 C:\laragon\www\bienes\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+#7 C:\laragon\www\bienes\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\bienes\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\bienes\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\laragon\www\bienes\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-12-23 03:47:33 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `' at line 1
+[Method: GET, Route: custodios]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`', [], false)
+ 2 APPPATH\Controllers\Custodios.php(42): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:47:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`', [], false)
+ 4 APPPATH\Controllers\Custodios.php(42): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-23 03:47:33 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `c`.*, `car`.`nombre` as `carrera_nombre`, `CASE WHEN c`.`es_docente = 1 THEN coord`.`nombre ELSE j`.`nombre END` as `jefe_real_nombre`
+FROM `custodios` `c`
+LEFT JOIN `custodios` `j` ON `j`.`id_custodio` = `c`.`jefe_inmediato_id`
+LEFT JOIN `carreras` `car` ON `car`.`id_carrera` = `c`.`carrera_id`
+LEFT JOIN `custodios` `coord` ON `coord`.`id_custodio` = `car`.`coordinador_id`', [], false)
+ 5 APPPATH\Controllers\Custodios.php(42): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Custodios->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Custodios))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
