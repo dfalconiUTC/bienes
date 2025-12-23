@@ -120,7 +120,7 @@ class Reportes extends BaseController
     public function porCustodio()
     {
         $data['title'] = 'Reporte de Bienes por Custodio';
-        $data['custodios'] = $this->custodioModel->findAll();
+        $data['custodios'] = $this->custodioModel->withDeleted()->findAll();
 
         return view('reportes/por_custodio_view', $data); // Vista definida más adelante
     }
@@ -134,7 +134,7 @@ class Reportes extends BaseController
         }
 
         try {
-            $custodio = $this->custodioModel->find($id_custodio);
+            $custodio = $this->custodioModel->withDeleted()->find($id_custodio);
 
             // Asumo que getConRelaciones() trae marcas, ubicaciones, etc.
             $bienes = $this->bienModel->where('id_custodio', $id_custodio)->getConRelaciones();

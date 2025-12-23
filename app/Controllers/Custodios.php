@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\CustodioModel;
 use App\Models\UsuarioModel;
 use App\Models\CarreraModel;
+use App\Models\HistorialCustodioModel;
+use App\Models\BienModel;
 use Exception;
 
 class Custodios extends BaseController
@@ -12,12 +14,16 @@ class Custodios extends BaseController
     protected $custodioModel;
     protected $usuarioModel;
     protected $carrerasModel;
+    protected $historialModel;
+    protected $bienModel;
 
     public function __construct()
     {
         $this->custodioModel = new CustodioModel();
         $this->usuarioModel = new UsuarioModel();
         $this->carrerasModel = new CarreraModel();
+        $this->historialModel = new HistorialCustodioModel();
+        $this->bienModel = new BienModel();
     }
 
     public function index()
@@ -156,12 +162,70 @@ class Custodios extends BaseController
 
     public function delete($id)
     {
-        try {
+        $db = \Config\Database::connect();
 
-            $this->custodioModel->delete($id);
-            return redirect()->to('/custodios')->with('success', 'Custodio eliminado correctamente.');
-        } catch (Exception $e) {
-            return redirect()->to('/custodios')->with('error', 'No se pudo eliminar: ' . $e->getMessage());
+        // Instanciamos modelos necesarios (o úsalos desde $this si ya los tienes en constructor)
+
+        try {
+            // 1. Iniciar Transacción (Seguridad de datos)
+            $db->transException(true)->transStart();
+
+            // 2. Verificar si existen registros relacionados
+            // Contamos bienes asignados actualmente
+            $countBienes = $this->bienModel->where('custodio_actual_id', $id)->countAllResults();
+
+            // Contamos historial (pasado o presente)
+            $countHistorial = $this->historialModel->where('custodio_id', $id)->countAllResults();
+
+            $tieneRelaciones = ($countBienes > 0 || $countHistorial > 0);
+
+            if ($tieneRelaciones) {
+                // === ESCENARIO A: BORRADO LÓGICO ===
+                // El custodio tiene historia, no podemos borrarlo físicamente.
+
+                // A.1. Cerrar historiales abiertos (Poner fecha fin HOY si está NULL)
+                $this->historialModel->where('custodio_id', $id)
+                    ->where('fecha_fin IS NULL')
+                    ->set(['fecha_fin' => date('Y-m-d')])
+                    ->update();
+
+                // A.2. Liberar bienes actuales (Poner custodio en NULL)
+                // Como es borrado lógico, el ON DELETE SET NULL de la BD no se dispara solo,
+                // debemos hacerlo manualmente.
+                $this->bienModel->where('custodio_actual_id', $id)
+                    ->set(['custodio_actual_id' => null])
+                    ->update();
+
+                // A.3. Borrado Lógico del Custodio
+                // Al tener useSoftDeletes = true en el modelo, esto solo llena 'deleted_at'
+                // y el usuario (login) también debería desactivarse si usas tabla usuarios aparte.
+                $this->custodioModel->delete($id);
+
+                // Opcional: Desactivar usuario relacionado si existe
+                // $usuarioModel->update($custodio['usuario_id'], ['estado' => 'inactivo']);
+
+                $mensaje = 'Custodio desactivado. Se cerraron sus actas y liberaron sus bienes.';
+
+            } else {
+                // === ESCENARIO B: BORRADO FÍSICO ===
+                // No tiene historial ni bienes, es seguro eliminarlo totalmente de la BD.
+
+                // El segundo parámetro 'true' fuerza el borrado físico (Purge)
+                $this->custodioModel->delete($id, true);
+
+                // Opcional: Borrar usuario relacionado
+                // $usuarioModel->delete($custodio['usuario_id']);
+
+                $mensaje = 'Custodio eliminado permanentemente (sin registros asociados).';
+            }
+
+            // 3. Confirmar Transacción
+            $db->transComplete();
+
+            return redirect()->to('/custodios')->with('success', $mensaje);
+
+        } catch (\Throwable $e) { // Usar Throwable captura Excepciones y Errores
+            return redirect()->to('/custodios')->with('error', 'Error al procesar la eliminación: ' . $e->getMessage());
         }
     }
 }

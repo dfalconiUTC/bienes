@@ -8,6 +8,9 @@ class CustodioModel extends Model
 {
     protected $table = 'custodios';
     protected $primaryKey = 'id_custodio';
+    protected $useSoftDeletes = true;
+    protected $deletedField = 'deleted_at';
+    
     protected $allowedFields = [
         'nombre',
         'tipo',
