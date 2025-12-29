@@ -11,11 +11,92 @@
  Target Server Version : 80403 (8.4.3)
  File Encoding         : 65001
 
- Date: 22/12/2025 23:31:42
+ Date: 29/12/2025 11:20:19
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for acta_detalles
+-- ----------------------------
+DROP TABLE IF EXISTS `acta_detalles`;
+CREATE TABLE `acta_detalles`  (
+  `id_detalle` int NOT NULL AUTO_INCREMENT,
+  `acta_id` int NOT NULL,
+  `bien_id` int NOT NULL,
+  `observacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_detalle`) USING BTREE,
+  INDEX `acta_id`(`acta_id` ASC) USING BTREE,
+  INDEX `bien_id`(`bien_id` ASC) USING BTREE,
+  CONSTRAINT `acta_detalles_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `acta_detalles_ibfk_2` FOREIGN KEY (`bien_id`) REFERENCES `bienes` (`id_bien`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of acta_detalles
+-- ----------------------------
+INSERT INTO `acta_detalles` VALUES (1, 1, 15, NULL);
+INSERT INTO `acta_detalles` VALUES (7, 2, 9, NULL);
+INSERT INTO `acta_detalles` VALUES (8, 2, 15, NULL);
+
+-- ----------------------------
+-- Table structure for acta_firmas
+-- ----------------------------
+DROP TABLE IF EXISTS `acta_firmas`;
+CREATE TABLE `acta_firmas`  (
+  `id_firma` int NOT NULL AUTO_INCREMENT,
+  `acta_id` int NOT NULL,
+  `titulo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nombre` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `cedula` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `cargo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `orden` int NULL DEFAULT 0,
+  PRIMARY KEY (`id_firma`) USING BTREE,
+  INDEX `acta_id`(`acta_id` ASC) USING BTREE,
+  CONSTRAINT `acta_firmas_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of acta_firmas
+-- ----------------------------
+INSERT INTO `acta_firmas` VALUES (1, 1, 'ENTREGA CONFORME', '', '', '', 0);
+INSERT INTO `acta_firmas` VALUES (2, 1, 'RECIBE CONFORME', '', '', '', 1);
+INSERT INTO `acta_firmas` VALUES (3, 1, 'VISTO BUENO', '', '', '', 2);
+INSERT INTO `acta_firmas` VALUES (22, 2, 'ENTREGA CONFORME', ' ING. SANDRA TOAQUIZA', '0502974827', 'UNIDAD ADMINISTRATIVA IST VICENTE LEON', 0);
+INSERT INTO `acta_firmas` VALUES (23, 2, 'RECIBE CONFORME', 'MARCO OBANDO', '0401127584', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA MATUTINA\r\nCUSTODIO', 1);
+INSERT INTO `acta_firmas` VALUES (24, 2, 'RECIBE CONFORME', 'ING. LORENA PAUCAR', '0502569452', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA NOCTURNA\r\nCUSTODIO', 2);
+INSERT INTO `acta_firmas` VALUES (25, 2, 'VISTO BUENO', 'ING. MARITZA ESPINOZA', '', 'COORDINAD0RA DE LA CARRERA DE DESARROLLO DE SOFTWARE', 3);
+INSERT INTO `acta_firmas` VALUES (26, 2, 'VSITO BUENO', 'ING. ANGEL RUBIO', '', 'DIRECTOR ADMINISTRATIVO FINACIERO \r\nIST VICENTE LEON', 4);
+INSERT INTO `acta_firmas` VALUES (27, 2, 'VISTO BUENO', 'ING. ERICK MENA', '', 'RECTOR DEL INSTITUTO SUPERIOR\r\nTECNOLOGICO VICENTE LEON', 5);
+
+-- ----------------------------
+-- Table structure for actas
+-- ----------------------------
+DROP TABLE IF EXISTS `actas`;
+CREATE TABLE `actas`  (
+  `id_acta` int NOT NULL AUTO_INCREMENT,
+  `tipo` enum('Entrega-Recepcion','Inventario','Traspaso','Baja') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `numero_acta` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `fecha_impresion` date NOT NULL,
+  `encabezado_lugar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `compareciente_nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `receptor_nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `introduccion_texto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `observaciones_finales` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `estado` enum('Borrador','Finalizada') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'Borrador',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `periodo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_acta`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of actas
+-- ----------------------------
+INSERT INTO `actas` VALUES (1, 'Entrega-Recepcion', '001', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa                   Ing. Maritza Espinoza Coordinad0ra De La Carrera De Desarro', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	    Ing. Lorena Paucar docente responsable laboratorio', 'Nos constituye para dejar en constancia de la entrega- recepción de los siguientes bienes que están\r\n bajo la responsabilidad del nuevo usuario\r\n\r\nDetalle: Para uso de la carrera de software', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 13:56:46', '2025-12-29 09:25:47', NULL, NULL);
+INSERT INTO `actas` VALUES (2, 'Entrega-Recepcion', '002', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa                  Ing. Maritza Espinoza Coordinad0ra De La Carrera De Desarrollo De Software Ing. Ángel Rubio director Administrativo Financiero Ing. Erick Mena Rector Del Instituto Superior Tecnológico Vicente León', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	   Ing. Lorena Paucar docente responsable laboratorio de desarrollo de software 2 jornada nocturna', 'Nos constituye para dejar en constancia de la entrega - recepción de los siguientes bienes que están bajo la responsabilidad del nuevo usuario \r\nDetalle: Para uso de la carrera de software', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 14:23:53', '2025-12-29 14:56:48', 'INVENTARIO LABORATORIOS, TALLERES Y OTROS ESPACIOS PARA PRÁCTICAS', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)');
 
 -- ----------------------------
 -- Table structure for bienes
@@ -61,7 +142,7 @@ INSERT INTO `bienes` VALUES (11, '3', '3', '3', '3', '2025-03-03', '3', '3', '3'
 INSERT INTO `bienes` VALUES (12, '4', '4', '4', '4', '2025-04-04', '4', '4', '4', '4', 'De baja', '4', 4.00, 7, 7, NULL, '4');
 INSERT INTO `bienes` VALUES (13, '5', '5', '5', '5', '2025-05-02', '5', '5', '5', '5', 'Regular', '5', 5.00, 6, 7, 7, '5');
 INSERT INTO `bienes` VALUES (14, '5', '5', '5', '5', '2025-05-02', '5', '5', '5', '5', 'De baja', '5', 5.00, 6, 7, 15, '5');
-INSERT INTO `bienes` VALUES (15, '99', '9', '9', '9', '2025-11-25', '9', '9', '9', '9', 'Bueno', '9', 9.00, 6, 7, 13, '9');
+INSERT INTO `bienes` VALUES (15, '99', '9', '9', '9', '2025-11-25', '9', '9', '9', '9', 'Bueno', '9', 9.00, 6, 7, 7, '9');
 INSERT INTO `bienes` VALUES (16, '10', 'a', '888', '88', '2025-08-08', '88', '88', '88', '88', 'Bueno', '58', 88.00, 6, 7, 16, '888');
 
 -- ----------------------------
@@ -163,7 +244,7 @@ CREATE TABLE `historial_custodios`  (
   CONSTRAINT `fk_historial_aprobador` FOREIGN KEY (`aprobador_usuario_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_historial_bien` FOREIGN KEY (`bien_id`) REFERENCES `bienes` (`id_bien`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_historial_custodio` FOREIGN KEY (`custodio_id`) REFERENCES `custodios` (`id_custodio`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of historial_custodios
@@ -178,12 +259,13 @@ INSERT INTO `historial_custodios` VALUES (38, 9, 8, '2025-11-15', '2025-12-23', 
 INSERT INTO `historial_custodios` VALUES (41, 12, 11, '2025-11-18', '2025-12-23', '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (42, 13, 7, '2025-11-15', NULL, '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (43, 14, 15, '2025-12-06', '2025-12-08', 'a', 'Aprobada', 12, '2025-12-09 04:31:37');
-INSERT INTO `historial_custodios` VALUES (44, 15, 13, '2025-12-11', NULL, '', 'Aprobada', 1, '2025-12-09 04:20:45');
+INSERT INTO `historial_custodios` VALUES (44, 15, 13, '2025-12-11', '2025-12-28', '', 'Aprobada', 1, '2025-12-09 04:20:45');
 INSERT INTO `historial_custodios` VALUES (45, 16, 16, '2025-12-08', NULL, '', 'Rechazada', 12, '2025-12-09 04:16:06');
 INSERT INTO `historial_custodios` VALUES (46, 14, 15, '2025-12-08', NULL, '', 'Aprobada', 1, '2025-12-09 04:33:48');
 INSERT INTO `historial_custodios` VALUES (47, 7, 7, '2025-12-20', '2025-12-22', '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (48, 7, 8, '2025-12-22', '2025-12-23', '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (49, 8, 8, '2025-12-22', '2025-12-23', '', 'Pendiente', NULL, NULL);
+INSERT INTO `historial_custodios` VALUES (50, 15, 7, '2025-12-28', NULL, 'saa', 'Pendiente', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for permisos
