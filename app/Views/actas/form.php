@@ -74,6 +74,11 @@
                     <textarea class="form-control" name="introduccion_texto" rows="2"
                         placeholder="Nos constituye para dejar en constancia..."></textarea>
                 </div>
+
+                <div class="col-12 mt-3">
+                    <label class="form-label">Detalle (Opcional):</label>
+                    <textarea class="form-control" name="detalle" rows="2" placeholder="Para uso de..."></textarea>
+                </div>
             </div>
         </div>
 
@@ -110,7 +115,11 @@
             <h5 class="text-primary border-bottom pb-2">4. Cierre y Firmas</h5>
 
             <div class="mb-3">
-                <label>Nota / Observaciones Finales:</label>
+                <label>Nota:</label>
+                <textarea class="form-control" name="nota" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label>Observaciones Finales:</label>
                 <textarea class="form-control" name="observaciones_finales"
                     rows="2">Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.</textarea>
             </div>

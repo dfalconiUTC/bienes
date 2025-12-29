@@ -11,12 +11,14 @@ class ActaModel extends Model
         'numero_acta',
         'titulo',
         'periodo',
+        'detalle',
         'fecha_impresion',
         'encabezado_lugar',
         'compareciente_nombre',
         'receptor_nombre',
         'introduccion_texto',
         'observaciones_finales',
+        'nota',
         'estado'
     ];
     protected $useTimestamps = true;

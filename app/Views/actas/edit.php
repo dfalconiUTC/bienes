@@ -53,18 +53,22 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Entrega / Comparece:</label>
-                        <input type="text" class="form-control" name="compareciente_nombre"
-                            value="<?= esc($acta['compareciente_nombre']) ?>" required>
+                        <textarea type="text" class="form-control" name="compareciente_nombre"
+                            required><?= esc($acta['compareciente_nombre']) ?></textarea>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Recibe:</label>
-                        <input type="text" class="form-control" name="receptor_nombre"
-                            value="<?= esc($acta['receptor_nombre']) ?>" required>
+                        <textarea type="text" class="form-control" name="receptor_nombre"
+                            required><?= esc($acta['receptor_nombre']) ?></textarea>
                     </div>
                     <div class="col-12 mt-3">
                         <label class="form-label">Texto Adicional:</label>
                         <textarea class="form-control" name="introduccion_texto"
                             rows="2"><?= esc($acta['introduccion_texto']) ?></textarea>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label class="form-label">Detalle:</label>
+                        <textarea class="form-control" name="detalle" rows="2"><?= esc($acta['detalle']) ?></textarea>
                     </div>
                 </div>
             </div>
@@ -108,7 +112,12 @@
             <div class="mb-4">
                 <h5 class="text-primary border-bottom pb-2">4. Firmas</h5>
                 <div class="mb-3">
-                    <label>Nota / Observaciones Finales:</label>
+                    <label>Nota:</label>
+                    <textarea class="form-control" name="nota" rows="2"><?= esc($acta['nota']) ?></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Observaciones Finales:</label>
                     <textarea class="form-control" name="observaciones_finales"
                         rows="2"><?= esc($acta['observaciones_finales']) ?></textarea>
                 </div>

@@ -150,12 +150,12 @@
                                     </a>
                                 <?php endif; ?>
 
-                                <?php if (!empty($item["custodio_actual_id"]) && $auth->tienePermiso('bienes.print') && $esActaAprobada): ?>
-                                    <a href="<?= site_url('bienes/configurarActa/' . $item['id_bien']) ?>"
-                                        class="btn btn-sm btn-dark" title="Imprimir Acta">
-                                        <i class="bi bi-printer"></i>
-                                    </a>
-                                <?php endif; ?>
+                                <?php /*if (!empty($item["custodio_actual_id"]) && $auth->tienePermiso('bienes.print') && $esActaAprobada): ?>
+                           <a href="<?= site_url('bienes/configurarActa/' . $item['id_bien']) ?>"
+                               class="btn btn-sm btn-dark" title="Imprimir Acta">
+                               <i class="bi bi-printer"></i>
+                           </a>
+                           <?php endif; */ ?>
                             </div>
                         </td>
                     </tr>

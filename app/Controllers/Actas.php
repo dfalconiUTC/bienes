@@ -57,6 +57,7 @@ class Actas extends BaseController
             'tipo' => $this->request->getPost('tipo'),
             'titulo' => $this->request->getPost('titulo'),
             'periodo' => $this->request->getPost('periodo'),
+            'detalle' => $this->request->getPost('detalle'),
             'numero_acta' => $this->request->getPost('numero_acta'),
             'fecha_impresion' => $this->request->getPost('fecha_impresion'),
             'encabezado_lugar' => $this->request->getPost('encabezado_lugar'),
@@ -64,6 +65,7 @@ class Actas extends BaseController
             'receptor_nombre' => $this->request->getPost('receptor_nombre'),
             'introduccion_texto' => $this->request->getPost('introduccion_texto'),
             'observaciones_finales' => $this->request->getPost('observaciones_finales'),
+            'nota' => $this->request->getPost('nota'),
             'estado' => 'Borrador'
         ];
 
@@ -146,6 +148,7 @@ class Actas extends BaseController
             'tipo' => $this->request->getPost('tipo'),
             'titulo' => $this->request->getPost('titulo'),
             'periodo' => $this->request->getPost('periodo'),
+            'detalle' => $this->request->getPost('detalle'),
             'numero_acta' => $this->request->getPost('numero_acta'),
             'fecha_impresion' => $this->request->getPost('fecha_impresion'),
             'encabezado_lugar' => $this->request->getPost('encabezado_lugar'),
@@ -153,6 +156,7 @@ class Actas extends BaseController
             'receptor_nombre' => $this->request->getPost('receptor_nombre'),
             'introduccion_texto' => $this->request->getPost('introduccion_texto'),
             'observaciones_finales' => $this->request->getPost('observaciones_finales'),
+            'nota' => $this->request->getPost('nota'),
         ];
         $this->actaModel->update($id, $actaData);
 
