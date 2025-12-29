@@ -1,0 +1,26 @@
+CRITICAL - 2025-12-29 14:24:22 --> ErrorException: Undefined array key "numero"
+[Method: GET, Route: actas]
+in APPPATH\Views\actas\index.php on line 41.
+ 1 APPPATH\Views\actas\index.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "numero"', 'C:\\laragon\\www\\bienes\\app\\Views\\actas\\index.php', 41)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\bienes\\app\\Views\\actas\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():223}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('actas/index', [], true)
+ 5 APPPATH\Controllers\Actas.php(30): view('actas/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Actas->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Actas))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-29 14:40:52 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "actas/edit.php"
+[Method: GET, Route: actas/edit/2]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('actas/edit.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('actas/edit', [], true)
+ 3 APPPATH\Controllers\Actas.php(134): view('actas/edit', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Actas->edit('2')
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Actas))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

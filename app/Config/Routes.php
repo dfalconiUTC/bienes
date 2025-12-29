@@ -121,4 +121,14 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('conciliacion_contable', 'Reportes::conciliacionContable', ['filter' => 'permiso:reportes.general']);
     });
 
+    $routes->group('actas', ['filter' => 'permiso:reportes.general'], function ($routes) {
+        $routes->get('/', 'Actas::index');
+        $routes->get('create', 'Actas::create');
+        $routes->post('store', 'Actas::store');
+        $routes->get('edit/(:num)', 'Actas::edit/$1');
+        $routes->post('update/(:num)', 'Actas::update/$1');
+        $routes->get('delete/(:num)', 'Actas::delete/$1');
+        $routes->get('pdf/(:num)', 'Actas::pdf/$1');
+        $routes->get('buscarBien/(:segment)', 'Actas::buscarBien/$1');
+    });
 });

@@ -119,6 +119,13 @@
                                 <span class="align-middle">Reportes</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item <?= $segment == 'actas' ? 'active' : '' ?>">
+                            <a class="sidebar-link" href="<?= site_url('actas') ?>">
+                                <i class="align-middle" data-feather="file-text"></i>
+                                <span class="align-middle">Actas</span>
+                            </a>
+                        </li>
                     <?php endif; ?>
 
                     <?php if ($auth->tienePermiso('config.manage')): ?>
