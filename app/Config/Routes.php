@@ -49,6 +49,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
         $routes->get('edit/(:num)', 'Custodios::edit/$1', ['filter' => 'permiso:custodios.edit']);
         $routes->post('update/(:num)', 'Custodios::update/$1', ['filter' => 'permiso:custodios.edit']);
         $routes->get('delete/(:num)', 'Custodios::delete/$1', ['filter' => 'permiso:custodios.delete']);
+        $routes->get('restore/(:num)', 'Custodios::restore/$1', ['filter' => 'permiso:custodios.edit']);
     });
 
     // UBICACIONES

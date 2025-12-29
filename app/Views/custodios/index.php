@@ -80,7 +80,20 @@
                     </td>
 
                     <td>
-                        <?php if (!$estaEliminado): ?>
+                        <?php if ($estaEliminado): ?>
+                        <div class="d-flex justify-content-center">
+                            <?php if ($auth->tienePermiso('custodios.edit')): ?>
+                            <a href="<?= site_url('custodios/restore/' . $item['id_custodio']) ?>"
+                                class="btn btn-success btn-sm" title="Activar Custodio"
+                                onclick="return confirm('¿Desea reactivar a este custodio?')">
+                                <i class="bi bi-arrow-counterclockwise"></i> Activar
+                            </a>
+                            <?php else: ?>
+                            <span class="text-muted small">Inactivo</span>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php else: ?>
                         <div class="d-flex justify-content-center gap-2">
 
                             <?php if ($auth->tienePermiso('custodios.edit')): ?>
@@ -99,8 +112,6 @@
                             <?php endif; ?>
 
                         </div>
-                        <?php else: ?>
-                        <small class="text-muted">Sin acciones</small>
                         <?php endif; ?>
                     </td>
                 </tr>

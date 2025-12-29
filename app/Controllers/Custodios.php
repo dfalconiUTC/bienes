@@ -228,4 +228,24 @@ class Custodios extends BaseController
             return redirect()->to('/custodios')->with('error', 'Error al procesar la eliminación: ' . $e->getMessage());
         }
     }
+
+    public function restore($id)
+    {
+        try {
+            $custodio = $this->custodioModel->withDeleted()->find($id);
+
+            if (!$custodio) {
+                return redirect()->to('/custodios')->with('error', 'El custodio no existe.');
+            }
+
+            $this->custodioModel->builder()
+                ->where('id_custodio', $id)
+                ->update(['deleted_at' => null]);
+
+            return redirect()->to('/custodios')->with('success', 'Custodio activado correctamente. Ahora puede asignarle bienes nuevamente.');
+
+        } catch (Exception $e) {
+            return redirect()->to('/custodios')->with('error', 'No se pudo activar: ' . $e->getMessage());
+        }
+    }
 }
