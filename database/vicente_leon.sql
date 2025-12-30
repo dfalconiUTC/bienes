@@ -11,7 +11,7 @@
  Target Server Version : 80403 (8.4.3)
  File Encoding         : 65001
 
- Date: 29/12/2025 11:20:19
+ Date: 29/12/2025 19:04:10
 */
 
 SET NAMES utf8mb4;
@@ -31,14 +31,14 @@ CREATE TABLE `acta_detalles`  (
   INDEX `bien_id`(`bien_id` ASC) USING BTREE,
   CONSTRAINT `acta_detalles_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `acta_detalles_ibfk_2` FOREIGN KEY (`bien_id`) REFERENCES `bienes` (`id_bien`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acta_detalles
 -- ----------------------------
 INSERT INTO `acta_detalles` VALUES (1, 1, 15, NULL);
-INSERT INTO `acta_detalles` VALUES (7, 2, 9, NULL);
-INSERT INTO `acta_detalles` VALUES (8, 2, 15, NULL);
+INSERT INTO `acta_detalles` VALUES (13, 2, 9, NULL);
+INSERT INTO `acta_detalles` VALUES (14, 2, 15, NULL);
 
 -- ----------------------------
 -- Table structure for acta_firmas
@@ -55,7 +55,7 @@ CREATE TABLE `acta_firmas`  (
   PRIMARY KEY (`id_firma`) USING BTREE,
   INDEX `acta_id`(`acta_id` ASC) USING BTREE,
   CONSTRAINT `acta_firmas_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acta_firmas
@@ -63,12 +63,12 @@ CREATE TABLE `acta_firmas`  (
 INSERT INTO `acta_firmas` VALUES (1, 1, 'ENTREGA CONFORME', '', '', '', 0);
 INSERT INTO `acta_firmas` VALUES (2, 1, 'RECIBE CONFORME', '', '', '', 1);
 INSERT INTO `acta_firmas` VALUES (3, 1, 'VISTO BUENO', '', '', '', 2);
-INSERT INTO `acta_firmas` VALUES (22, 2, 'ENTREGA CONFORME', ' ING. SANDRA TOAQUIZA', '0502974827', 'UNIDAD ADMINISTRATIVA IST VICENTE LEON', 0);
-INSERT INTO `acta_firmas` VALUES (23, 2, 'RECIBE CONFORME', 'MARCO OBANDO', '0401127584', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA MATUTINA\r\nCUSTODIO', 1);
-INSERT INTO `acta_firmas` VALUES (24, 2, 'RECIBE CONFORME', 'ING. LORENA PAUCAR', '0502569452', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA NOCTURNA\r\nCUSTODIO', 2);
-INSERT INTO `acta_firmas` VALUES (25, 2, 'VISTO BUENO', 'ING. MARITZA ESPINOZA', '', 'COORDINAD0RA DE LA CARRERA DE DESARROLLO DE SOFTWARE', 3);
-INSERT INTO `acta_firmas` VALUES (26, 2, 'VSITO BUENO', 'ING. ANGEL RUBIO', '', 'DIRECTOR ADMINISTRATIVO FINACIERO \r\nIST VICENTE LEON', 4);
-INSERT INTO `acta_firmas` VALUES (27, 2, 'VISTO BUENO', 'ING. ERICK MENA', '', 'RECTOR DEL INSTITUTO SUPERIOR\r\nTECNOLOGICO VICENTE LEON', 5);
+INSERT INTO `acta_firmas` VALUES (40, 2, 'ENTREGA CONFORME', ' ING. SANDRA TOAQUIZA', '0502974827', 'UNIDAD ADMINISTRATIVA IST VICENTE LEON', 0);
+INSERT INTO `acta_firmas` VALUES (41, 2, 'RECIBE CONFORME', 'MARCO OBANDO', '0401127584', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA MATUTINA\r\nCUSTODIO', 1);
+INSERT INTO `acta_firmas` VALUES (42, 2, 'RECIBE CONFORME', 'ING. LORENA PAUCAR', '0502569452', 'DOCENTE RESPOSABLE LABORATORIO DE DESARRROLO DE SOFTWARE 2 JORNADA NOCTURNA\r\nCUSTODIO', 2);
+INSERT INTO `acta_firmas` VALUES (43, 2, 'VISTO BUENO', 'ING. MARITZA ESPINOZA', '', 'COORDINAD0RA DE LA CARRERA DE DESARROLLO DE SOFTWARE', 3);
+INSERT INTO `acta_firmas` VALUES (44, 2, 'VSITO BUENO', 'ING. ANGEL RUBIO', '', 'DIRECTOR ADMINISTRATIVO FINACIERO \r\nIST VICENTE LEON', 4);
+INSERT INTO `acta_firmas` VALUES (45, 2, 'VISTO BUENO', 'ING. ERICK MENA', '', 'RECTOR DEL INSTITUTO SUPERIOR\r\nTECNOLOGICO VICENTE LEON', 5);
 
 -- ----------------------------
 -- Table structure for actas
@@ -89,14 +89,16 @@ CREATE TABLE `actas`  (
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `periodo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `nota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `detalle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_acta`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of actas
 -- ----------------------------
-INSERT INTO `actas` VALUES (1, 'Entrega-Recepcion', '001', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa                   Ing. Maritza Espinoza Coordinad0ra De La Carrera De Desarro', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	    Ing. Lorena Paucar docente responsable laboratorio', 'Nos constituye para dejar en constancia de la entrega- recepción de los siguientes bienes que están\r\n bajo la responsabilidad del nuevo usuario\r\n\r\nDetalle: Para uso de la carrera de software', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 13:56:46', '2025-12-29 09:25:47', NULL, NULL);
-INSERT INTO `actas` VALUES (2, 'Entrega-Recepcion', '002', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa                  Ing. Maritza Espinoza Coordinad0ra De La Carrera De Desarrollo De Software Ing. Ángel Rubio director Administrativo Financiero Ing. Erick Mena Rector Del Instituto Superior Tecnológico Vicente León', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	   Ing. Lorena Paucar docente responsable laboratorio de desarrollo de software 2 jornada nocturna', 'Nos constituye para dejar en constancia de la entrega - recepción de los siguientes bienes que están bajo la responsabilidad del nuevo usuario \r\nDetalle: Para uso de la carrera de software', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 14:23:53', '2025-12-29 14:56:48', 'INVENTARIO LABORATORIOS, TALLERES Y OTROS ESPACIOS PARA PRÁCTICAS', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)');
+INSERT INTO `actas` VALUES (1, 'Entrega-Recepcion', '001', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa                   Ing. Maritza Espinoza Coordinad0ra De La Carrera De Desarro', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	    Ing. Lorena Paucar docente responsable laboratorio', 'Nos constituye para dejar en constancia de la entrega- recepción de los siguientes bienes que están\r\n bajo la responsabilidad del nuevo usuario\r\n\r\nDetalle: Para uso de la carrera de software', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 13:56:46', '2025-12-29 09:25:47', NULL, NULL, NULL, NULL);
+INSERT INTO `actas` VALUES (2, 'Entrega-Recepcion', '002', '2025-12-29', 'Latacunga', 'Ing. Sandra Maribel Toaquiza Toaquiza, líder de la unidad Administrativa\r\nIng. Maritza Espinoza Coordinad0ra De La Carrera De Desarrollo De Software \r\nIng. Ángel Rubio director Administrativo Financiero Ing. Erick Mena Rector Del Instituto Superior Tecnológico Vicente León', 'Ing. Marco Obando, docente responsable laboratorio de desarrollo de software 2 jornada matutina	   \r\nIng. Lorena Paucar docente responsable laboratorio de desarrollo de software 2 jornada nocturna', 'Nos constituye para dejar en constancia de la entrega - recepción de los siguientes bienes que están bajo la responsabilidad del nuevo usuario \r\n', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-29 14:23:53', '2025-12-29 19:59:37', 'INVENTARIO LABORATORIOS, TALLERES Y OTROS ESPACIOS PARA PRÁCTICAS', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)', '', 'Para uso de la carrera de software');
 
 -- ----------------------------
 -- Table structure for bienes
@@ -135,7 +137,7 @@ CREATE TABLE `bienes`  (
 -- Records of bienes
 -- ----------------------------
 INSERT INTO `bienes` VALUES (7, '1234', 'PRUEBA', '1234', 'A', '2025-11-11', '1234', 'A', 'A', 'A', 'De baja', 'A', 5.00, 6, 7, NULL, 'A');
-INSERT INTO `bienes` VALUES (8, '4567', 'PRUEBA 2', '4567', 'A', '2025-11-14', '4567', 'Q', 'Q', 'Q', 'De baja', 'Q', 10.00, 7, 8, NULL, 'Q');
+INSERT INTO `bienes` VALUES (8, '4567', 'PRUEBA 2', '4567', 'A', '2025-11-14', '4567', 'Q', 'Q', 'Q', 'De baja', 'Q', 10.00, 7, 8, 8, 'Q');
 INSERT INTO `bienes` VALUES (9, '1', '1', '1', '1', '2025-01-01', '1', '1', '1', '1', 'Bueno', '1', 1.00, 7, 7, NULL, '1');
 INSERT INTO `bienes` VALUES (10, '2', '2', '2', '2', '2025-02-02', '2', '2', '2', '2', 'Malo', '2', 2.00, 7, 8, NULL, '2');
 INSERT INTO `bienes` VALUES (11, '3', '3', '3', '3', '2025-03-03', '3', '3', '3', '3', 'De baja', '3', 3.00, 7, 8, NULL, '3');
@@ -211,7 +213,7 @@ CREATE TABLE `custodios`  (
 -- Records of custodios
 -- ----------------------------
 INSERT INTO `custodios` VALUES (7, NULL, 'GRECIA', 'Docente', 'DESARROLLO', 'a@mail.com', '0987654321', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (8, 7, 'Diego Falconi', 'Docente', 'aaa', 'diego@mail.com', '0995934826', NULL, 1, 3, '2025-12-23 04:21:02');
+INSERT INTO `custodios` VALUES (8, 7, 'Diego Falconi', 'Docente', 'aaa', 'diego@mail.com', '0995934826', NULL, 1, 3, NULL);
 INSERT INTO `custodios` VALUES (11, NULL, '4', 'Docente', '4', 'a@mail.com', '4', NULL, 1, 1, '2025-12-23 04:19:39');
 INSERT INTO `custodios` VALUES (12, NULL, '6', 'Docente', '6', '6@mail.com', '6', 8, 0, NULL, NULL);
 INSERT INTO `custodios` VALUES (13, 8, 'Prueba Custodio', 'Docente', 'Unidad Administrativa y Financiera', 'prueba@mail.com', '0987654321', 7, 0, NULL, NULL);
@@ -244,7 +246,7 @@ CREATE TABLE `historial_custodios`  (
   CONSTRAINT `fk_historial_aprobador` FOREIGN KEY (`aprobador_usuario_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_historial_bien` FOREIGN KEY (`bien_id`) REFERENCES `bienes` (`id_bien`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_historial_custodio` FOREIGN KEY (`custodio_id`) REFERENCES `custodios` (`id_custodio`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of historial_custodios
@@ -266,6 +268,7 @@ INSERT INTO `historial_custodios` VALUES (47, 7, 7, '2025-12-20', '2025-12-22', 
 INSERT INTO `historial_custodios` VALUES (48, 7, 8, '2025-12-22', '2025-12-23', '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (49, 8, 8, '2025-12-22', '2025-12-23', '', 'Pendiente', NULL, NULL);
 INSERT INTO `historial_custodios` VALUES (50, 15, 7, '2025-12-28', NULL, 'saa', 'Pendiente', NULL, NULL);
+INSERT INTO `historial_custodios` VALUES (51, 8, 8, '2025-12-29', NULL, '', 'Pendiente', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for permisos
