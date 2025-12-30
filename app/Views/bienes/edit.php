@@ -74,8 +74,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="valor_contable" class="form-label">Valor Contable</label>
-                <input type="number" class="form-control" id="valor_contable" name="valor_contable"
-                    value="<?= $bien['valor_contable'] ?? '' ?>" required>
+                <input type="number" class="form-control" id="valor_contable" name="valor_contable" step="0.01" min="0"
+                    placeholder="0.00" value="<?= $bien['valor_contable'] ?? '' ?>" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="procedencia_id" class="form-label">Procedencia</label>

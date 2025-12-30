@@ -238,6 +238,20 @@
         crearBloqueFirma('FIRMA ADICIONAL');
     }
 
+    function validateCedulaInput(input) {
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }
+    }
+
+    document.addEventListener('input', function (e) {
+        if (e.target && e.target.name === 'firma_cedula[]') {
+            validateCedulaInput(e.target);
+        }
+    });
+
     function crearBloqueFirma(tituloDefecto = '') {
         const container = document.getElementById('contenedorFirmas');
         const html = `
@@ -249,7 +263,14 @@
                     </div>
                     <div class="card-body p-2">
                         <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2" placeholder="Nombre (Ej: Ing. Juan Pérez)">
-                        <input type="text" name="firma_cedula[]" class="form-control form-control-sm mb-2" placeholder="Cédula">
+                        <input type="text" 
+                               name="firma_cedula[]" 
+                               class="form-control form-control-sm mb-2" 
+                               placeholder="Cédula (10 dígitos)" 
+                               maxlength="10" 
+                               pattern="[0-9]{10}" 
+                               title="Debe tener 10 dígitos numéricos"
+                               >
                         <textarea name="firma_cargo[]" class="form-control form-control-sm" rows="2" placeholder="Cargo / Unidad"></textarea>
                     </div>
                 </div>

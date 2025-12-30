@@ -47,6 +47,14 @@
 
                     <li class="sidebar-header">Gestión Principal</li>
 
+                    <?php if ($auth->tienePermiso('custodios.view')): ?>
+                        <li class="sidebar-item <?= $segment == 'custodios' ? 'active' : '' ?>">
+                            <a class="sidebar-link" href="<?= site_url('custodios') ?>">
+                                <i class="align-middle" data-feather="users"></i>
+                                <span class="align-middle">Custodios</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
                     <?php if ($auth->tienePermiso('custodios.view')): ?>
                         <li class="sidebar-item <?= $segment == 'carreras' ? 'active' : '' ?>">
@@ -62,15 +70,6 @@
                             <a class="sidebar-link" href="<?= site_url('procedencias') ?>">
                                 <i class="align-middle" data-feather="archive"></i>
                                 <span class="align-middle">Procedencias</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php if ($auth->tienePermiso('custodios.view')): ?>
-                        <li class="sidebar-item <?= $segment == 'custodios' ? 'active' : '' ?>">
-                            <a class="sidebar-link" href="<?= site_url('custodios') ?>">
-                                <i class="align-middle" data-feather="users"></i>
-                                <span class="align-middle">Custodios</span>
                             </a>
                         </li>
                     <?php endif; ?>
