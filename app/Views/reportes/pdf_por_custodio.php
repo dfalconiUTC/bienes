@@ -141,7 +141,6 @@
         </div>
     </div>
 
-    <div class='titulo'>REPORTE DE BIENES ASIGNADOS POR CUSTODIO</div>
     <div class='titulo'>PUESTO DE TRABAJO O CUSTODIO</div>
     <div class='titulo'>PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)</div>
 
