@@ -8,7 +8,12 @@
     <div class="card-body">
         <form method="post" action="<?= site_url('configuracion/guardar') ?>">
             <div class="row">
+                <h5 class="mt-3">Periodo Actual</h5>
+                <div class="col-md-12 mb-3"> <label for="periodo" class="form-label">Periodo Actual</label> <input
+                        type="text" class="form-control" id="periodo" name="periodo"
+                        value="<?= $config['periodo'] ?? '' ?>" required> </div>
                 <!-- Responsable de Unidad Administrativa -->
+                <hr>
                 <h5 class="mt-3">Responsable Unidad Administrativa</h5>
                 <div class="col-md-6 mb-3"> <label for="responsable_bienes_nombre" class="form-label">Nombre
                         Completo</label> <input type="text" class="form-control" id="responsable_bienes_nombre"

@@ -14,6 +14,7 @@ class ConfiguracionModel extends Model
         'asignado_ud_nombre',
         'asignado_ud_cedula',
         'rector_nombre',
-        'rector_cedula'
+        'rector_cedula',
+        'periodo'
     ];
 }

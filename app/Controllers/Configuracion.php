@@ -31,6 +31,7 @@ class Configuracion extends BaseController
             'asignado_ud_cedula' => $this->request->getPost('asignado_ud_cedula'),
             'rector_nombre' => $this->request->getPost('rector_nombre'),
             'rector_cedula' => $this->request->getPost('rector_cedula'),
+            'periodo' => $this->request->getPost('periodo'),
         ];
 
         // Consultar si ya existe configuración
