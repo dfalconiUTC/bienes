@@ -32,9 +32,18 @@ class Actas extends BaseController
 
     public function create()
     {
-        // Enviamos custodios para poder autocompletar firmas si se desea
         $data['custodios'] = $this->custodioModel->findAll();
-        return view('actas/form', $data);
+
+        $bienesPreseleccionados = [];
+        $ids = $this->request->getGet('bienes_seleccionados');
+
+        if (!empty($ids)) {
+            $bienesPreseleccionados = $this->bienModel->whereIn('id_bien', $ids)->findAll();
+        }
+
+        $data['bienesPreseleccionados'] = $bienesPreseleccionados;
+
+        return view('actas/create', $data);
     }
 
     // Método AJAX para buscar bien por código

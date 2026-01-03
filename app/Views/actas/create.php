@@ -288,6 +288,66 @@
         `;
         container.insertAdjacentHTML('beforeend', html);
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        <?php if (!empty($bienesPreseleccionados)): ?>
+            const bienesDesdePHP = <?= json_encode($bienesPreseleccionados) ?>;
+
+            bienesDesdePHP.forEach(bien => {
+                agregarFilaTabla(bien); // Reutilizamos la lógica de pintar fila
+            });
+        <?php endif; ?>
+
+    });
+
+    // Refactorizamos la lógica de agregar fila para usarla en ambos casos
+    function agregarFilaTabla(bien) {
+        const tabla = document.getElementById('tablaBienes');
+        const filaVacia = document.getElementById('filaVacia');
+
+        if (filaVacia) filaVacia.remove();
+
+        // Evitar duplicados visuales (aunque aquí vienen de DB)
+        if (document.querySelector(`input[value="${bien.id_bien}"]`)) return;
+
+        const row = `
+            <tr>
+                <td>
+                    <input type="hidden" name="bienes[]" value="${bien.id_bien}">
+                    ${bien.codigo_bien}
+                </td>
+                <td>${bien.nombre_bien} - ${bien.descripcion || ''}</td>
+                <td>${bien.estado_bien}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+        tabla.insertAdjacentHTML('beforeend', row);
+    }
+
+    // Modificamos agregarBien() para usar la nueva función refactorizada
+    function agregarBien() {
+        const codigo = document.getElementById('inputCodigo').value;
+        if (!codigo) return;
+
+        fetch(`<?= site_url('actas/buscarBien/') ?>${codigo}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === 'success') {
+                    agregarFilaTabla(res.data); // USAMOS LA FUNCIÓN COMPARTIDA
+                    document.getElementById('inputCodigo').value = '';
+                    document.getElementById('inputCodigo').focus();
+                    document.getElementById('errorBien').style.display = 'none';
+                } else {
+                    document.getElementById('errorBien').style.display = 'block';
+                    document.getElementById('errorBien').innerText = res.message;
+                }
+            });
+    }
 </script>
 
 <?= $this->include('layout/footer') ?>

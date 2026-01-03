@@ -35,11 +35,10 @@ class Bienes extends BaseController
     {
         $auth = service('auth');
         $userId = session('id_usuario');
-        $bienes = [];
 
         $hasFullView = $auth->tienePermiso('bienes.view');
         $hasOwnView = $auth->tienePermiso('bienes.view_own');
-        $hasDeptView = $auth->tienePermiso('bienes.view_dept');
+        $hasDeptView = $auth->tienePermiso('bienes.view_dept'); //
 
         $db = \Config\Database::connect();
         $custodioUsuario = $db->table('custodios')
@@ -48,24 +47,61 @@ class Bienes extends BaseController
             ->get()
             ->getRowArray();
 
-        if ($hasFullView) {
-            $bienes = $this->bienModel->getConRelaciones();
 
+        $builder = $db->table('bienes b');
+        $builder->select('
+            b.*, 
+            c.nombre as custodio_actual, 
+            c.departamento as custodio_departamento,
+            u.nombre as ubicacion, 
+            u.campus, 
+            p.nombre as procedencia,
+            (SELECT estado_acta FROM historial_custodios h WHERE h.bien_id = b.id_bien AND h.custodio_id = b.custodio_actual_id AND h.fecha_fin IS NULL LIMIT 1) as estado_acta_actual
+        ');
+
+        $builder->join('custodios c', 'c.id_custodio = b.custodio_actual_id', 'left');
+        $builder->join('ubicaciones u', 'u.id_ubicacion = b.ubicacion_id', 'left');
+        $builder->join('procedencias p', 'p.id_procedencia = b.procedencia_id', 'left');
+
+        if ($hasFullView) {
+            // No aplicamos filtros, ve todo
         } elseif ($hasDeptView && $custodioUsuario) {
-            $departamento = "Unidad Administrativa y Financiera";
-            if ($departamento) {
-                $bienes = $this->bienModel->getBienesPorDepartamento($departamento);
-            }
+            $builder->where('c.departamento', $custodioUsuario['departamento']);
 
         } elseif ($hasOwnView && $custodioUsuario) {
-            $custodioId = $custodioUsuario['id_custodio'];
-            $bienes = $this->bienModel->getBienesPorCustodio($custodioId);
+            $builder->where('b.custodio_actual_id', $custodioUsuario['id_custodio']);
 
         } else {
-            $bienes = [];
+            $builder->where('1=0');
         }
 
-        $data['bienes'] = $bienes;
+        $search = $this->request->getGet('search');
+        $ubicacionId = $this->request->getGet('ubicacion_id');
+
+        if (!empty($search)) {
+            $builder->groupStart()
+                ->like('b.nombre_bien', $search)
+                ->orLike('b.codigo_bien', $search)
+                ->orLike('b.codigo_interno', $search)
+                ->orLike('c.nombre', $search) // Buscar por nombre del custodio
+                ->groupEnd();
+        }
+
+        if (!empty($ubicacionId)) {
+            $builder->where('b.ubicacion_id', $ubicacionId);
+        }
+
+        $builder->orderBy('b.id_bien', 'DESC');
+
+        $bienes = $builder->get()->getResultArray();
+
+        $ubicacionModel = new UbicacionModel();
+
+        $data = [
+            'bienes' => $bienes,
+            'ubicaciones' => $ubicacionModel->findAll(), // Para el dropdown de filtro
+            'filtros' => ['search' => $search, 'ubicacion_id' => $ubicacionId] // Para mantener el valor en los inputs
+        ];
 
         return view('bienes/index', $data);
     }
@@ -304,7 +340,7 @@ class Bienes extends BaseController
             'ud' => $request->getPost('firma_ud') == '1',
             'rector' => $request->getPost('firma_rector') == '1',
         ];
-        
+
         // 2. Preparar datos para la vista
         $data = [
             'bien' => $bien,
@@ -313,7 +349,7 @@ class Bienes extends BaseController
             'config' => $config,
             // Procesamos la fecha aquí para no ensuciar la vista con llamadas a $this
             'fecha_actual' => $this->fechaEnEspañol(date('Y-m-d')),
-            'opciones'     => $opcionesFirmas
+            'opciones' => $opcionesFirmas
         ];
 
         // 3. Renderizar la vista en una variable
