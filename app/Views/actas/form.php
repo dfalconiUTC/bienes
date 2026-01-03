@@ -142,6 +142,19 @@
 </div>
 
 <script>
+    // EVITAR SUBMIT AL DAR ENTER EN EL BUSCADOR DE BIENES
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputCodigo = document.getElementById('inputCodigo');
+        if (inputCodigo) {
+            inputCodigo.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Detiene el submit
+                    agregarBien(); // Ejecuta la búsqueda
+                }
+            });
+        }
+    });
+
     // 1. LÓGICA DE BIENES
     function agregarBien() {
         const codigo = document.getElementById('inputCodigo').value;
@@ -202,14 +215,11 @@
         if (tipo === 'Entrega-Recepcion' || tipo === 'Traspaso') {
             firmas = [{
                 titulo: 'ENTREGA CONFORME'
-            },
-            {
+            }, {
                 titulo: 'RECIBE CONFORME'
-            },
-            {
+            }, {
                 titulo: 'VISTO BUENO'
-            }
-            ];
+            }];
         } else if (tipo === 'Inventario') {
             firmas = [{
                 titulo: 'ELABORADO POR'

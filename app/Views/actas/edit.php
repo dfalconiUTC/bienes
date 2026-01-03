@@ -92,18 +92,18 @@
                     </thead>
                     <tbody id="tablaBienes">
                         <?php foreach ($detalles as $d): ?>
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="bienes[]" value="<?= $d['bien_id'] ?>">
-                                    <?= esc($d['codigo_bien']) ?>
-                                </td>
-                                <td><?= esc($d['nombre_bien']) ?></td>
-                                <td><?= esc($d['estado_bien']) ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                        onclick="this.closest('tr').remove()"><i class="bi bi-trash"></i></button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="bienes[]" value="<?= $d['bien_id'] ?>">
+                                <?= esc($d['codigo_bien']) ?>
+                            </td>
+                            <td><?= esc($d['nombre_bien']) ?></td>
+                            <td><?= esc($d['estado_bien']) ?></td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="this.closest('tr').remove()"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -124,24 +124,26 @@
 
                 <div class="row" id="contenedorFirmas">
                     <?php foreach ($firmas as $f): ?>
-                        <div class="col-md-6 mb-3">
-                            <div class="card h-100 border-secondary">
-                                <div class="card-header bg-light p-2 d-flex justify-content-between">
-                                    <input type="text" name="firma_titulo[]" class="form-control form-control-sm fw-bold"
-                                        value="<?= esc($f['titulo']) ?>">
-                                    <button type="button" class="btn btn-close btn-sm ms-2"
-                                        onclick="this.closest('.col-md-6').remove()"></button>
-                                </div>
-                                <div class="card-body p-2">
-                                    <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2"
-                                        value="<?= esc($f['nombre']) ?>" placeholder="Nombre">
-                                    <input type="text" name="firma_cedula[]" class="form-control form-control-sm mb-2"
-                                        value="<?= esc($f['cedula']) ?>" placeholder="Cédula">
-                                    <textarea name="firma_cargo[]" class="form-control form-control-sm" rows="2"
-                                        placeholder="Cargo"><?= esc($f['cargo']) ?></textarea>
-                                </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100 border-secondary">
+                            <div class="card-header bg-light p-2 d-flex justify-content-between">
+                                <input type="text" name="firma_titulo[]" class="form-control form-control-sm fw-bold"
+                                    value="<?= esc($f['titulo']) ?>">
+                                <button type="button" class="btn btn-close btn-sm ms-2"
+                                    onclick="this.closest('.col-md-6').remove()"></button>
+                            </div>
+                            <div class="card-body p-2">
+                                <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2"
+                                    value="<?= esc($f['nombre']) ?>" placeholder="Nombre">
+                                <input type="text" name="firma_cedula[]" class="form-control form-control-sm mb-2"
+                                    value="<?= esc($f['cedula']) ?>" placeholder="Cédula (10 dígitos)" maxlength="10"
+                                    pattern="[0-9]{10}" title="Debe tener 10 dígitos numéricos">
+
+                                <textarea name="firma_cargo[]" class="form-control form-control-sm" rows="2"
+                                    placeholder="Cargo"><?= esc($f['cargo']) ?></textarea>
                             </div>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
 
@@ -158,55 +160,100 @@
 </div>
 
 <script>
-    function agregarBien() {
-        const codigo = document.getElementById('inputCodigo').value;
-        const tabla = document.getElementById('tablaBienes');
+// 1. PREVENIR SUBMIT AL DAR ENTER EN BUSCADOR
+document.addEventListener('DOMContentLoaded', function() {
+    const inputCodigo = document.getElementById('inputCodigo');
+    if (inputCodigo) {
+        inputCodigo.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Detiene el submit del formulario
+                agregarBien(); // Ejecuta la búsqueda
+            }
+        });
+    }
+});
 
-        if (!codigo) return;
+// 2. VALIDACIÓN DE CÉDULA (SOLO NÚMEROS, MAX 10)
+function validateCedulaInput(input) {
+    // Reemplazar cualquier caracter que no sea número
+    input.value = input.value.replace(/[^0-9]/g, '');
+    // Limitar a 10 caracteres
+    if (input.value.length > 10) {
+        input.value = input.value.slice(0, 10);
+    }
+}
 
-        fetch(`<?= site_url('actas/buscarBien/') ?>${codigo}`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.status === 'success') {
-                    const bien = res.data;
-                    // Validar duplicados visualmente
-                    if (document.querySelector(`input[value="${bien.id_bien}"]`)) {
-                        alert("Bien ya agregado");
-                        return;
-                    }
-                    const row = `<tr>
+// Escuchar eventos en cualquier input de cédula (existente o dinámico)
+document.addEventListener('input', function(e) {
+    if (e.target && e.target.name === 'firma_cedula[]') {
+        validateCedulaInput(e.target);
+    }
+});
+
+// 3. LÓGICA DE BIENES
+function agregarBien() {
+    const codigo = document.getElementById('inputCodigo').value;
+    const tabla = document.getElementById('tablaBienes');
+
+    if (!codigo) return;
+
+    fetch(`<?= site_url('actas/buscarBien/') ?>${codigo}`)
+        .then(res => res.json())
+        .then(res => {
+            if (res.status === 'success') {
+                const bien = res.data;
+                // Validar duplicados visualmente
+                if (document.querySelector(`input[value="${bien.id_bien}"]`)) {
+                    alert("Bien ya agregado");
+                    return;
+                }
+                const row = `<tr>
                         <td><input type="hidden" name="bienes[]" value="${bien.id_bien}">${bien.codigo_bien}</td>
-                        <td>${bien.nombre_bien}</td>
+                        <td>${bien.nombre_bien} - ${bien.descripcion || ''}</td>
                         <td>${bien.estado_bien}</td>
                         <td><button type="button" class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()"><i class="bi bi-trash"></i></button></td>
                     </tr>`;
-                    tabla.insertAdjacentHTML('beforeend', row);
-                    document.getElementById('inputCodigo').value = '';
-                } else {
-                    alert('Bien no encontrado');
-                }
-            });
-    }
+                tabla.insertAdjacentHTML('beforeend', row);
+                document.getElementById('inputCodigo').value = '';
+                document.getElementById('inputCodigo').focus(); // Regresar foco al input
+            } else {
+                alert('Bien no encontrado');
+            }
+        });
+}
 
-    function agregarFirmaManual() {
-        const container = document.getElementById('contenedorFirmas');
-        const html = `
+// 4. LÓGICA DE FIRMAS
+function agregarFirmaManual() {
+    crearBloqueFirma('FIRMA ADICIONAL');
+}
+
+function crearBloqueFirma(tituloDefecto = '') {
+    const container = document.getElementById('contenedorFirmas');
+    const html = `
             <div class="col-md-6 mb-3">
                 <div class="card h-100 border-secondary">
                     <div class="card-header bg-light p-2 d-flex justify-content-between">
-                        <input type="text" name="firma_titulo[]" class="form-control form-control-sm fw-bold" value="FIRMA ADICIONAL">
+                        <input type="text" name="firma_titulo[]" class="form-control form-control-sm fw-bold" value="${tituloDefecto}" placeholder="Título (Ej: RECTOR)">
                         <button type="button" class="btn btn-close btn-sm ms-2" onclick="this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body p-2">
                         <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2" placeholder="Nombre">
-                        <input type="text" name="firma_cedula[]" class="form-control form-control-sm mb-2" placeholder="Cédula">
+                        
+                        <input type="text" 
+                               name="firma_cedula[]" 
+                               class="form-control form-control-sm mb-2" 
+                               placeholder="Cédula (10 dígitos)" 
+                               maxlength="10" 
+                               pattern="[0-9]{10}" 
+                               title="Debe tener 10 dígitos numéricos">
+                               
                         <textarea name="firma_cargo[]" class="form-control form-control-sm" rows="2" placeholder="Cargo"></textarea>
                     </div>
                 </div>
             </div>
         `;
-        container.insertAdjacentHTML('beforeend', html);
-    }
+    container.insertAdjacentHTML('beforeend', html);
+}
 </script>
 
 <?= $this->include('layout/footer') ?>
