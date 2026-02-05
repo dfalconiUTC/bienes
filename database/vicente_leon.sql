@@ -11,7 +11,7 @@
  Target Server Version : 80403 (8.4.3)
  File Encoding         : 65001
 
- Date: 03/01/2026 11:25:58
+ Date: 05/02/2026 14:12:25
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `acta_detalles`  (
   INDEX `bien_id`(`bien_id` ASC) USING BTREE,
   CONSTRAINT `acta_detalles_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `acta_detalles_ibfk_2` FOREIGN KEY (`bien_id`) REFERENCES `bienes` (`id_bien`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acta_detalles
@@ -47,6 +47,7 @@ INSERT INTO `acta_detalles` VALUES (26, 4, 13, NULL);
 INSERT INTO `acta_detalles` VALUES (27, 4, 15, NULL);
 INSERT INTO `acta_detalles` VALUES (28, 5, 13, NULL);
 INSERT INTO `acta_detalles` VALUES (29, 5, 15, NULL);
+INSERT INTO `acta_detalles` VALUES (31, 6, 9, NULL);
 
 -- ----------------------------
 -- Table structure for acta_firmas
@@ -63,7 +64,7 @@ CREATE TABLE `acta_firmas`  (
   PRIMARY KEY (`id_firma`) USING BTREE,
   INDEX `acta_id`(`acta_id` ASC) USING BTREE,
   CONSTRAINT `acta_firmas_ibfk_1` FOREIGN KEY (`acta_id`) REFERENCES `actas` (`id_acta`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of acta_firmas
@@ -89,6 +90,11 @@ INSERT INTO `acta_firmas` VALUES (70, 4, 'TESTIGO', '', '', '', 5);
 INSERT INTO `acta_firmas` VALUES (71, 5, 'ENTREGA CONFORME', '', '', '', 0);
 INSERT INTO `acta_firmas` VALUES (72, 5, 'RECIBE CONFORME', '', '', '', 1);
 INSERT INTO `acta_firmas` VALUES (73, 5, 'VISTO BUENO', '', '', '', 2);
+INSERT INTO `acta_firmas` VALUES (78, 6, 'ENTREGA CONFORME', '555', '1234567890', 'a', 0);
+INSERT INTO `acta_firmas` VALUES (79, 6, 'RECIBE CONFORME', 'prueba8', '1234567891', 'b', 1);
+INSERT INTO `acta_firmas` VALUES (80, 6, 'VISTO BUENO', 'prueba6', '1234567891', 'c', 2);
+INSERT INTO `acta_firmas` VALUES (81, 6, 'FIRMA ADICIONAL', 'Diego 2', '0550080774', 'd', 3);
+INSERT INTO `acta_firmas` VALUES (82, 6, 'FIRMA ADICIONAL', 'Diego 2', '0550080774', 'aaa', 4);
 
 -- ----------------------------
 -- Table structure for actas
@@ -112,7 +118,7 @@ CREATE TABLE `actas`  (
   `nota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `detalle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_acta`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of actas
@@ -122,6 +128,7 @@ INSERT INTO `actas` VALUES (2, 'Entrega-Recepcion', '002', '2025-12-29', 'Latacu
 INSERT INTO `actas` VALUES (3, 'Entrega-Recepcion', '1', '2025-12-30', 'Latacunga', '1', '1', '1', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2025-12-30 00:13:19', '2026-01-03 03:47:27', '1', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)', '', '1');
 INSERT INTO `actas` VALUES (4, 'Inventario', '1', '2026-01-03', 'Latacunga', '1', '1', '1', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2026-01-03 15:38:26', '2026-01-03 15:38:26', 'INVENTARIO LABORATORIOS, TALLERES Y OTROS ESPACIOS PARA PRÁCTICAS', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)', '1', '1');
 INSERT INTO `actas` VALUES (5, 'Entrega-Recepcion', '1', '2026-01-03', 'Latacunga', 'a', 's', 's', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2026-01-03 16:17:30', '2026-01-03 16:17:30', 'INVENTARIO LABORATORIOS, TALLERES Y OTROS ESPACIOS PARA PRÁCTICAS', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)', 's', 's');
+INSERT INTO `actas` VALUES (6, 'Entrega-Recepcion', '006', '2026-02-05', 'Latacunga', 'diego', 's', 's', 'Para constancia de lo actuado firman la presente acta, en original y copia del mismo contenido las personas señaladas.', 'Borrador', '2026-02-05 18:56:30', '2026-02-05 19:03:35', 'prueba cedula', 'PERIODO 2025 II (SEPTIEMBRE 2025 – FEBRERO 2026)', '', 's');
 
 -- ----------------------------
 -- Table structure for bienes
@@ -218,6 +225,7 @@ DROP TABLE IF EXISTS `custodios`;
 CREATE TABLE `custodios`  (
   `id_custodio` int NOT NULL AUTO_INCREMENT,
   `usuario_id` int NULL DEFAULT NULL,
+  `cedula` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `nombre` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tipo` enum('Docente','Administrativo') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `departamento` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
@@ -232,23 +240,24 @@ CREATE TABLE `custodios`  (
   INDEX `carrera_id`(`carrera_id` ASC) USING BTREE,
   CONSTRAINT `custodios_ibfk_1` FOREIGN KEY (`carrera_id`) REFERENCES `carreras` (`id_carrera`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_custodio_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of custodios
 -- ----------------------------
-INSERT INTO `custodios` VALUES (7, NULL, 'GRECIA', 'Docente', 'DESARROLLO', 'a@mail.com', '0987654321', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (8, 7, 'Diego Falconi', 'Docente', 'aaa', 'diego@mail.com', '0995934826', NULL, 1, 3, NULL);
-INSERT INTO `custodios` VALUES (11, NULL, '4', 'Docente', '4', 'a@mail.com', '4', NULL, 1, 1, '2025-12-23 04:19:39');
-INSERT INTO `custodios` VALUES (12, NULL, '6', 'Docente', '6', '6@mail.com', '6', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (13, 8, 'Prueba Custodio', 'Docente', 'Unidad Administrativa y Financiera', 'prueba@mail.com', '0987654321', 7, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (14, NULL, 'prueba2', 'Docente', 'Unidad Administrativa y Financiera', 'prueba2@mail.com', '0987654321', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (15, 10, 'prueba3', 'Administrativo', 'Unidad Administrativa y Financiera', 'diego.falconi96@gmail.com', '0987654321', 7, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (16, NULL, 'prueba4', 'Docente', 'Unidad Administrativa y Financiera', 'prueba4@mail.com', '0987654321', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (17, 14, 'prueba6', 'Docente', 'Unidad Administrativa y Financiera', 'prueba6@mail.com', '0987654321', 8, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (18, 15, 'prueba7', 'Docente', 'Unidad Administrativa y Financiera', 'prueba7@mail.com', '0987654321', NULL, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (19, 16, 'prueba8', 'Docente', 'SISTEMA', 'prueba8@mail.com', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `custodios` VALUES (20, 17, '555', 'Administrativo', '555', '555@n.c', '55', 11, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (7, NULL, NULL, 'GRECIA', 'Docente', 'DESARROLLO', 'a@mail.com', '0987654321', 8, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (8, 7, NULL, 'Diego Falconi', 'Docente', 'aaa', 'diego@mail.com', '0995934826', NULL, 1, 3, NULL);
+INSERT INTO `custodios` VALUES (11, NULL, NULL, '4', 'Docente', '4', 'a@mail.com', '4', NULL, 1, 1, '2025-12-23 04:19:39');
+INSERT INTO `custodios` VALUES (12, NULL, NULL, '6', 'Docente', '6', '6@mail.com', '6', 8, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (13, 8, NULL, 'Prueba Custodio', 'Docente', 'Unidad Administrativa y Financiera', 'prueba@mail.com', '0987654321', 7, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (14, NULL, NULL, 'prueba2', 'Docente', 'Unidad Administrativa y Financiera', 'prueba2@mail.com', '0987654321', 8, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (15, 10, NULL, 'prueba3', 'Administrativo', 'Unidad Administrativa y Financiera', 'diego.falconi96@gmail.com', '0987654321', 7, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (16, NULL, NULL, 'prueba4', 'Docente', 'Unidad Administrativa y Financiera', 'prueba4@mail.com', '0987654321', 8, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (17, 14, NULL, 'prueba6', 'Docente', 'Unidad Administrativa y Financiera', 'prueba6@mail.com', '0987654321', 8, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (18, 15, NULL, 'prueba7', 'Docente', 'Unidad Administrativa y Financiera', 'prueba7@mail.com', '0987654321', NULL, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (19, 16, '1234567891', 'prueba8', 'Docente', 'SISTEMA', 'prueba8@mail.com', '', NULL, 1, NULL, NULL);
+INSERT INTO `custodios` VALUES (20, 17, '1234567890', '555', 'Administrativo', '555', '555@n.c', '55', NULL, 0, NULL, NULL);
+INSERT INTO `custodios` VALUES (22, 20, '0550080774', 'Diego 2', 'Docente', 'Unidad Administrativa y Financiera', 'diego.falconi@gmail.com', '123456', NULL, 1, 3, NULL);
 
 -- ----------------------------
 -- Table structure for historial_custodios
@@ -516,7 +525,7 @@ CREATE TABLE `usuarios`  (
   UNIQUE INDEX `usuario`(`usuario` ASC) USING BTREE,
   INDEX `fk_usuario_rol`(`rol_id` ASC) USING BTREE,
   CONSTRAINT `fk_usuario_rol` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id_rol`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of usuarios
@@ -533,5 +542,6 @@ INSERT INTO `usuarios` VALUES (15, 'prueba7', 'prueba7@mail.com', 'prueba7', '$2
 INSERT INTO `usuarios` VALUES (16, 'prueba8', 'prueba8@mail.com', 'prueba8', '$2y$12$eYHXVHaCHF/IJ.gsoAY8Ou1Kg/.U7fLQUsgAfkvaOJQ5X9Ic.CTxG', 6, 'activo', '2025-12-08 22:16:49', '2025-12-09 14:00:37');
 INSERT INTO `usuarios` VALUES (17, '555', '555@n.c', '555', '$2y$12$vjp6onBSK4kXpCZ8rvexKeCPyZdshXLZXA.Vl5sx4qOsF/GQ9nJva', 3, 'activo', '2025-12-23 03:59:00', '2025-12-23 03:59:00');
 INSERT INTO `usuarios` VALUES (18, '666', '666@m.c', '666', '$2y$12$70uruwTlRpPUFKFIrLWm.uaRU86ZDuCgoeZtgIXlVw3Hcsz0QfsXm', 3, 'activo', '2025-12-23 03:59:24', '2025-12-23 03:59:24');
+INSERT INTO `usuarios` VALUES (20, 'Diego 2', 'diego.falconi@gmail.com', '0550080774', '$2y$12$0KvIrgfJLIGx9qhS.5ng8eqsHwxRmRqe4vw6cjSl.qa7D1inOCxLa', 3, 'activo', '2026-02-05 18:47:56', '2026-02-05 18:47:56');
 
 SET FOREIGN_KEY_CHECKS = 1;
