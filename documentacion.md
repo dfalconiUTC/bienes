@@ -185,6 +185,142 @@ Carpetas principales:
 
 ---
 
+## 8.1 Flujos de Usuario (Resumen)
+
+1. Autenticacion
+- Usuario ingresa `usuario` y `password` en login.
+- Se valida estado del usuario y password.
+- Se establece sesion y se redirige segun permisos.
+
+2. Registro de bien
+- Usuario con permiso crea un bien en modulo Bienes.
+- Se asignan procedencia, ubicacion y custodio actual.
+- El bien queda disponible para historial y reportes.
+
+3. Movimientos e historial
+- Se registra un movimiento en Historial.
+- Se actualiza custodio responsable y estado del acta.
+- Se conserva trazabilidad por fechas.
+
+4. Actas
+- Se crea un acta con cabecera, bienes y firmas.
+- Se genera PDF para respaldo.
+
+5. Reportes
+- Exportacion de bienes a Excel.
+- Reporte PDF por custodio.
+- Reportes de bajas, procedencias, departamentos y conciliacion.
+
+---
+
+## 8.2 Mapa de Rutas (Resumen)
+
+1. Autenticacion
+- `GET /login` login
+- `POST /login` autenticacion
+- `GET /logout` cierre de sesion
+
+2. Dashboard
+- `GET /` y `GET /dashboard`
+
+3. Bienes
+- `GET /bienes`
+- `GET /bienes/create`
+- `POST /bienes/store`
+- `GET /bienes/edit/{id}`
+- `POST /bienes/update/{id}`
+- `GET /bienes/delete/{id}`
+- `GET /bienes/historial/{id}`
+- `GET /bienes/exportHistorial/{id}`
+- `GET /bienes/barcodePdf/{codigo}`
+- `POST /bienes/acta/{id}`
+- `GET /bienes/configurarActa/{id}`
+
+4. Custodios
+- `GET /custodios`
+- `GET /custodios/create`
+- `POST /custodios/store`
+- `GET /custodios/edit/{id}`
+- `POST /custodios/update/{id}`
+- `GET /custodios/delete/{id}`
+- `GET /custodios/restore/{id}`
+
+5. Ubicaciones
+- `GET /ubicaciones`
+- `GET /ubicaciones/create`
+- `POST /ubicaciones/store`
+- `GET /ubicaciones/edit/{id}`
+- `POST /ubicaciones/update/{id}`
+- `GET /ubicaciones/delete/{id}`
+
+6. Procedencias
+- `GET /procedencias`
+- `GET /procedencias/create`
+- `POST /procedencias/store`
+- `GET /procedencias/edit/{id}`
+- `POST /procedencias/update/{id}`
+- `GET /procedencias/delete/{id}`
+
+7. Carreras
+- `GET /carreras`
+- `GET /carreras/create`
+- `POST /carreras/store`
+- `GET /carreras/edit/{id}`
+- `POST /carreras/update/{id}`
+- `GET /carreras/delete/{id}`
+
+8. Historial
+- `GET /historial`
+- `GET /historial/create`
+- `GET /historial/create/{id}`
+- `POST /historial/store`
+- `GET /historial/edit/{id}`
+- `POST /historial/update/{id}`
+- `GET /historial/delete/{id}`
+- `GET /historial/activoPorBien/{id}`
+
+9. Usuarios
+- `GET /usuarios`
+- `GET /usuarios/create`
+- `POST /usuarios/store`
+- `GET /usuarios/edit/{id}`
+- `POST /usuarios/update/{id}`
+- `GET /usuarios/delete/{id}`
+
+10. Configuracion
+- `GET /configuracion`
+- `POST /configuracion/guardar`
+
+11. Roles y permisos
+- `GET /roles`
+- `GET /roles/create`
+- `POST /roles/store`
+- `GET /roles/edit/{id}`
+- `POST /roles/update/{id}`
+
+12. Reportes
+- `GET /reportes`
+- `GET /reportes/bienes/exportExcel`
+- `GET /reportes/por_custodio`
+- `POST /reportes/generar_pdf_custodio`
+- `GET /reportes/bajas`
+- `GET /reportes/por_procedencia`
+- `GET /reportes/por_departamento`
+- `GET /reportes/flujo_aprobacion`
+- `GET /reportes/conciliacion_contable`
+
+13. Actas
+- `GET /actas`
+- `GET /actas/create`
+- `POST /actas/store`
+- `GET /actas/edit/{id}`
+- `POST /actas/update/{id}`
+- `GET /actas/delete/{id}`
+- `GET /actas/pdf/{id}`
+- `GET /actas/buscarBien/{codigo}`
+
+---
+
 ## 9. Seguridad del Sistema
 
 - Autenticacion con sesiones (`Auth` + `session()` de CodeIgniter).
