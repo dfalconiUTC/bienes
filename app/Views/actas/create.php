@@ -142,6 +142,17 @@
 </div>
 
 <script>
+    const custodioOptions = `
+        <option value="">Seleccione un custodio...</option>
+        <?php if (!empty($custodios)): ?>
+            <?php foreach ($custodios as $custodio): ?>
+                <option value="<?= esc($custodio['nombre']) ?>" data-cedula="<?= esc($custodio['cedula']) ?>">
+                    <?= esc($custodio['nombre']) ?> - <?= esc($custodio['cedula']) ?>
+                </option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    `;
+
     // EVITAR SUBMIT AL DAR ENTER EN EL BUSCADOR DE BIENES
     document.addEventListener('DOMContentLoaded', function () {
         const inputCodigo = document.getElementById('inputCodigo');
@@ -262,6 +273,16 @@
         }
     });
 
+    function onFirmaNombreChange(select) {
+        const selectedOption = select.options[select.selectedIndex];
+        const cedula = selectedOption ? selectedOption.getAttribute('data-cedula') : '';
+        const cardBody = select.closest('.card-body');
+        const cedulaInput = cardBody ? cardBody.querySelector('input[name="firma_cedula[]"]') : null;
+        if (cedulaInput) {
+            cedulaInput.value = cedula || '';
+        }
+    }
+
     function crearBloqueFirma(tituloDefecto = '') {
         const container = document.getElementById('contenedorFirmas');
         const html = `
@@ -272,7 +293,9 @@
                         <button type="button" class="btn btn-close btn-sm ms-2" onclick="this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body p-2">
-                        <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2" placeholder="Nombre (Ej: Ing. Juan Pérez)">
+                        <select name="firma_nombre[]" class="form-select form-select-sm mb-2" onchange="onFirmaNombreChange(this)">
+                            ${custodioOptions}
+                        </select>
                         <input type="text" 
                                name="firma_cedula[]" 
                                class="form-control form-control-sm mb-2" 

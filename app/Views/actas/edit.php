@@ -133,8 +133,18 @@
                                     onclick="this.closest('.col-md-6').remove()"></button>
                             </div>
                             <div class="card-body p-2">
-                                <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2"
-                                    value="<?= esc($f['nombre']) ?>" placeholder="Nombre">
+                                <select name="firma_nombre[]" class="form-select form-select-sm mb-2" onchange="onFirmaNombreChange(this)">
+                                    <option value="">Seleccione un custodio...</option>
+                                    <?php if (!empty($custodios)): ?>
+                                        <?php foreach ($custodios as $custodio): ?>
+                                            <option value="<?= esc($custodio['nombre']) ?>"
+                                                data-cedula="<?= esc($custodio['cedula']) ?>"
+                                                <?= $f['nombre'] == $custodio['nombre'] ? 'selected' : '' ?>>
+                                                <?= esc($custodio['nombre']) ?> - <?= esc($custodio['cedula']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
                                 <input type="text" name="firma_cedula[]" class="form-control form-control-sm mb-2"
                                     value="<?= esc($f['cedula']) ?>" placeholder="Cédula (10 dígitos)" maxlength="10"
                                     pattern="[0-9]{10}" title="Debe tener 10 dígitos numéricos">
@@ -160,6 +170,17 @@
 </div>
 
 <script>
+const custodioOptions = `
+    <option value="">Seleccione un custodio...</option>
+    <?php if (!empty($custodios)): ?>
+        <?php foreach ($custodios as $custodio): ?>
+            <option value="<?= esc($custodio['nombre']) ?>" data-cedula="<?= esc($custodio['cedula']) ?>">
+                <?= esc($custodio['nombre']) ?> - <?= esc($custodio['cedula']) ?>
+            </option>
+        <?php endforeach; ?>
+    <?php endif; ?>
+`;
+
 // 1. PREVENIR SUBMIT AL DAR ENTER EN BUSCADOR
 document.addEventListener('DOMContentLoaded', function() {
     const inputCodigo = document.getElementById('inputCodigo');
@@ -189,6 +210,15 @@ document.addEventListener('input', function(e) {
         validateCedulaInput(e.target);
     }
 });
+function onFirmaNombreChange(select) {
+    const selectedOption = select.options[select.selectedIndex];
+    const cedula = selectedOption ? selectedOption.getAttribute('data-cedula') : '';
+    const cardBody = select.closest('.card-body');
+    const cedulaInput = cardBody ? cardBody.querySelector('input[name="firma_cedula[]"]') : null;
+    if (cedulaInput) {
+        cedulaInput.value = cedula || '';
+    }
+}
 
 // 3. LÓGICA DE BIENES
 function agregarBien() {
@@ -237,7 +267,9 @@ function crearBloqueFirma(tituloDefecto = '') {
                         <button type="button" class="btn btn-close btn-sm ms-2" onclick="this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body p-2">
-                        <input type="text" name="firma_nombre[]" class="form-control form-control-sm mb-2" placeholder="Nombre">
+                        <select name="firma_nombre[]" class="form-select form-select-sm mb-2" onchange="onFirmaNombreChange(this)">
+                            ${custodioOptions}
+                        </select>
                         
                         <input type="text" 
                                name="firma_cedula[]" 

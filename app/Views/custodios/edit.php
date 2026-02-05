@@ -6,6 +6,11 @@
     <form method="post" action="<?= site_url('custodios/update/' . $custodio['id_custodio']) ?>">
         <div class="row">
             <div class="col-md-6 mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula" name="cedula"
+                    value="<?= esc($custodio['cedula'] ?? '') ?>" required maxlength="10">
+            </div>
+            <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre"
                     value="<?= esc($custodio['nombre'] ?? '') ?>" required>

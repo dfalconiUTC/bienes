@@ -10,9 +10,10 @@ class CustodioModel extends Model
     protected $primaryKey = 'id_custodio';
     protected $useSoftDeletes = true;
     protected $deletedField = 'deleted_at';
-    
+
     protected $allowedFields = [
         'nombre',
+        'cedula',
         'tipo',
         'es_docente',
         'carrera_id',

@@ -98,6 +98,7 @@ class Custodios extends BaseController
             $custodioData = [
                 'usuario_id' => $usuarioId,
                 'nombre' => $this->request->getPost('nombre'),
+                'cedula' => $this->request->getPost('cedula'),
                 'tipo' => $tipo,
                 'departamento' => $this->request->getPost('departamento'),
                 'correo' => $this->request->getPost('correo'),
@@ -145,7 +146,7 @@ class Custodios extends BaseController
                 'departamento' => $this->request->getPost('departamento'),
                 'correo' => $this->request->getPost('correo'),
                 'telefono' => $this->request->getPost('telefono'),
-
+                'cedula' => $this->request->getPost('cedula'),
                 'es_docente' => $esDocente,
 
                 'carrera_id' => ($esDocente == 1 && !empty($carreraId)) ? $carreraId : null,

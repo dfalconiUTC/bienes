@@ -9,6 +9,11 @@
             <h5 class="mt-2 mb-3">Datos del Custodio</h5>
 
             <div class="col-md-6 mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula" name="cedula" required maxlength="10">
+            </div>
+
+            <div class="col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre Completo</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
